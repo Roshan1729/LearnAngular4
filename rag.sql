@@ -2,10 +2,11 @@ CREATE PROCEDURE [dbo].[Web_SR_GetNewCompanyData]
 	@CompanyName NVARCHAR(1000)
 AS
 SET NOCOUNT ON;
-SELECT DISTINCT '' AS CurrencyName, '' AS SubSegmentName  
--- FROM AdjustmentType a
--- INNER JOIN Company b ON a.CompanyID = b.CompanyID
--- WHERE b.CompanyName = @CompanyName;
+SELECT DISTINCT b.CurrencyName, c.SubSegmentName
+FROM Company a
+INNER JOIN Currency b ON a.CompanyLocalCurrency = b.CurrencyCode
+INNER JOIN SubSegment c ON a.SubSegmentID = c.SubSegmentID
+WHERE a.CompanyName = @CompanyName;
 
 -------------------------------------------------------------------------
 
@@ -13,9 +14,9 @@ CREATE PROCEDURE [dbo].[Web_SR_GetNewAdjustmentTypeName]
 	@CompanyName NVARCHAR(1000)
 AS
 SET NOCOUNT ON;
-SELECT DISTINCT AdjustmentTypeName 
+SELECT DISTINCT AdjustmentTypeName
 FROM AdjustmentType a
-INNER JOIN Company b ON a.CompanyID = b.CompanyID
+	INNER JOIN Company b ON a.CompanyID = b.CompanyID
 WHERE b.CompanyName = @CompanyName;
 
 
@@ -27,8 +28,8 @@ AS
 SET NOCOUNT ON;
 SELECT DISTINCT c.SubCategoryName
 FROM AdjustmentType a
-INNER JOIN Company b ON a.CompanyID = b.CompanyID
-INNER JOIN SubCategory c ON a.SubCategoryID = c.SubCategoryID
+	INNER JOIN Company b ON a.CompanyID = b.CompanyID
+	INNER JOIN SubCategory c ON a.SubCategoryID = c.SubCategoryID
 WHERE b.CompanyName = @CompanyName;
 
 
@@ -40,7 +41,7 @@ AS
 SET NOCOUNT ON;
 SELECT DISTINCT CountryName
 FROM Country a
-INNER JOIN Company b ON a.CompanyID = b.CompanyID
+	INNER JOIN Company b ON a.CompanyID = b.CompanyID
 WHERE b.CompanyName = @CompanyName;
 
 
@@ -280,7 +281,7 @@ BEGIN
 			);
 END
 
-IF @Frequency = 'D' OR @Frequency = 'M'
+IF @Frequency = 'D' 
 BEGIN
 	INSERT INTO [CSIDW].[dbo].[Adjustment]
 		(
@@ -389,14 +390,28 @@ END
 
 IF @Frequency = 'M'
 BEGIN
+
+	UPDATE [CSIDW].[dbo].[AdjustmentTemplate]
+SET AdjustmentQuantity = @AdjustmentQuantity,
+AdjustmentAmount = @AdjustmentAmount,
+CountryID = @CountryID,
+SubBusinessUnitID = @SubBusinessUnitID,
+SubSegmentID = @SubSegmentID,
+AccountSubTypeID = @AccountSubTypeID,
+SubCategoryID = @SubCategoryID,
+CompanyID = @CompanyID,
+UpdateUser = @UpdateUser,
+UpdateDate =  GETDATE()
+WHERE [AdjustmentTemplateID] = @AdjustmentTemplateID;
+
 	IF @ReverseChecked = 1
 BEGIN
 		INSERT INTO [CSIDW].[dbo].[AdjustmentTemplate]
 			(AdjustmentQuantity, AdjustmentAmount, AdjustmentCost, AdjustmentFrequency, AdjustmentTypeID
 			, CountryID, SubBusinessUnitID, SubSegmentID, AccountSubTypeID, SubCategoryID, CompanyID
 			, UpdateUser, UpdateDate)
-		SELECT (-1 * @AdjustmentQuantity) AS AdjustmentQuantity, (-1 * @AdjustmentAmount) AS AdjustmentAmount, (-1 * @AdjustmentCost) AS AdjustmentCost, 
-																	AdjustmentFrequency, AdjustmentTypeID
+		SELECT (-1 * @AdjustmentQuantity) AS AdjustmentQuantity, (-1 * @AdjustmentAmount) AS AdjustmentAmount, (-1 * @AdjustmentCost) AS AdjustmentCost,
+			AdjustmentFrequency, AdjustmentTypeID
  													, @CountryID, @SubBusinessUnitID, @SubSegmentID, @AccountSubTypeID, @SubCategoryID, @CompanyID
 													 , @UpdateUser, GETDATE()
 		FROM [CSIDW].[dbo].[AdjustmentTemplate]
