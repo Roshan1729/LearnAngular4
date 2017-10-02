@@ -1,5 +1,5 @@
 
-CREATE PROCEDURE [dbo].[Web_SR_UpdateAdjustmentMonthlyFrequency]
+ALTER PROCEDURE [dbo].[Web_SR_UpdateAdjustmentMonthlyFrequency]
     @AdjustmentID INT,
     @ReverseChecked BIT = 0,
     @DuplicateChecked BIT = 0,
@@ -9,8 +9,15 @@ SET NOCOUNT ON;
 
 DECLARE @AdjustmentDate DATETIME = GETDATE();
 DECLARE @PeriodID INT;
-DECLARE @CompanyID NVARCHAR;
+DECLARE @CompanyID INT;
+DECLARE @CurrencyID INT;
+DECLARE @AdjustmentAmountSpotUSD MONEY;
+DECLARE @AdjustmentCostSpotUSD MONEY;
+DECLARE @AdjustmentAmountAvgUSD MONEY;
+DECLARE @AdjustmentCostAvgUSD MONEY;
+--DECLARE @AdjustmentAmountSpotUSD MONEY;
 
+　
 IF @ReverseChecked = 1
 BEGIN
     SET @AdjustmentDate = (SELECT PeriodEndDate
@@ -21,6 +28,7 @@ BEGIN
     FROM Period
     WHERE DATEADD(MONTH,DATEDIFF(MONTH,1,GETDATE())+1,-1) BETWEEN PeriodStartDate AND PeriodEndDate);
 
+	
     INSERT INTO [CSIDW].[dbo].[AdjustmentTemplate]
         (AdjustmentQuantity, AdjustmentAmount, AdjustmentCost, AdjustmentFrequency, AdjustmentTypeID,AdjustmentComment
         , CountryID, SubBusinessUnitID, SubSegmentID, AccountSubTypeID, SubCategoryID, CompanyID
@@ -34,8 +42,11 @@ BEGIN
         AccountSubTypeID, SubCategoryID, CompanyID, @UpdateUser, GETDATE()
     FROM [CSIDW].[dbo].[AdjustmentTemplate]
     WHERE [AdjustmentTemplateID] = @AdjustmentID;
+    
+    SET @AdjustmentID = SCOPE_IDENTITY();
 END
 
+　
 IF @DuplicateChecked = 1
 BEGIN
     SET @AdjustmentDate = (SELECT PeriodEndDate
@@ -61,7 +72,7 @@ SET @CompanyID = (SELECT CompanyID
 FROM [CSIDW].[dbo].[AdjustmentTemplate]
 WHERE [AdjustmentTemplateID] = @AdjustmentID);
 
-
+　
 INSERT INTO [CSIDW].[dbo].[Adjustment]
     (
     [AdjustmentDate]
@@ -83,8 +94,8 @@ INSERT INTO [CSIDW].[dbo].[Adjustment]
 SELECT @AdjustmentDate
 	, @PeriodID
 	, AdjustmentQuantity
-	, AdjustmentAmountLCY
-	, AdjustmentCostLCY
+	, AdjustmentAmount
+	, AdjustmentCost
 	, AdjustmentTypeID
 	, CASE WHEN LEFT(AdjustmentComment, 6) = 'REV - '  
                 THEN RIGHT(AdjustmentComment, LEN(AdjustmentComment) - 6)
@@ -101,9 +112,10 @@ SELECT @AdjustmentDate
 FROM [CSIDW].[dbo].[AdjustmentTemplate]
 WHERE [AdjustmentTemplateID] = @AdjustmentID;
 
+　
 SET @AdjustmentID = SCOPE_IDENTITY();
 
-
+　
 SET @CurrencyID = (
 		SELECT TOP 1
     CurrencyID
