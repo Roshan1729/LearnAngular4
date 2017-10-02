@@ -61,7 +61,7 @@ BEGIN
                     ELSE (SELECT Period
         FROM Period
         WHERE DATEADD(MONTH,DATEDIFF(MONTH,-1,GETDATE())-1,-1) BETWEEN PeriodStartDate AND PeriodEndDate)
-                END AS AdjustmentComment,
+                END AS Period,
         CASE WHEN LEFT(a.AdjustmentComment, 6) = 'REV - '  
                 THEN RIGHT(a.AdjustmentComment, LEN(a.AdjustmentComment) - 6)
                     ELSE a.AdjustmentComment
