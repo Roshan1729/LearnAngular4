@@ -1613,6 +1613,33 @@ namespace SalesReportingWebsite
             }
             btnUpdateAll.Visible = false;
             btnEditAll.Visible = true;
+             foreach (GridViewRow gridRow in AdjustmentGridView.Rows)
+             {   
+                if (gridRow.RowType == DataControlRowType.DataRow)
+                {
+                    bool isChecked = false;
+                    for (int i = 1; i < gridRow.Cells.Count; i++)
+                    {
+                       // row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                        if (gridRow.Cells[i].Controls.OfType<TextBox>().ToList().Count > 0)
+                        {
+                            gridRow.Cells[i].Controls.OfType<TextBox>().FirstOrDefault().Visible = isChecked;
+                            if (gridRow.Cells[i].Controls.OfType<Label>().ToList().Count > 0)
+                            {
+                                gridRow.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                            }
+                        }
+                        if (gridRow.Cells[i].Controls.OfType<DropDownList>().ToList().Count > 0)
+                        {
+                            gridRow.Cells[i].Controls.OfType<DropDownList>().FirstOrDefault().Visible = isChecked;
+                            if (gridRow.Cells[i].Controls.OfType<Label>().ToList().Count > 0)
+                            {
+                                gridRow.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                            }
+                        }                        
+                    }
+                }
+            }
             this.BindGridView();
         }
     }
