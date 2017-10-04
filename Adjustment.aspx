@@ -1,6 +1,6 @@
-﻿<%@ Page Title="Adjustment" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Adjustment.aspx.cs" Inherits="SalesReportingWebsite.Adjustments" EnableEventValidation="false" %>
+<%@ Page Title="Adjustment" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Adjustment.aspx.cs" Inherits="SalesReportingWebsite.Adjustments" EnableEventValidation="false" %>
 
-    <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+   <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
         <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
             <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -306,7 +306,7 @@
                         </asp:TableCell>
                         <asp:TableCell runat="server">Company Name:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newCompanyName" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged = "OnSelectedIndexChanged">
+                            <asp:DropDownList ID="newCompanyName" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged = "OnSelectedIndexChanged" AutoPostBack="true">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
@@ -321,7 +321,7 @@
                         </asp:TableCell>
                         <asp:TableCell runat="server">Adjustment Type:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newAdjustmentType" runat="server" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddlNewAdjustmentType">
+                            <asp:DropDownList ID="newAdjustmentType" runat="server" AppendDataBoundItems="true" >
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
@@ -341,10 +341,11 @@
 
                     </asp:TableRow>
                     <asp:TableRow runat="server">
-                        <asp:TableCell runat="server">Amount LCY:</asp:TableCell>
+                        <asp:TableCell runat="server">Amount Average USD:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newAmountLCY" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newAmountAverageUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
                         </asp:TableCell>
+                        
                         <asp:TableCell runat="server">Account Sub Type Name:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="newAccountSubTypeName" runat="server" AppendDataBoundItems="true">
@@ -353,10 +354,11 @@
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow runat="server">
-                        <asp:TableCell runat="server">Amount Spot USD:</asp:TableCell>
+                        <asp:TableCell runat="server">Amount LCY:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newAmountSpotUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newAmountLCY" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
                         </asp:TableCell>
+                        
                         <asp:TableCell runat="server">Country Name:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="newCountryName" runat="server" AppendDataBoundItems="true">
@@ -366,11 +368,11 @@
 
                     </asp:TableRow>
                     <asp:TableRow runat="server">
-                        <asp:TableCell runat="server">Amount Average USD:</asp:TableCell>
+                        
+                        <asp:TableCell runat="server">Amount Spot USD:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newAmountAverageUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newAmountSpotUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
                         </asp:TableCell>
-
                         <asp:TableCell runat="server">Sub Business Unit Name:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="newSubBusinessUnitName" runat="server" AppendDataBoundItems="true">
@@ -380,10 +382,11 @@
 
                     </asp:TableRow>
                     <asp:TableRow runat="server">
-                        <asp:TableCell runat="server">Cost LCY:</asp:TableCell>
+                        <asp:TableCell runat="server">Cost Average USD:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newCostLCY" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newCostAverageUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
                         </asp:TableCell>
+                        
                         <asp:TableCell runat="server">Sub Category Name:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="newSubCategoryName" runat="server" AppendDataBoundItems="true">
@@ -392,10 +395,11 @@
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow runat="server">
-                        <asp:TableCell runat="server">Cost Spot USD:</asp:TableCell>
+                        <asp:TableCell runat="server">Cost LCY:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newCostSpotUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newCostLCY" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
                         </asp:TableCell>
+                       
                         <asp:TableCell runat="server">Currency Name:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="newCurrencyName" runat="server" AppendDataBoundItems="true">
@@ -404,10 +408,11 @@
                         </asp:TableCell>
                     </asp:TableRow>
                     <asp:TableRow runat="server">
-                        <asp:TableCell runat="server">Cost Average USD:</asp:TableCell>
+                         <asp:TableCell runat="server">Cost Spot USD:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newCostAverageUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newCostSpotUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
                         </asp:TableCell>
+                       
                         <asp:TableCell runat="server"></asp:TableCell>
                         <asp:TableCell runat="server"></asp:TableCell>
                     </asp:TableRow>
@@ -437,7 +442,7 @@
                     </div>
                     <asp:GridView ID="AdjustmentGridView" runat="server" AutoGenerateColumns="false" Width="98%" Style="margin: 0% 1% 0% 1%"
                         OnRowEditing="gvAdjustment_RowEditing" OnRowCancelingEdit="gvAdjustment_RowCancelingEdit" OnRowDataBound="gvAdjustment_RowDataBound"
-                        OnRowUpdating="gvAdjustment_RowUpdating" AllowPaging="true" PageSize="10" AllowSorting="true" OnPageIndexChanging="gvAdjustment_PageIndexChanging"
+                        OnRowUpdating="gvAdjustment_RowUpdating" AllowPaging="true" PageSize="25" AllowSorting="true" OnPageIndexChanging="gvAdjustment_PageIndexChanging"
                         OnSorting="gvAdjustment_SortData" DataKeyNames="AdjustmentTemplateID">
                         <HeaderStyle CssClass="gridHeader" />
                         <Columns>
@@ -447,7 +452,8 @@
                             </asp:BoundField>
                             <asp:TemplateField HeaderText="Adjustment Date">
                                 <ItemTemplate>
-                                    <asp:Label runat="server" ID="popAdjustmentDate" Text='<%# Eval("AdjustmentDate")%>'></asp:Label>
+                                    <asp:Label runat="server" ID="popAdjustmentDates" Text='<%# Eval("AdjustmentDate")%>'></asp:Label>
+                                    <asp:TextBox ID="popAdjustmentDate" runat="server" Text='<%# Eval("AdjustmentDate")%>' ReadOnly="true" Visible="false"></asp:TextBox>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="popAdjustmentDate" runat="server" Text='<%# Eval("AdjustmentDate")%>' ReadOnly="true"></asp:TextBox>
@@ -458,14 +464,11 @@
                                     <asp:Label ID="lblpopPeriod" runat="server" Text='<%# Eval("Period")%>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Adjustment Comment">
-                                <EditItemTemplate>
-                                    <asp:TextBox ID="popAdjustmentComment" runat="server" Text=""></asp:TextBox>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
+                            
                             <asp:TemplateField HeaderText="Adjustment Quantity">
                                 <ItemTemplate>
-                                    <asp:Label runat="server" ID="popAdjustmentQuantity" Text='<%# Eval("AdjustmentQuantity")%>'></asp:Label>
+                                    <asp:Label runat="server" ID="popAdjustmentQuantities" Text='<%# Eval("AdjustmentQuantity")%>'></asp:Label>
+                                    <asp:TextBox ID="popAdjustmentQuantity" runat="server" Text='<%# Eval("AdjustmentQuantity")%>' onkeypress="return onlyDotsAndNumbers(event)" Visible="false"></asp:TextBox>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="popAdjustmentQuantity" runat="server" Text='<%# Eval("AdjustmentQuantity")%>' onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
@@ -473,7 +476,8 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Adjustment Amount">
                                 <ItemTemplate>
-                                    <asp:Label runat="server" ID="popAdjustmentAmount" Text='<%# Eval("AdjustmentAmount")%>'></asp:Label>
+                                    <asp:Label runat="server" ID="popAdjustmentAmounts" Text='<%# Eval("AdjustmentAmount")%>'></asp:Label>
+                                    <asp:TextBox ID="popAdjustmentAmount" runat="server" Text='<%# Eval("AdjustmentAmount")%>' onkeypress="return onlyDotsAndNumbers(event)" Visible="false"></asp:TextBox>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="popAdjustmentAmount" runat="server" Text='<%# Eval("AdjustmentAmount")%>' onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
@@ -481,26 +485,36 @@
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Adjustment Cost">
                                 <ItemTemplate>
-                                    <asp:Label runat="server" ID="popAdjustmentCost" Text='<%# Eval("AdjustmentCost")%>'></asp:Label>
+                                    <asp:Label runat="server" ID="popAdjustmentCosts" Text='<%# Eval("AdjustmentCost")%>'></asp:Label>
+                                    <asp:TextBox ID="popAdjustmentCost" runat="server" Text='<%# Eval("AdjustmentCost")%>' onkeypress="return onlyDotsAndNumbers(event)" Visible="false"></asp:TextBox>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:TextBox ID="popAdjustmentCost" runat="server" Text='<%# Eval("AdjustmentCost")%>' onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
                                 </EditItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Adjustment Frequency">
-                                <ItemTemplate>
-                                    <asp:Label runat="server" ID="AdjustmentFrequency" Text='<%# Eval("AdjustmentFrequency")%>'></asp:Label>
-                                </ItemTemplate>
-                            </asp:TemplateField>
+                          
 
                             <asp:TemplateField HeaderText="Adjustment Type Name">
                                 <ItemTemplate>
                                     <asp:Label ID="lblpopAdjustmentTypeName" runat="server" Text='<%# Eval("AdjustmentTypeName")%>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+
+                            <asp:TemplateField HeaderText="Adjustment Comment">
+                                <ItemTemplate>
+                                    <asp:Label ID="popAdjustmentComments" runat="server" Text='<%# Eval("AdjustmentComment")%>'></asp:TextBox>
+                                    <asp:TextBox ID="popAdjustmentComment" runat="server" Text='<%# Eval("AdjustmentComment")%>' Visible="false"></asp:TextBox>
+                                </ItemTemplate>
+                                <EditItemTemplate>
+                                    <asp:TextBox ID="popAdjustmentComment" runat="server" Text='<%# Eval("AdjustmentComment")%>'></asp:TextBox>
+                                </EditItemTemplate>
+                            </asp:TemplateField>
+
                             <asp:TemplateField HeaderText="Company Name">
                                 <ItemTemplate>
                                     <asp:Label ID="lblpopCompanyName" runat="server" Text='<%# Eval("CompanyName")%>'></asp:Label>
+                                    <asp:DropDownList ID="ddlpopCompanyNames" runat="server" onselectedindexchanged="popCompanyName_SelectedIndexChanged" Visible="false"> 
+                                    </asp:DropDownList>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:Label ID="lblpopCompanyName" runat="server" Text='<%# Eval("CompanyName") %>' Visible="false" />
@@ -508,9 +522,31 @@
                                     </asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
+                             <asp:TemplateField HeaderText="Sub Business Unit Name">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblpopSubBusinessUnitName" runat="server" Text='<%# Eval("SubBusinessUnitName")%>'></asp:Label>
+                                </ItemTemplate>
+                               <%-- <EditItemTemplate>
+                                    <asp:Label ID="lblpopSubBusinessUnitName" runat="server" Text='<%# Eval("SubBusinessUnitName")%>' Visible="false"></asp:Label>
+                                    <asp:DropDownList ID="ddlpopSubBusinessUnitNames" runat="server">
+                                    </asp:DropDownList>
+                                </EditItemTemplate>--%>
+                            </asp:TemplateField>
+                             <asp:TemplateField HeaderText="Sub Category Name">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblpopSubCategoryName" runat="server" Text='<%# Eval("SubCategoryName")%>'></asp:Label>
+                                </ItemTemplate>
+                                <%--<EditItemTemplate>
+                                    <asp:Label ID="lblpopSubCategoryName" runat="server" Text='<%# Eval("SubCategoryName") %>' Visible="false" />
+                                    <asp:DropDownList ID="ddlpopSubCategoryNames" runat="server">
+                                    </asp:DropDownList>
+                                </EditItemTemplate>--%>
+                            </asp:TemplateField>
                             <asp:TemplateField HeaderText="Country Name">
                                 <ItemTemplate>
                                     <asp:Label ID="lblpopCountryName" runat="server" Text='<%# Eval("CountryName")%>'></asp:Label>
+                                    <asp:DropDownList ID="ddlpopCountryNames" runat="server" Visible="false">
+                                    </asp:DropDownList>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:Label ID="lblpopCountryName" runat="server" Text='<%# Eval("CountryName")%>' Visible="false"></asp:Label>
@@ -518,29 +554,22 @@
                                     </asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Sub Business Unit Name">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblpopSubBusinessUnitName" runat="server" Text='<%# Eval("SubBusinessUnitName")%>'></asp:Label>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:Label ID="lblpopSubBusinessUnitName" runat="server" Text='<%# Eval("SubBusinessUnitName")%>' Visible="false"></asp:Label>
-                                    <asp:DropDownList ID="ddlpopSubBusinessUnitNames" runat="server">
-                                    </asp:DropDownList>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
+                           
                             <asp:TemplateField HeaderText="Segment Name">
                                 <ItemTemplate>
                                     <asp:Label ID="lblpopSegmentName" runat="server" Text='<%# Eval("SegmentName")%>'></asp:Label>
                                 </ItemTemplate>
-                                <EditItemTemplate>
+                                <%--<EditItemTemplate>
                                     <asp:Label ID="lblpopSegmentName" runat="server" Text='<%# Eval("SegmentName") %>' Visible="false" />
                                     <asp:DropDownList ID="ddlpopSegmentNames" runat="server">
                                     </asp:DropDownList>
-                                </EditItemTemplate>
+                                </EditItemTemplate>--%>
                             </asp:TemplateField>
                             <asp:TemplateField HeaderText="Account Sub Type Name">
                                 <ItemTemplate>
                                     <asp:Label ID="lblpopAccountSubTypeName" runat="server" Text='<%# Eval("AccountSubTypeName")%>'></asp:Label>
+                                    <asp:DropDownList ID="ddlpopAccountSubTypeNames" runat="server" Visible="false">
+                                    </asp:DropDownList>
                                 </ItemTemplate>
                                 <EditItemTemplate>
                                     <asp:Label ID="lblpopAccountSubTypeName" runat="server" Text='<%# Eval("AccountSubTypeName") %>' Visible="false" />
@@ -548,30 +577,15 @@
                                     </asp:DropDownList>
                                 </EditItemTemplate>
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Sub Category Name">
-                                <ItemTemplate>
-                                    <asp:Label ID="lblpopSubCategoryName" runat="server" Text='<%# Eval("SubCategoryName")%>'></asp:Label>
-                                </ItemTemplate>
-                                <EditItemTemplate>
-                                    <asp:Label ID="lblpopSubCategoryName" runat="server" Text='<%# Eval("SubCategoryName") %>' Visible="false" />
-                                    <asp:DropDownList ID="ddlpopSubCategoryNames" runat="server">
-                                    </asp:DropDownList>
-                                </EditItemTemplate>
-                            </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Sub Category Name">
-                                <EditItemTemplate>  
-                                    <asp:CheckBox ID="CheckBox1" runat="server" />  
-                                </EditItemTemplate>  
+                           
+                            <asp:TemplateField HeaderText="Reverse Next Month">
                                 <ItemTemplate>  
-                                    <asp:CheckBox ID="CheckBox1" runat="server" />  
+                                    <asp:CheckBox ID="CheckBox1" runat="server" AutoPostBack="True" OnCheckedChanged="ReverseNextMonthCheck_Clicked" />  
                                 </ItemTemplate>  
                             </asp:TemplateField>
-                            <asp:TemplateField HeaderText="Sub Category Name">
-                                <EditItemTemplate>  
-                                    <asp:CheckBox ID="CheckBox2" runat="server" />  
-                                </EditItemTemplate>  
+                            <asp:TemplateField HeaderText="Duplicate Row">
                                 <ItemTemplate>  
-                                    <asp:CheckBox ID="CheckBox2" runat="server" />  
+                                    <asp:CheckBox ID="CheckBox2" runat="server" AutoPostBack="True" OnCheckedChanged="DuplicateRowCheck_Clicked"/>  
                                 </ItemTemplate>  
                             </asp:TemplateField>
                         </Columns>
@@ -698,6 +712,8 @@
                             <PagerStyle CssClass="gridPager" />
                     </asp:GridView>
                 </div>
+                <asp:Button ID="btnEditAll" runat="server" Text="Edit All" OnClick="btnEditAll_Click"  Visible="false"/>
+                <asp:Button ID="btnUpdateAll" runat="server" Text="Update All" OnClick="btnUpdateAll_Click"  Visible="false"/>
                 <asp:Button ID="btnAdjClose" runat="server" Text="Close" />
             </asp:Panel>
             <!-- ModalPopupExtender -->
