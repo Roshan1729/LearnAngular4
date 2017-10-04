@@ -198,7 +198,7 @@ namespace SalesReportingWebsite
                     ModalPopupExtender1.Show();
                 }
             }
-           
+
             if (isFormFilled)
             {
                 bool result = li.AddNewAdjustment(date, period, quantity, amountLCY, amountSpotUSD, amountAverageUSD, costLCY, costSpotUSD, costAverageUSD, comment, adjustmentType, countryName, subBusinessUnitName, companyName, subSegmentName, accountSubTypeName, subCategoryName, currencyName);
@@ -315,7 +315,7 @@ namespace SalesReportingWebsite
                 {
                     li.AdjustmentID = Convert.ToInt32(AdjustmentGridView.DataKeys[e.RowIndex].Values[0]);
                     li.Frequency = rblMeasurementSystem.SelectedItem.Text.Substring(0, 1);
-                   
+
                     if (((TextBox)row.FindControl("popAdjustmentDate")).Text != string.Empty)
                     {
                         li.Date = Convert.ToDateTime((Request.Form[row.FindControl("popAdjustmentDate").UniqueID]));
@@ -817,7 +817,7 @@ namespace SalesReportingWebsite
             {
                 SalesReportingChild li = new SalesReportingChild();
 
-     
+
                 //Find the DropDownList in the Row
                 DropDownList ddlCompanyNameList = (e.Row.FindControl("ddlpopCompanyNames") as DropDownList);
                 ddlCompanyNameList.DataSource = li.CompanyNameList().Tables[0];
@@ -1191,7 +1191,7 @@ namespace SalesReportingWebsite
 
         private void BindAdjustmentGridView()
         {
-            btnEditAll.Visible =false;
+            btnEditAll.Visible = false;
             SalesReportingChild obj = new SalesReportingChild();
             string frequency = String.Empty;
             if (rblMeasurementSystem.SelectedItem != null)
@@ -1414,22 +1414,79 @@ namespace SalesReportingWebsite
 
         protected void btnEditAll_Click(object sender, EventArgs e)
         {
+             SalesReportingChild li = new SalesReportingChild();
+
+             DataTable companyList =  li.CompanyNameList().Tables[0];
+             DataTable accountSubTypeNameList =  li.AdjustmentAccountSubTypeNameList().Tables[0]; 
+
             foreach (GridViewRow row in AdjustmentGridView.Rows)
-            {
+            {   
+                string companyName =  (row.FindControl("lblpopCompanyName") as Label).Text;           
+                DataTable countryNameList =  li.AdjustmentCountryNameList(companyName).Tables[0];
                 if (row.RowType == DataControlRowType.DataRow)
                 {
+                    //Find the DropDownList in the Row
+                    DropDownList ddlCompanyNameList = (row.FindControl("ddlpopCompanyNames") as DropDownList);
+                    ddlCompanyNameList.DataSource = companyList;
+                    ddlCompanyNameList.DataTextField = "CompanyName";
+                    ddlCompanyNameList.DataValueField = "CompanyName";
+                    ddlCompanyNameList.DataBind();
+
+                    //Add Default Item in the DropDownList
+                    ddlCompanyNameList.Items.Insert(0, new ListItem("Select One"));
+
+                    //Select the Country of Customer in DropDownList
+                    companyName = (row.FindControl("lblpopCompanyName") as Label).Text;
+                    ddlCompanyNameList.Items.FindByValue(companyName).Selected = true;
+
+                     //Find the DropDownList in the Row
+                    DropDownList ddlCountryNameList = (row.FindControl("ddlpopCountryNames") as DropDownList);
+                    ddlCountryNameList.DataSource = countryNameList;
+                    ddlCountryNameList.DataTextField = "CountryName";
+                    ddlCountryNameList.DataValueField = "CountryName";
+                    ddlCountryNameList.DataBind();
+
+                    //Add Default Item in the DropDownList
+                    ddlCountryNameList.Items.Insert(0, new ListItem("Select One"));
+
+                    //Select the Country of Customer in DropDownList
+                    string countryName = (row.FindControl("lblpopCountryName") as Label).Text;
+                    ddlCountryNameList.Items.FindByValue(countryName).Selected = true;
+
+                    //Find the DropDownList in the Row
+                    DropDownList ddlAccountSubTypeNameList = (row.FindControl("ddlpopAccountSubTypeNames") as DropDownList);
+                    ddlAccountSubTypeNameList.DataSource = accountSubTypeNameList;
+                    ddlAccountSubTypeNameList.DataTextField = "AccountSubTypeName";
+                    ddlAccountSubTypeNameList.DataValueField = "AccountSubTypeName";
+                    ddlAccountSubTypeNameList.DataBind();
+
+                    //Add Default Item in the DropDownList
+                    ddlAccountSubTypeNameList.Items.Insert(0, new ListItem("Select One"));
+
+                    //Select the Country of Customer in DropDownList
+                    string accountSubTypeNames = (row.FindControl("lblpopAccountSubTypeName") as Label).Text;
+                    ddlAccountSubTypeNameList.Items.FindByValue(accountSubTypeNames).Selected = true;
+
                     bool isChecked = true;
                     for (int i = 1; i < row.Cells.Count; i++)
                     {
-                        row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                       // row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
                         if (row.Cells[i].Controls.OfType<TextBox>().ToList().Count > 0)
                         {
                             row.Cells[i].Controls.OfType<TextBox>().FirstOrDefault().Visible = isChecked;
+                            if (row.Cells[i].Controls.OfType<Label>().ToList().Count > 0)
+                            {
+                                row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                            }
                         }
                         if (row.Cells[i].Controls.OfType<DropDownList>().ToList().Count > 0)
                         {
                             row.Cells[i].Controls.OfType<DropDownList>().FirstOrDefault().Visible = isChecked;
-                        }                                    
+                            if (row.Cells[i].Controls.OfType<Label>().ToList().Count > 0)
+                            {
+                                row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                            }
+                        }                        
                     }
                 }
             }
@@ -1445,91 +1502,91 @@ namespace SalesReportingWebsite
             {
                 if (row.RowType == DataControlRowType.DataRow)
                 {
-                     try
-                {
-                    li.AdjustmentID = Convert.ToInt32(AdjustmentGridView.DataKeys[row.RowIndex].Values[0]);
-                    li.Frequency = rblMeasurementSystem.SelectedItem.Text.Substring(0, 1);
-                   
-                    if (((TextBox)row.FindControl("popAdjustmentDate")).Text != string.Empty)
+                    try
                     {
-                        li.Date = Convert.ToDateTime((Request.Form[row.FindControl("popAdjustmentDate").UniqueID]));
-                    }
-                    else
-                    {
-                        li.Date = DateTime.MinValue;
-                    }
+                        li.AdjustmentID = Convert.ToInt32(AdjustmentGridView.DataKeys[row.RowIndex].Values[0]);
+                        li.Frequency = rblMeasurementSystem.SelectedItem.Text.Substring(0, 1);
 
-                    if (((TextBox)row.FindControl("popAdjustmentComment")).Text != string.Empty)
-                    {
-                        li.Comment = ((TextBox)row.FindControl("popAdjustmentComment")).Text;
-                    }
-                    else
-                    {
-                        li.Comment = String.Empty;
-                    }
-                    if (((TextBox)row.FindControl("popAdjustmentQuantity")).Text != string.Empty)
-                    {
-                        li.Quantity = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentQuantity")).Text);
-                    }
-                    else
-                    {
-                        li.Quantity = 0;
-                    }
-                    if (((TextBox)row.FindControl("popAdjustmentAmount")).Text != string.Empty)
-                    {
-                        li.AmountLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentAmount")).Text);
-                    }
-                    else
-                    {
-                        li.AmountLCY = 0;
-                    }
+                        if (((TextBox)row.FindControl("popAdjustmentDate")).Text != string.Empty)
+                        {
+                            li.Date = Convert.ToDateTime((Request.Form[row.FindControl("popAdjustmentDate").UniqueID]));
+                        }
+                        else
+                        {
+                            li.Date = DateTime.MinValue;
+                        }
 
-                    if (((TextBox)row.FindControl("popAdjustmentCost")).Text != string.Empty)
-                    {
-                        li.CostLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentCost")).Text);
-                    }
-                    else
-                    {
-                        li.CostLCY = 0;
-                    }
-                    if (((DropDownList)row.FindControl("ddlpopCountryNames")).SelectedValue != "Select One")
-                    {
-                        li.CountryName = ((DropDownList)row.FindControl("ddlpopCountryNames")).SelectedValue;
-                    }
-                    else
-                    {
-                        li.CountryName = String.Empty;
-                    }
+                        if (((TextBox)row.FindControl("popAdjustmentComment")).Text != string.Empty)
+                        {
+                            li.Comment = ((TextBox)row.FindControl("popAdjustmentComment")).Text;
+                        }
+                        else
+                        {
+                            li.Comment = String.Empty;
+                        }
+                        if (((TextBox)row.FindControl("popAdjustmentQuantity")).Text != string.Empty)
+                        {
+                            li.Quantity = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentQuantity")).Text);
+                        }
+                        else
+                        {
+                            li.Quantity = 0;
+                        }
+                        if (((TextBox)row.FindControl("popAdjustmentAmount")).Text != string.Empty)
+                        {
+                            li.AmountLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentAmount")).Text);
+                        }
+                        else
+                        {
+                            li.AmountLCY = 0;
+                        }
 
-                    if (((DropDownList)row.FindControl("ddlpopCompanyNames")).SelectedValue != "Select One")
-                    {
-                        li.CompanyName = ((DropDownList)row.FindControl("ddlpopCompanyNames")).SelectedValue;
-                    }
-                    else
-                    {
-                        li.CompanyName = String.Empty;
-                    }
+                        if (((TextBox)row.FindControl("popAdjustmentCost")).Text != string.Empty)
+                        {
+                            li.CostLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentCost")).Text);
+                        }
+                        else
+                        {
+                            li.CostLCY = 0;
+                        }
+                        if (((DropDownList)row.FindControl("ddlpopCountryNames")).SelectedValue != "Select One")
+                        {
+                            li.CountryName = ((DropDownList)row.FindControl("ddlpopCountryNames")).SelectedValue;
+                        }
+                        else
+                        {
+                            li.CountryName = String.Empty;
+                        }
 
-                    if (((DropDownList)row.FindControl("ddlpopAccountSubTypeNames")).SelectedValue != "Select One")
-                    {
-                        li.AccountSubTypeName = ((DropDownList)row.FindControl("ddlpopAccountSubTypeNames")).SelectedValue;
+                        if (((DropDownList)row.FindControl("ddlpopCompanyNames")).SelectedValue != "Select One")
+                        {
+                            li.CompanyName = ((DropDownList)row.FindControl("ddlpopCompanyNames")).SelectedValue;
+                        }
+                        else
+                        {
+                            li.CompanyName = String.Empty;
+                        }
+
+                        if (((DropDownList)row.FindControl("ddlpopAccountSubTypeNames")).SelectedValue != "Select One")
+                        {
+                            li.AccountSubTypeName = ((DropDownList)row.FindControl("ddlpopAccountSubTypeNames")).SelectedValue;
+                        }
+                        else
+                        {
+                            li.AccountSubTypeName = String.Empty;
+                        }
+                        li.UpdateAjustmentFrequency(li, memberships);
+                        ModalPopupExtender2.Show();
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        li.AccountSubTypeName = String.Empty;
+                        throw ex;
                     }
-                    li.UpdateAjustmentFrequency(li, memberships);
-                    ModalPopupExtender2.Show();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
                 }
             }
-            btnUpdate.Visible = false;
+            btnUpdateAll.Visible = false;
             btnEditAll.Visible = true;
-            this.BindGrid();
+            this.BindGridView();
         }
     }
 }
