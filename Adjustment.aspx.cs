@@ -1511,7 +1511,7 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentDate")).Text != string.Empty)
                         {
                             li.Date = Convert.ToDateTime((Request.Form[row.FindControl("popAdjustmentDate").UniqueID]));
-                            if((row.FindControl("popAdjustmentDates") as Label).Text != li.Date) {
+                            if(DateTime.Parse((row.FindControl("popAdjustmentDates") as Label).Text) != li.Date) {
                                 isToUpdate = true;
                             }
                         }
@@ -1534,7 +1534,7 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentQuantity")).Text != string.Empty)
                         {
                             li.Quantity = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentQuantity")).Text);
-                             if((row.FindControl("popAdjustmentQuantities") as Label).Text != li.Quantity) {
+                             if( float.Parse((row.FindControl("popAdjustmentQuantities") as Label).Text) != li.Quantity) {
                                 isToUpdate = true;
                             }
                         }
@@ -1545,7 +1545,7 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentAmount")).Text != string.Empty)
                         {
                             li.AmountLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentAmount")).Text);
-                             if((row.FindControl("popAdjustmentAmounts") as Label).Text != li.AmountLCY) {
+                             if( float.Parse((row.FindControl("popAdjustmentAmounts") as Label).Text) != li.AmountLCY) {
                                 isToUpdate = true;
                             }
                         }
@@ -1557,7 +1557,7 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentCost")).Text != string.Empty)
                         {
                             li.CostLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentCost")).Text);
-                            if((row.FindControl("popAdjustmentCosts") as Label).Text != li.CostLCY) {
+                            if( float.Parse((row.FindControl("popAdjustmentCosts") as Label).Text) != li.CostLCY) {
                                 isToUpdate = true;
                             }
                         }
