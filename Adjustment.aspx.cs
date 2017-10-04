@@ -1504,12 +1504,16 @@ namespace SalesReportingWebsite
                 {
                     try
                     {
+                        bool isToUpdate = false;
                         li.AdjustmentID = Convert.ToInt32(AdjustmentGridView.DataKeys[row.RowIndex].Values[0]);
                         li.Frequency = rblMeasurementSystem.SelectedItem.Text.Substring(0, 1);
 
                         if (((TextBox)row.FindControl("popAdjustmentDate")).Text != string.Empty)
                         {
                             li.Date = Convert.ToDateTime((Request.Form[row.FindControl("popAdjustmentDate").UniqueID]));
+                            if((row.FindControl("popAdjustmentDates") as Label).Text != li.Date) {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1519,6 +1523,9 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentComment")).Text != string.Empty)
                         {
                             li.Comment = ((TextBox)row.FindControl("popAdjustmentComment")).Text;
+                            if((row.FindControl("popAdjustmentComments") as Label).Text != li.Comment) {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1527,6 +1534,9 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentQuantity")).Text != string.Empty)
                         {
                             li.Quantity = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentQuantity")).Text);
+                             if((row.FindControl("popAdjustmentQuantities") as Label).Text != li.Quantity) {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1535,6 +1545,9 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentAmount")).Text != string.Empty)
                         {
                             li.AmountLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentAmount")).Text);
+                             if((row.FindControl("popAdjustmentAmounts") as Label).Text != li.AmountLCY) {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1544,6 +1557,9 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentCost")).Text != string.Empty)
                         {
                             li.CostLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentCost")).Text);
+                            if((row.FindControl("popAdjustmentCosts") as Label).Text != li.CostLCY) {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1552,6 +1568,9 @@ namespace SalesReportingWebsite
                         if (((DropDownList)row.FindControl("ddlpopCountryNames")).SelectedValue != "Select One")
                         {
                             li.CountryName = ((DropDownList)row.FindControl("ddlpopCountryNames")).SelectedValue;
+                             if((row.FindControl("lblpopCountryName") as Label).Text != li.CountryName) {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1561,6 +1580,9 @@ namespace SalesReportingWebsite
                         if (((DropDownList)row.FindControl("ddlpopCompanyNames")).SelectedValue != "Select One")
                         {
                             li.CompanyName = ((DropDownList)row.FindControl("ddlpopCompanyNames")).SelectedValue;
+                             if((row.FindControl("lblpopCompanyName") as Label).Text != li.CompanyName) {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1570,12 +1592,17 @@ namespace SalesReportingWebsite
                         if (((DropDownList)row.FindControl("ddlpopAccountSubTypeNames")).SelectedValue != "Select One")
                         {
                             li.AccountSubTypeName = ((DropDownList)row.FindControl("ddlpopAccountSubTypeNames")).SelectedValue;
+                            if((row.FindControl("lblpopAccountSubTypeName") as Label).Text != li.AccountSubTypeName) {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
                             li.AccountSubTypeName = String.Empty;
                         }
-                        li.UpdateAjustmentFrequency(li, memberships);
+                        if(isToUpdate) {
+                            li.UpdateAjustmentFrequency(li, memberships);
+                        }
                         ModalPopupExtender2.Show();
                     }
                     catch (Exception ex)
