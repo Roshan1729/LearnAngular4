@@ -6,7 +6,7 @@
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
             <div>
-                <asp:Table ID="Table1" runat="server" Width="100%" Style="margin-bottom: 0px">
+                <asp:Table ID="Table1" runat="server" Width="98%" Style="margin-bottom: 0px">
                     <asp:TableRow>
                         <asp:TableCell>
                             <asp:Button ID="btnAddNewAdjustments" runat="server" Text="Add new Adjustments" OnClick="btnAddNewAdjustments_Click" />
@@ -24,7 +24,7 @@
                                 ClientIDMode="Static"></asp:TextBox>
                         </asp:TableCell>
                         <asp:TableCell>
-                            <asp:Label ID="Label3" runat="server" Text="Period     "></asp:Label>
+                            <asp:Label ID="Label3" runat="server" Text="Period"></asp:Label>
                             <br />
                             <asp:DropDownList ID="ddlPeriod" runat="server" AppendDataBoundItems="true" AutoPostBack="true" OnSelectedIndexChanged="ddl_SelectedIndexChanged">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
@@ -302,7 +302,7 @@
                     <asp:TableRow runat="server">
                         <asp:TableCell runat="server">Date:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newDate" runat="server" CssClass="DateLabel"></asp:TextBox>
+                            <asp:TextBox ID="newDate" runat="server" CssClass="DateLabel"  AutoPostBack="true" OnTextChanged="getPeriodDetails"></asp:TextBox>
                         </asp:TableCell>
                         <asp:TableCell runat="server">Company Name:</asp:TableCell>
                         <asp:TableCell runat="server">
@@ -315,13 +315,14 @@
                     <asp:TableRow runat="server">
                         <asp:TableCell runat="server">Period:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newPeriod" runat="server" AppendDataBoundItems="true">
+                            <asp:Label  ID="newPeriod" runat="server" Text=""></asp:Label>
+                           <%-- <asp:DropDownList ID="newPeriod" runat="server" AppendDataBoundItems="true">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
-                            </asp:DropDownList>
+                            </asp:DropDownList>--%>
                         </asp:TableCell>
                         <asp:TableCell runat="server">Adjustment Type:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newAdjustmentType" runat="server" AppendDataBoundItems="true" >
+                            <asp:DropDownList ID="newAdjustmentType" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged = "OnSelectedIndexChanged" AutoPostBack="true">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
@@ -343,7 +344,7 @@
                     <asp:TableRow runat="server">
                         <asp:TableCell runat="server">Amount Average USD:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newAmountAverageUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newAmountAverageUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)" AutoPostBack="true" OnTextChanged="SelectCompanyName"></asp:TextBox>
                         </asp:TableCell>
                         
                         <asp:TableCell runat="server">Account Sub Type Name:</asp:TableCell>
@@ -356,7 +357,7 @@
                     <asp:TableRow runat="server">
                         <asp:TableCell runat="server">Amount LCY:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newAmountLCY" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newAmountLCY" runat="server" onkeypress="return onlyDotsAndNumbers(event)" AutoPostBack="true" OnTextChanged="SelectCompanyName"></asp:TextBox>
                         </asp:TableCell>
                         
                         <asp:TableCell runat="server">Country Name:</asp:TableCell>
@@ -371,7 +372,7 @@
                         
                         <asp:TableCell runat="server">Amount Spot USD:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newAmountSpotUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newAmountSpotUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)" AutoPostBack="true" OnTextChanged="SelectCompanyName"></asp:TextBox>
                         </asp:TableCell>
                         <asp:TableCell runat="server">Sub Business Unit Name:</asp:TableCell>
                         <asp:TableCell runat="server">
@@ -384,7 +385,7 @@
                     <asp:TableRow runat="server">
                         <asp:TableCell runat="server">Cost Average USD:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newCostAverageUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newCostAverageUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)" AutoPostBack="true" OnTextChanged="SelectCompanyName"></asp:TextBox>
                         </asp:TableCell>
                         
                         <asp:TableCell runat="server">Sub Category Name:</asp:TableCell>
@@ -397,7 +398,7 @@
                     <asp:TableRow runat="server">
                         <asp:TableCell runat="server">Cost LCY:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newCostLCY" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newCostLCY" runat="server" onkeypress="return onlyDotsAndNumbers(event)" AutoPostBack="true" OnTextChanged="SelectCompanyName"></asp:TextBox>
                         </asp:TableCell>
                        
                         <asp:TableCell runat="server">Currency Name:</asp:TableCell>
@@ -410,7 +411,7 @@
                     <asp:TableRow runat="server">
                          <asp:TableCell runat="server">Cost Spot USD:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newCostSpotUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)"></asp:TextBox>
+                            <asp:TextBox ID="newCostSpotUSD" runat="server" onkeypress="return onlyDotsAndNumbers(event)" AutoPostBack="true" OnTextChanged="SelectCompanyName"></asp:TextBox>
                         </asp:TableCell>
                        
                         <asp:TableCell runat="server"></asp:TableCell>
@@ -434,15 +435,16 @@
             <cc1:ModalPopupExtender ID="ModalPopupExtender2" runat="server" PopupControlID="Panel2" TargetControlID="HiddenAdjustment"
                 CancelControlID="btnAdjClose" BackgroundCssClass="modalBackground">
             </cc1:ModalPopupExtender>
-            <asp:Panel ID="Panel2" runat="server" CssClass="modalPopup" align="center" Style="display: none">
+            <asp:Panel ID="Panel2" runat="server" CssClass="modalPopup" align="center" Style="display: none;width: 90%; height: 90%; overflow: scroll">
                 <b>	<asp:Label ID="Label16" runat="server" Text=""></asp:Label></b>
                 <div runat="server" id="frequencyAdjustment">
                     <div>
                         <b>	<asp:Label ID="lblAdjustmentFrequencyCount" runat="server" Text=""></asp:Label></b>
                     </div>
-                    <asp:GridView ID="AdjustmentGridView" runat="server" AutoGenerateColumns="false" Width="98%" Style="margin: 0% 1% 0% 1%"
+                   <div>
+                    <asp:GridView ID="AdjustmentGridView" runat="server" AutoGenerateColumns="false" Style="margin: 0% 1% 0% 1%; Height:400px; overflow:auto;"
                         OnRowEditing="gvAdjustment_RowEditing" OnRowCancelingEdit="gvAdjustment_RowCancelingEdit" OnRowDataBound="gvAdjustment_RowDataBound"
-                        OnRowUpdating="gvAdjustment_RowUpdating" AllowPaging="true" PageSize="25" AllowSorting="true" OnPageIndexChanging="gvAdjustment_PageIndexChanging"
+                        OnRowUpdating="gvAdjustment_RowUpdating" AllowPaging="true" PageSize="27" AllowSorting="true" OnPageIndexChanging="gvAdjustment_PageIndexChanging"
                         OnSorting="gvAdjustment_SortData" DataKeyNames="AdjustmentTemplateID">
                         <HeaderStyle CssClass="gridHeader" />
                         <Columns>
@@ -592,6 +594,7 @@
                         <%-- <PagerSettings Mode="NextPrevious" FirstPageText="First" LastPageText="Last" NextPageText=" Next &gt;" PreviousPageText="&lt; Prev "/> --%>
                             <PagerStyle CssClass="gridPager" />
                     </asp:GridView>
+                    </div> 
                 </div>
                 <div runat="server" id="templateAdjustment">
                     <div>

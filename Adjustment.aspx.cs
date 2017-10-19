@@ -26,7 +26,7 @@ namespace SalesReportingWebsite
 
             {
 
-                //rblMeasurementSystem.SelectedIndex = 0;
+                rblMeasurementSystem.SelectedIndex = 0;
                 //ModalPopupExtender2.Show();
                 //BindAdjustmentGridView();
                 SalesReportingChild li = new SalesReportingChild();
@@ -38,9 +38,9 @@ namespace SalesReportingWebsite
                 ddlPeriod.DataTextField = "Period";
                 ddlPeriod.DataBind();
 
-                newPeriod.DataSource = ddlPeriod.DataSource;
-                newPeriod.DataTextField = "Period";
-                newPeriod.DataBind();
+                //newPeriod.DataSource = ddlPeriod.DataSource;
+                //newPeriod.DataTextField = "Period";
+                //newPeriod.DataBind();
 
                 dwnExcelPeriod.DataSource = ddlPeriod.DataSource;
                 dwnExcelPeriod.DataTextField = "Period";
@@ -91,30 +91,87 @@ namespace SalesReportingWebsite
             }
         }
 
-        protected void OnSelectedIndexChanged(object sender, EventArgs e)
+        protected void SelectCompanyName(object sender, EventArgs e)
         {
-            string companyName = newCompanyName.SelectedValue.ToString();
-            if (companyName == "CooperSurgical" || companyName == "Cooper Genomics" || companyName == "ReproGenetics")
+            if(newCompanyName.SelectedValue.ToString() == "Select One")
             {
-                newAmountLCY.ReadOnly = true;
-                newAmountSpotUSD.ReadOnly = true;
-                newCostLCY.ReadOnly = true;
-                newCostSpotUSD.ReadOnly = true;
-                newAmountAverageUSD.ReadOnly = false;
-                newCostAverageUSD.ReadOnly = false;
+                string display = "Please select the company name first";
+                ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+               // newAmountLCY.Visible = true;
+                newAmountLCY.Text = "";
+               // newAmountSpotUSD.Visible = true;
+                newAmountSpotUSD.Text = "";
+                //newCostLCY.Visible = true;
+                newCostLCY.Text = "";
+               // newCostSpotUSD.Visible = true;
+                newCostSpotUSD.Text = "";
+               // newAmountAverageUSD.Visible = true;
+                newAmountAverageUSD.Text = "";
+                //newCostAverageUSD.Visible = true;
+                newCostAverageUSD.Text = "";                
+            }
+            ModalPopupExtender1.Show();
+        }
+
+        protected void getPeriodDetails(object sender, EventArgs e)
+        {
+            DateTime temp;
+            if (DateTime.TryParse(newDate.Text, out temp))
+            {
+                SalesReportingChild li = new SalesReportingChild();
+                newPeriod.Text = Convert.ToString(li.GetPeriodDetails(temp).Tables[0].Rows[0]["Period"]);
+                //((li.GetPeriodDetails(temp).Tables[0]).Rows).Items[0]).ItemArray[0]
+                //ddlAdjustmentType.DataTextField = "AdjustmentTypeName";
+                //ddlAdjustmentType.DataBind();
             }
             else
             {
-                newAmountAverageUSD.ReadOnly = true;
+
+            }
+            ModalPopupExtender1.Show();
+        }
+
+        protected void OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            string companyName = newCompanyName.SelectedValue.ToString();
+            string adjustmentTypeName = newAdjustmentType.SelectedValue.ToString();
+            if (companyName == "CooperSurgical" || companyName == "Cooper Genomics" || companyName == "ReproGenetics")
+            {
+                newAmountLCY.ReadOnly = true;
+                newAmountLCY.Visible = false;
                 newAmountSpotUSD.ReadOnly = true;
-                newCostAverageUSD.ReadOnly = true;
+                newAmountSpotUSD.Visible = false;
+                newCostLCY.ReadOnly = true;
+                newCostLCY.Visible = false;
                 newCostSpotUSD.ReadOnly = true;
+                newCostSpotUSD.Visible = false;
+                newAmountAverageUSD.ReadOnly = false;
+                newAmountAverageUSD.Visible = true;
+                newCostAverageUSD.ReadOnly = false;
+                newCostAverageUSD.Visible = true;
+            }
+           
+            else
+            {
+                newAmountAverageUSD.ReadOnly = true;
+                newAmountAverageUSD.Visible = false;
+                newAmountSpotUSD.ReadOnly = true;
+                newAmountSpotUSD.Visible = false;
+                newCostAverageUSD.ReadOnly = true;
+                newCostAverageUSD.Visible = false;
+                newCostSpotUSD.ReadOnly = true;
+                newCostSpotUSD.Visible = false;
                 newAmountLCY.ReadOnly = false;
+                newAmountLCY.Visible = true;
                 newCostLCY.ReadOnly = false;
+                newCostLCY.Visible = true;
             }
             SalesReportingChild li = new SalesReportingChild();
 
-            newAccountSubTypeName.Items.Insert(0, new ListItem("External Adjustment"));
+            newAccountSubTypeName.Items.Clear();
+            newAccountSubTypeName.Items.Insert(0, new ListItem("Select One"));
+            newAccountSubTypeName.Items.Insert(1, new ListItem("External Adjustment"));
+    
 
             newAdjustmentType.Items.Clear();
             newAdjustmentType.Items.Insert(0, new ListItem("Select One"));
@@ -124,7 +181,7 @@ namespace SalesReportingWebsite
 
             newSubCategoryName.Items.Clear();
             newSubCategoryName.Items.Insert(0, new ListItem("Select One"));
-            newSubCategoryName.DataSource = li.NewSubCategoryNameList(companyName).Tables[0];
+            newSubCategoryName.DataSource = li.NewSubCategoryNameList(adjustmentTypeName,companyName).Tables[0];
             newSubCategoryName.DataTextField = "SubCategoryName";
             newSubCategoryName.DataBind();
 
@@ -146,6 +203,13 @@ namespace SalesReportingWebsite
             newSubSegmentName.DataTextField = "SubSegmentName";
             newSubSegmentName.DataBind();
 
+            newSubBusinessUnitName.Items.Clear();
+            newSubBusinessUnitName.Items.Insert(0, new ListItem("Select One"));
+            newSubBusinessUnitName.DataSource = li.NewSubBusinessUnitName(adjustmentTypeName,companyName).Tables[0];
+            newSubBusinessUnitName.DataTextField = "SubBusinessUnitName";
+            newSubBusinessUnitName.DataBind();
+
+
             ModalPopupExtender1.Show();
 
         }
@@ -155,7 +219,7 @@ namespace SalesReportingWebsite
             bool isFormFilled = true;
             SalesReportingChild li = new SalesReportingChild();
             string date = Request.Form[newDate.UniqueID];
-            string period = newPeriod.SelectedValue.ToString();
+            string period = newPeriod.Text;
             string quantity = newQuantity.Text;
             string amountLCY = newAmountLCY.Text;
             string amountSpotUSD = newAmountSpotUSD.Text;
@@ -202,7 +266,7 @@ namespace SalesReportingWebsite
             if (isFormFilled)
             {
                 bool result = li.AddNewAdjustment(date, period, quantity, amountLCY, amountSpotUSD, amountAverageUSD, costLCY, costSpotUSD, costAverageUSD, comment, adjustmentType, countryName, subBusinessUnitName, companyName, subSegmentName, accountSubTypeName, subCategoryName, currencyName);
-                newPeriod.SelectedIndex = 0;
+                newPeriod.Text = "";
                 newDate.Text = "";
                 newQuantity.Text = "";
                 newAmountLCY.Text = "";
@@ -1414,26 +1478,83 @@ namespace SalesReportingWebsite
 
         protected void btnEditAll_Click(object sender, EventArgs e)
         {
+            SalesReportingChild li = new SalesReportingChild();
+
+            DataTable companyList = li.CompanyNameList().Tables[0];
+            DataTable accountSubTypeNameList = li.AdjustmentAccountSubTypeNameList().Tables[0];
+
             foreach (GridViewRow row in AdjustmentGridView.Rows)
             {
+                string companyName = (row.FindControl("lblpopCompanyName") as Label).Text;
+                DataTable countryNameList = li.AdjustmentCountryNameList(companyName).Tables[0];
                 if (row.RowType == DataControlRowType.DataRow)
                 {
+                    //Find the DropDownList in the Row
+                    DropDownList ddlCompanyNameList = (row.FindControl("ddlpopCompanyNames") as DropDownList);
+                    ddlCompanyNameList.DataSource = companyList;
+                    ddlCompanyNameList.DataTextField = "CompanyName";
+                    ddlCompanyNameList.DataValueField = "CompanyName";
+                    ddlCompanyNameList.DataBind();
+
+                    //Add Default Item in the DropDownList
+                    ddlCompanyNameList.Items.Insert(0, new ListItem("Select One"));
+
+                    //Select the Country of Customer in DropDownList
+                    companyName = (row.FindControl("lblpopCompanyName") as Label).Text;
+                    ddlCompanyNameList.Items.FindByValue(companyName).Selected = true;
+
+                    //Find the DropDownList in the Row
+                    DropDownList ddlCountryNameList = (row.FindControl("ddlpopCountryNames") as DropDownList);
+                    ddlCountryNameList.DataSource = countryNameList;
+                    ddlCountryNameList.DataTextField = "CountryName";
+                    ddlCountryNameList.DataValueField = "CountryName";
+                    ddlCountryNameList.DataBind();
+
+                    //Add Default Item in the DropDownList
+                    ddlCountryNameList.Items.Insert(0, new ListItem("Select One"));
+
+                    //Select the Country of Customer in DropDownList
+                    string countryName = (row.FindControl("lblpopCountryName") as Label).Text;
+                    ListItem item = ddlCountryNameList.Items.FindByValue(countryName);
+                    if(item!=null)
+                    {
+                        ddlCountryNameList.SelectedValue = countryName;
+
+                    }
+
+                    //Find the DropDownList in the Row
+                    DropDownList ddlAccountSubTypeNameList = (row.FindControl("ddlpopAccountSubTypeNames") as DropDownList);
+                    ddlAccountSubTypeNameList.DataSource = accountSubTypeNameList;
+                    ddlAccountSubTypeNameList.DataTextField = "AccountSubTypeName";
+                    ddlAccountSubTypeNameList.DataValueField = "AccountSubTypeName";
+                    ddlAccountSubTypeNameList.DataBind();
+
+                    //Add Default Item in the DropDownList
+                    ddlAccountSubTypeNameList.Items.Insert(0, new ListItem("Select One"));
+
+                    //Select the Country of Customer in DropDownList
+                    string accountSubTypeNames = (row.FindControl("lblpopAccountSubTypeName") as Label).Text;
+                    ddlAccountSubTypeNameList.Items.FindByValue(accountSubTypeNames).Selected = true;
+
                     bool isChecked = true;
                     for (int i = 1; i < row.Cells.Count; i++)
                     {
-                       // row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                        // row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
                         if (row.Cells[i].Controls.OfType<TextBox>().ToList().Count > 0)
                         {
                             row.Cells[i].Controls.OfType<TextBox>().FirstOrDefault().Visible = isChecked;
+                            if (row.Cells[i].Controls.OfType<Label>().ToList().Count > 0)
+                            {
+                                row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                            }
                         }
                         if (row.Cells[i].Controls.OfType<DropDownList>().ToList().Count > 0)
                         {
                             row.Cells[i].Controls.OfType<DropDownList>().FirstOrDefault().Visible = isChecked;
-                        }
-
-                        if (row.Cells[i].Controls.OfType<Label>().ToList().Count > 0)
-                        {
-                            row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                            if (row.Cells[i].Controls.OfType<Label>().ToList().Count > 0)
+                            {
+                                row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                            }
                         }
                     }
                 }
@@ -1452,12 +1573,17 @@ namespace SalesReportingWebsite
                 {
                     try
                     {
+                        bool isToUpdate = false;
                         li.AdjustmentID = Convert.ToInt32(AdjustmentGridView.DataKeys[row.RowIndex].Values[0]);
                         li.Frequency = rblMeasurementSystem.SelectedItem.Text.Substring(0, 1);
 
                         if (((TextBox)row.FindControl("popAdjustmentDate")).Text != string.Empty)
                         {
                             li.Date = Convert.ToDateTime((Request.Form[row.FindControl("popAdjustmentDate").UniqueID]));
+                            if (DateTime.Parse((row.FindControl("popAdjustmentDates") as Label).Text) != li.Date)
+                            {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1467,6 +1593,10 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentComment")).Text != string.Empty)
                         {
                             li.Comment = ((TextBox)row.FindControl("popAdjustmentComment")).Text;
+                            if ((row.FindControl("popAdjustmentComments") as Label).Text != li.Comment)
+                            {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1475,6 +1605,10 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentQuantity")).Text != string.Empty)
                         {
                             li.Quantity = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentQuantity")).Text);
+                            if (float.Parse((row.FindControl("popAdjustmentQuantities") as Label).Text) != li.Quantity)
+                            {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1483,6 +1617,10 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentAmount")).Text != string.Empty)
                         {
                             li.AmountLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentAmount")).Text);
+                            if (float.Parse((row.FindControl("popAdjustmentAmounts") as Label).Text) != li.AmountLCY)
+                            {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1492,6 +1630,10 @@ namespace SalesReportingWebsite
                         if (((TextBox)row.FindControl("popAdjustmentCost")).Text != string.Empty)
                         {
                             li.CostLCY = Convert.ToSingle(((TextBox)row.FindControl("popAdjustmentCost")).Text);
+                            if (float.Parse((row.FindControl("popAdjustmentCosts") as Label).Text) != li.CostLCY)
+                            {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1500,6 +1642,10 @@ namespace SalesReportingWebsite
                         if (((DropDownList)row.FindControl("ddlpopCountryNames")).SelectedValue != "Select One")
                         {
                             li.CountryName = ((DropDownList)row.FindControl("ddlpopCountryNames")).SelectedValue;
+                            if ((row.FindControl("lblpopCountryName") as Label).Text != li.CountryName)
+                            {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1509,6 +1655,10 @@ namespace SalesReportingWebsite
                         if (((DropDownList)row.FindControl("ddlpopCompanyNames")).SelectedValue != "Select One")
                         {
                             li.CompanyName = ((DropDownList)row.FindControl("ddlpopCompanyNames")).SelectedValue;
+                            if ((row.FindControl("lblpopCompanyName") as Label).Text != li.CompanyName)
+                            {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
@@ -1518,12 +1668,19 @@ namespace SalesReportingWebsite
                         if (((DropDownList)row.FindControl("ddlpopAccountSubTypeNames")).SelectedValue != "Select One")
                         {
                             li.AccountSubTypeName = ((DropDownList)row.FindControl("ddlpopAccountSubTypeNames")).SelectedValue;
+                            if ((row.FindControl("lblpopAccountSubTypeName") as Label).Text != li.AccountSubTypeName)
+                            {
+                                isToUpdate = true;
+                            }
                         }
                         else
                         {
                             li.AccountSubTypeName = String.Empty;
                         }
-                        li.UpdateAjustmentFrequency(li, memberships);
+                        if (isToUpdate)
+                        {
+                            li.UpdateAjustmentFrequency(li, memberships);
+                        }
                         ModalPopupExtender2.Show();
                     }
                     catch (Exception ex)
@@ -1534,7 +1691,35 @@ namespace SalesReportingWebsite
             }
             btnUpdateAll.Visible = false;
             btnEditAll.Visible = true;
-            this.BindGridView();
+            foreach (GridViewRow gridRow in AdjustmentGridView.Rows)
+            {
+                if (gridRow.RowType == DataControlRowType.DataRow)
+                {
+                    bool isChecked = false;
+                    for (int i = 1; i < gridRow.Cells.Count; i++)
+                    {
+                        // row.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                        if (gridRow.Cells[i].Controls.OfType<TextBox>().ToList().Count > 0)
+                        {
+                            gridRow.Cells[i].Controls.OfType<TextBox>().FirstOrDefault().Visible = isChecked;
+                            if (gridRow.Cells[i].Controls.OfType<Label>().ToList().Count > 0)
+                            {
+                                gridRow.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                            }
+                        }
+                        if (gridRow.Cells[i].Controls.OfType<DropDownList>().ToList().Count > 0)
+                        {
+                            gridRow.Cells[i].Controls.OfType<DropDownList>().FirstOrDefault().Visible = isChecked;
+                            if (gridRow.Cells[i].Controls.OfType<Label>().ToList().Count > 0)
+                            {
+                                gridRow.Cells[i].Controls.OfType<Label>().FirstOrDefault().Visible = !isChecked;
+                            }
+                        }
+                    }
+                }
+            }
+            BindAdjustmentGridView();
+            Response.Redirect(Request.Url.AbsoluteUri);
         }
     }
 }

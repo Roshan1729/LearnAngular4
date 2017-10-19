@@ -96,7 +96,7 @@ public class SalesReportingChild : SalesReportingCode
         return dsCommCode;
     }
 
-    
+
 
     public DataSet CompanyNameList()
     {
@@ -256,7 +256,7 @@ public class SalesReportingChild : SalesReportingCode
         {
             sqlConn.Close();
         }
-        return ds;       
+        return ds;
     }
 
     public DataSet AdjustmentCountryNameList(string companyName)
@@ -284,10 +284,10 @@ public class SalesReportingChild : SalesReportingCode
         {
             sqlConn.Close();
         }
-        return ds;       
+        return ds;
     }
 
-     public DataSet AdjustmentSegmentNameList(string companyName)
+    public DataSet AdjustmentSegmentNameList(string companyName)
     {
         DataSet ds = new DataSet();
         SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
@@ -312,10 +312,10 @@ public class SalesReportingChild : SalesReportingCode
         {
             sqlConn.Close();
         }
-        return ds;       
+        return ds;
     }
 
-     public DataSet AdjustmentAccountSubTypeNameList()
+    public DataSet AdjustmentAccountSubTypeNameList()
     {
         DataSet ds = new DataSet();
         SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
@@ -339,10 +339,10 @@ public class SalesReportingChild : SalesReportingCode
         {
             sqlConn.Close();
         }
-        return ds;       
+        return ds;
     }
 
-      public DataSet NewAdjustmentTypeList(string companyName)
+    public DataSet NewAdjustmentTypeList(string companyName)//, string adjustmentTypeName)
     {
         DataSet ds = new DataSet();
         SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
@@ -352,6 +352,7 @@ public class SalesReportingChild : SalesReportingCode
             {
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("CompanyName", companyName);
+               // cmd.Parameters.AddWithValue("AdjustmentTypeName", adjustmentTypeName);
                 sqlConn.Open();
                 using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                 {
@@ -367,10 +368,10 @@ public class SalesReportingChild : SalesReportingCode
         {
             sqlConn.Close();
         }
-        return ds;       
+        return ds;
     }
 
-    public DataSet NewSubCategoryNameList(string companyName)
+    public DataSet NewSubCategoryNameList(string adjustmentTypeName ,string companyName)
     {
         DataSet ds = new DataSet();
         SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
@@ -379,6 +380,7 @@ public class SalesReportingChild : SalesReportingCode
             using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_GetNewSubCategoryName", sqlConn))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("AdjustmentTypeName", adjustmentTypeName);
                 cmd.Parameters.AddWithValue("CompanyName", companyName);
                 sqlConn.Open();
                 using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
@@ -395,7 +397,7 @@ public class SalesReportingChild : SalesReportingCode
         {
             sqlConn.Close();
         }
-        return ds;       
+        return ds;
     }
 
     public DataSet NewCountryNameList(string companyName)
@@ -423,7 +425,7 @@ public class SalesReportingChild : SalesReportingCode
         {
             sqlConn.Close();
         }
-        return ds;       
+        return ds;
     }
 
     public DataSet NewCompanyData(string companyName)
@@ -451,6 +453,38 @@ public class SalesReportingChild : SalesReportingCode
         {
             sqlConn.Close();
         }
-        return ds;       
+        return ds;
     }
+
+
+    public DataSet NewSubBusinessUnitName(string adjustmentTypeName, string companyName)
+    {
+        DataSet ds = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_GetNewSubBusinessUnitName", sqlConn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("AdjustmentTypeName", adjustmentTypeName);
+                cmd.Parameters.AddWithValue("CompanyName", companyName);
+                sqlConn.Open();
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    adapter.Fill(ds);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return ds;
+    }
+
+
 }

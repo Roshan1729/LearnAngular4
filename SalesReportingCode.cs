@@ -550,7 +550,33 @@ public abstract class SalesReportingCode
             throw ex;
         }
     }
-    public void UpdateAjustmentFrequency(SalesReportingChild li, int memberships, bool isReverseChecked, bool isDuplicateChecked)
+
+    public void CreateMonthlyFrequencyData(int adjustmentID, bool isReverseChecked, bool isDuplicateChecked)
+    {        
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_UpdateAdjustmentMonthlyFrequency", sqlConn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("AdjustmentID", adjustmentID);
+                cmd.Parameters.AddWithValue("ReverseChecked", isReverseChecked);
+                cmd.Parameters.AddWithValue("DuplicateChecked", isDuplicateChecked);
+                cmd.Parameters.AddWithValue("UpdateUser", HttpContext.Current.User.Identity.Name);
+                sqlConn.Open();
+                cmd.ExecuteNonQuery();
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+    }
+    public void UpdateAjustmentFrequency(SalesReportingChild li, int memberships)
     {
         SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
         SqlCommand sqlCmd = new SqlCommand("dbo.Web_SR_UpdateAdjustmentTemplate", sqlConn);
@@ -560,8 +586,6 @@ public abstract class SalesReportingCode
         sqlCmd.Parameters.Add("@Frequency", SqlDbType.VarChar).Value = li.Frequency;
         sqlCmd.Parameters.Add("@AdjustmentDate", SqlDbType.DateTime).Value = li.Date;
         sqlCmd.Parameters.Add("@AdjustmentComment", SqlDbType.VarChar).Value = li.Comment;
-        sqlCmd.Parameters.Add("@ReverseChecked", SqlDbType.Bit) = isReverseChecked;
-        sqlCmd.Parameters.Add("@DuplicateChecked", SqlDbType.Bit) = isDuplicateChecked;        
 
         sqlCmd.Parameters.Add("@AdjustmentQuantity", SqlDbType.Float).Value = li.Quantity;
         if (li.AmountLCY == 0)
@@ -599,14 +623,14 @@ public abstract class SalesReportingCode
             sqlCmd.Parameters.Add("@CountryName", SqlDbType.VarChar).Value = li.CountryName;
         }
 
-        if (String.IsNullOrEmpty(li.SubBusinessUnitTypeName))
-        {
-            sqlCmd.Parameters.Add("@SubBusinessUnitTypeName", SqlDbType.VarChar).Value = DBNull.Value;
-        }
-        else
-        {
-            sqlCmd.Parameters.Add("@SubBusinessUnitTypeName", SqlDbType.VarChar).Value = li.SubBusinessUnitTypeName;
-        }
+        //if (String.IsNullOrEmpty(li.SubBusinessUnitTypeName))
+        //{
+        //    sqlCmd.Parameters.Add("@SubBusinessUnitTypeName", SqlDbType.VarChar).Value = DBNull.Value;
+        //}
+        //else
+        //{
+        //    sqlCmd.Parameters.Add("@SubBusinessUnitTypeName", SqlDbType.VarChar).Value = li.SubBusinessUnitTypeName;
+        //}
 
         if (String.IsNullOrEmpty(li.CompanyName))
         {
@@ -617,14 +641,14 @@ public abstract class SalesReportingCode
             sqlCmd.Parameters.Add("@CompanyName", SqlDbType.VarChar).Value = li.CompanyName;
         }
 
-        if (String.IsNullOrEmpty(li.SubSegmentName))
-        {
-            sqlCmd.Parameters.Add("@SubSegmentName", SqlDbType.VarChar).Value = DBNull.Value;
-        }
-        else
-        {
-            sqlCmd.Parameters.Add("@SubSegmentName", SqlDbType.VarChar).Value = li.SubSegmentName;
-        }
+        //if (String.IsNullOrEmpty(li.SubSegmentName))
+        //{
+        //    sqlCmd.Parameters.Add("@SubSegmentName", SqlDbType.VarChar).Value = DBNull.Value;
+        //}
+        //else
+        //{
+        //    sqlCmd.Parameters.Add("@SubSegmentName", SqlDbType.VarChar).Value = li.SubSegmentName;
+        //}
 
         if (String.IsNullOrEmpty(li.AccountSubTypeName))
         {
@@ -635,14 +659,14 @@ public abstract class SalesReportingCode
             sqlCmd.Parameters.Add("@AccountSubTypeName", SqlDbType.VarChar).Value = li.AccountSubTypeName;
         }
 
-        if (String.IsNullOrEmpty(li.SubCategoryName))
-        {
-            sqlCmd.Parameters.Add("@SubCategoryName", SqlDbType.VarChar).Value = DBNull.Value;
-        }
-        else
-        {
-            sqlCmd.Parameters.Add("@SubCategoryName", SqlDbType.VarChar).Value = li.SubCategoryName;
-        }
+        //if (String.IsNullOrEmpty(li.SubCategoryName))
+        //{
+        //    sqlCmd.Parameters.Add("@SubCategoryName", SqlDbType.VarChar).Value = DBNull.Value;
+        //}
+        //else
+        //{
+        //    sqlCmd.Parameters.Add("@SubCategoryName", SqlDbType.VarChar).Value = li.SubCategoryName;
+        //}
 
         try
         {
@@ -927,4 +951,32 @@ public abstract class SalesReportingCode
         return ds;
     }
 
+    public DataSet GetPeriodDetails(DateTime newDate)
+    {
+
+        DataSet ds = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_AdjustmentNewPeriodDetails", sqlConn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("NewDate", newDate);
+                sqlConn.Open();
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    adapter.Fill(ds);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return ds;
+    }
 }
