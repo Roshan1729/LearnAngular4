@@ -40,19 +40,24 @@ namespace SalesReportingWebsite
                     ddlBusinessUnitName.DataTextField = "BusinessUnitName";
                     ddlBusinessUnitName.DataBind();
 
+                    ddlBusinessUnitName.DataSource = li.BusinessUnitNameist().Tables[0];
+                    ddlBusinessUnitName.DataTextField = "BusinessUnitName";
+                    ddlBusinessUnitName.DataBind();
+
+
                     ddlCompanyName.DataSource = li.CompanyNameList().Tables[0];
                     ddlCompanyName.DataTextField = "CompanyName";
                     ddlCompanyName.DataBind();
 
-                    newCompanyName.DataSource = li.CompanyNameList().Tables[0];
+                    newCompanyName.DataSource = li.CompanyEffectiveNameList().Tables[0];
                     newCompanyName.DataTextField = "CompanyName";
                     newCompanyName.DataBind();
 
-                    newBusinessUnitName.DataSource = li.BusinessUnitNameist().Tables[0];
+                    newBusinessUnitName.DataSource = li.BusinessUnitEffectiveNameist().Tables[0];
                     newBusinessUnitName.DataTextField = "BusinessUnitName";
                     newBusinessUnitName.DataBind();
 
-                    newSubSegmentName.DataSource = li.SubSegmentNameList().Tables[0];
+                    newSubSegmentName.DataSource = li.SubSegmentNameEffectiveList().Tables[0];
                     newSubSegmentName.DataTextField = "SubSegmentName";
                     newSubSegmentName.DataBind();
 
@@ -369,7 +374,7 @@ namespace SalesReportingWebsite
                     }
                     else if (res.Equals("Success"))
                     {
-                        display = "A new SubSegment is successfully added in the database";
+                        display = "A new SubBusinessUnit is successfully added in the database";
                         ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
                         isFormFilled = true;
                     }
