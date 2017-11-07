@@ -109,7 +109,7 @@
             Width="98%" Style="margin: 0% 1% 0% 1%" OnRowEditing="SalesRepresentative_RowEditing"
             OnRowCancelingEdit="SalesRepresentative_RowCancelingEdit" OnRowDataBound="SalesRepresentative_RowDataBound"
             OnRowUpdating="SalesRepresentative_RowUpdating"  AllowPaging="true"
-            PageSize="10" AllowSorting="true"
+            PageSize="20" AllowSorting="true"
             OnPageIndexChanging="SalesRepresentative_PageIndexChanging" CssClass="SegmentGV"
             OnSorting="SalesRepresentative_SortData" DataKeyNames="SalesRepID">
             
@@ -532,6 +532,7 @@
                 <asp:Table ID="Table2" runat="server">
                     <asp:TableHeaderRow TableSection="TableHeader">
                         <asp:TableCell runat="server" ColumnSpan="2">Sales Representative Information</asp:TableCell>
+                         <asp:TableCell runat="server" ColumnSpan="2"></asp:TableCell>
                         <asp:TableCell runat="server" ColumnSpan="2">Groupings</asp:TableCell>
                     </asp:TableHeaderRow>
                     <asp:TableRow runat="server">
@@ -547,10 +548,13 @@
                         
                         <asp:TableCell runat="server">Sales Rep Type:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newSalesRepType" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged = "OnSelectedIndexChanged" AutoPostBack="true">
+                            <asp:DropDownList ID="newSalesRepType" runat="server"  AppendDataBoundItems="true">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
+
+                   
+
 
                     </asp:TableRow>
                     <asp:TableRow runat="server">
@@ -611,6 +615,9 @@
                         <asp:TableCell runat="server">
 
                         </asp:TableCell>
+                         <asp:TableCell runat="server">
+
+                        </asp:TableCell>
                       <asp:TableCell runat="server">Sub Business Unit Name:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="newSubBusinessUnitName" runat="server" AppendDataBoundItems="true">
@@ -644,6 +651,8 @@
                         
                         
                         <asp:TableCell runat="server"></asp:TableCell>
+                         <asp:TableCell runat="server"></asp:TableCell>
+                         <asp:TableCell runat="server"></asp:TableCell>
                        
                          <asp:TableCell runat="server">Company Name:</asp:TableCell>
                         <asp:TableCell runat="server">
@@ -654,28 +663,28 @@
                        
                     </asp:TableRow>
                    
-                    <asp:TableRow runat="server">
+<%--                    <asp:TableRow runat="server">
                         
                         <asp:TableCell runat="server"></asp:TableCell>
                         <asp:TableCell runat="server"></asp:TableCell>
-                    </asp:TableRow>
+                    </asp:TableRow>--%>
                 </asp:Table>
         <asp:Table ID="Table3" runat="server">
 
                       <asp:TableHeaderRow TableSection="TableHeader">
-                        <asp:TableCell runat="server" ColumnSpan="3">Sales Representative Conatc</asp:TableCell>
+                        <asp:TableCell runat="server" ColumnSpan="3">Sales Representative Conatct</asp:TableCell>
                     </asp:TableHeaderRow>
 
                   <asp:TableRow runat="server">
                  
-                        <asp:TableCell runat="server">Address Line 1:</asp:TableCell>
+                        <asp:TableCell runat="server" HorizontalAlign="Left">Address Line 1:</asp:TableCell>
                          <asp:TableCell runat="server">
                        <asp:TextBox ID="newAddress1" runat="server"></asp:TextBox>
                      </asp:TableCell>
                       
                         <asp:TableCell runat="server">Customer Number/Ship To:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newCustomerNumber" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged = "OnSelectedIndexChanged" AutoPostBack="true">
+                            <asp:DropDownList ID="newCustomerNumber" runat="server" AppendDataBoundItems="true" >
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
@@ -749,7 +758,7 @@
                  
                         <asp:TableCell runat="server">State Province:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newStateProvinceName" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged = "OnSelectedIndexChanged" AutoPostBack="true">
+                            <asp:DropDownList ID="newStateProvinceName" runat="server" AppendDataBoundItems="true">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
@@ -790,7 +799,7 @@
                  
                          <asp:TableCell runat="server">Country:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newCountryName" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged = "OnSelectedIndexChanged" AutoPostBack="true">
+                            <asp:DropDownList ID="newCountryName" runat="server" AppendDataBoundItems="true" >
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
@@ -802,7 +811,7 @@
 
                       <asp:TableCell runat="server">Global Address:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newGlobalAddress" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged = "OnSelectedIndexChanged" AutoPostBack="true">
+                            <asp:DropDownList ID="newGlobalAddress" runat="server" AppendDataBoundItems="true" >
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>

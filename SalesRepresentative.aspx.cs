@@ -28,21 +28,13 @@ namespace SalesReportingWebsite
 
                     DataTable table = new DataTable();
 
-
-
-                    ddlCompanyName.DataSource = li.CompanyNameList().Tables[0];
-                    ddlCompanyName.DataTextField = "CompanyName";
-                    ddlCompanyName.DataBind();
-
                     ddlSalesRepLastName.DataSource = li.LastNameList().Tables[0];
                     ddlSalesRepLastName.DataTextField = "SalesRepLastName";
                     ddlSalesRepLastName.DataBind();
 
-
                     ddlSalesRepTypeName.DataSource = li.SalesRepTypeNameList().Tables[0];
                     ddlSalesRepTypeName.DataTextField = "SalesRepTypeName";
                     ddlSalesRepTypeName.DataBind();
-
 
                     ddlTerritoryName.DataSource = li.TerritoryNameList().Tables[0];
                     ddlTerritoryName.DataTextField = "TerritoryName";
@@ -64,6 +56,10 @@ namespace SalesReportingWebsite
                     ddlBusinessUnitName.DataTextField = "BusinessUnitName";
                     ddlBusinessUnitName.DataBind();
 
+                    ddlCompanyName.DataSource = li.CompanyNameList().Tables[0];
+                    ddlCompanyName.DataTextField = "CompanyName";
+                    ddlCompanyName.DataBind();
+
                     BindGridView();
                 }
             }
@@ -71,22 +67,41 @@ namespace SalesReportingWebsite
 
         #region EventHandling
 
+        protected void chkBoxResetCheckedChanged(object sender, EventArgs e)
+        {
+            if (SalesRepresentativeGridView.EditIndex >= -1)
+            {
+                SalesRepresentativeGridView.EditIndex = -1;
+            }
+
+            ddlSalesRepLastName.SelectedIndex = 0;
+            ddlSalesRepTypeName.SelectedIndex = 0;
+            ddlTerritoryName.SelectedIndex = 0;
+            ddlRegionName.SelectedIndex = 0;
+            ddlDistributionRegionName.SelectedIndex = 0;
+            ddlSubBusinessUnitName.SelectedIndex = 0;
+            ddlBusinessUnitName.SelectedIndex = 0;
+            ddlCompanyName.SelectedIndex = 0;
+            BindGridView();
+        }
+
         protected void SalesRepresentative_RowEditing(object sender, GridViewEditEventArgs e)
         {
             SalesRepresentativeGridView.EditIndex = e.NewEditIndex;
-            
+
             int index = e.NewEditIndex;
             GridViewRow row = SalesRepresentativeGridView.Rows[e.NewEditIndex];
-          
+
             BindGridView();
         }
 
         protected void SalesRepresentative_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             SalesRepresentativeGridView.EditIndex = -1;
-           
+
             BindGridView();
         }
+
 
 
         protected void SalesRepresentative_RowUpdating(object sender, GridViewUpdateEventArgs e)
@@ -106,23 +121,23 @@ namespace SalesReportingWebsite
                     {
                         li.Title = Convert.ToString(((TextBox)row.FindControl("Title")).Text);
                     }
-                    else
-                    {
-                        display = "Title cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "Title cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (((TextBox)row.FindControl("SalesRepCompanyName")).Text != string.Empty)
                     {
                         li.SalesRepCompanyName = Convert.ToString(((TextBox)row.FindControl("SalesRepCompanyName")).Text);
                     }
-                    else
-                    {
-                        display = "SalesRep Company Name cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "SalesRep Company Name cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (((DropDownList)row.FindControl("CompanyName")).SelectedValue != "Select One")
                     {
@@ -146,7 +161,7 @@ namespace SalesReportingWebsite
                         isFormFilled = false;
                     }
 
-                    if(((DropDownList)row.FindControl("TerritoryName")).SelectedValue != "Select One")
+                    if (((DropDownList)row.FindControl("TerritoryName")).SelectedValue != "Select One")
                     {
                         li.TerritoryName = ((DropDownList)row.FindControl("TerritoryName")).SelectedValue;
                     }
@@ -198,88 +213,88 @@ namespace SalesReportingWebsite
                     {
                         li.VoiceMailExtension = Convert.ToString(((TextBox)row.FindControl("VoiceMailExtension")).Text);
                     }
-                    else
-                    {
-                        display = "VoiceMailExtension cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "VoiceMailExtension cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (((TextBox)row.FindControl("FaxNumber")).Text != string.Empty)
                     {
                         li.FaxNumber = Convert.ToString(((TextBox)row.FindControl("FaxNumber")).Text);
                     }
-                    else
-                    {
-                        display = "FaxNumber cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "FaxNumber cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
                     if (((TextBox)row.FindControl("MobilePhone")).Text != string.Empty)
                     {
                         li.MobilePhone = Convert.ToString(((TextBox)row.FindControl("MobilePhone")).Text);
                     }
-                    else
-                    {
-                        display = "MobilePhone cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "MobilePhone cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
                     if (((TextBox)row.FindControl("Pager")).Text != string.Empty)
                     {
                         li.Pager = Convert.ToString(((TextBox)row.FindControl("Pager")).Text);
                     }
-                    else
-                    {
-                        display = "Pager cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "Pager cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (((TextBox)row.FindControl("PersonalCellPhone")).Text != string.Empty)
                     {
                         li.PersonalCellPhone = Convert.ToString(((TextBox)row.FindControl("PersonalCellPhone")).Text);
                     }
-                    else
-                    {
-                        display = "PersonalCellPhone cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "PersonalCellPhone cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (((TextBox)row.FindControl("InternationalPhone")).Text != string.Empty)
                     {
                         li.InternationalPhone = Convert.ToString(((TextBox)row.FindControl("InternationalPhone")).Text);
                     }
-                    else
-                    {
-                        display = "InternationalPhone cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "InternationalPhone cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
 
                     if (((TextBox)row.FindControl("InternationalFax")).Text != string.Empty)
                     {
                         li.InternationalFax = Convert.ToString(((TextBox)row.FindControl("InternationalFax")).Text);
                     }
-                    else
-                    {
-                        display = "InternationalFax cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "InternationalFax cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (((TextBox)row.FindControl("InternationalCell")).Text != string.Empty)
                     {
                         li.InternationalCell = Convert.ToString(((TextBox)row.FindControl("InternationalCell")).Text);
                     }
-                    else
-                    {
-                        display = "InternationalCell cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "InternationalCell cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
                     if (((TextBox)row.FindControl("PrimaryEmail")).Text != string.Empty)
                     {
                         li.PrimaryEmail = Convert.ToString(((TextBox)row.FindControl("PrimaryEmail")).Text);
@@ -295,16 +310,12 @@ namespace SalesReportingWebsite
                     {
                         li.SecondaryEmail = Convert.ToString(((TextBox)row.FindControl("SecondaryEmail")).Text);
                     }
-                    else
-                    {
-                        display = "SecondaryEmail cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
-
-
-
-
+                    //else
+                    //{
+                    //    display = "SecondaryEmail cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("EffectiveDate").UniqueID]))))
                     {
@@ -335,7 +346,34 @@ namespace SalesReportingWebsite
                         isFormFilled = false;
                     }
 
-                    
+                    if (isFormFilled)
+                    {
+                        DataSet result = li.UpdateSKPickingBoard(li, memberships);
+
+                        string res = Convert.ToString(result.Tables[0].Rows[0].ItemArray[0]);
+
+                        if (res.Equals("Duplicate CompanyKey"))
+                        {
+                            display = "Company Key already exists in the database";
+                            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                            isFormFilled = false;
+                        }
+                        else if (res.Equals("Duplicate CompanyName"))
+                        {
+                            display = "Company Name already exists in the database";
+                            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                            isFormFilled = false;
+                        }
+
+                        else if (res.Equals("Success"))
+                        {
+                            display = "A new Sales Representative is successfully added in the database";
+                            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                            isFormFilled = true;
+                        }
+                    }
+
+
                 }
                 catch (Exception ex)
                 {
@@ -343,20 +381,9 @@ namespace SalesReportingWebsite
                 }
 
                 SalesRepresentativeGridView.EditIndex = -1;
-                
+
                 BindGridView();
             }
-        }
-
-        protected void SalesRepresentative_SortData(object sender, GridViewSortEventArgs e)
-        {
-            if (SalesRepresentativeGridView.EditIndex >= -1)
-            {
-                SalesRepresentativeGridView.EditIndex = -1;
-            }
-
-            BindGridView();
-            SortGrid(sender, e);
         }
 
         protected void SalesRepresentative_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -365,8 +392,6 @@ namespace SalesReportingWebsite
             {
                 SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
 
-
-              
                 //Find the DropDownList in the Row
                 DropDownList ddlSalesRepTypeNameList = (e.Row.FindControl("SalesRepTypeName") as DropDownList);
                 ddlSalesRepTypeNameList.DataSource = li.SalesRepTypeNameList().Tables[0];
@@ -380,7 +405,6 @@ namespace SalesReportingWebsite
                 //Select the Country of Customer in DropDownList
                 string salesRepTypeNames = (e.Row.FindControl("lblSalesRepTypeName") as Label).Text;
                 ddlSalesRepTypeNameList.Items.FindByValue(salesRepTypeNames).Selected = true;
-
 
                 //Find the DropDownList in the Row
                 DropDownList ddlTerritoryNameList = (e.Row.FindControl("TerritoryName") as DropDownList);
@@ -483,45 +507,37 @@ namespace SalesReportingWebsite
             PageGrid(sender, e);
         }
 
-        protected void chkBoxResetCheckedChanged(object sender, EventArgs e)
+        protected void SalesRepresentative_SortData(object sender, GridViewSortEventArgs e)
         {
             if (SalesRepresentativeGridView.EditIndex >= -1)
             {
                 SalesRepresentativeGridView.EditIndex = -1;
             }
-            
-            ddlCompanyName.SelectedIndex = 0;
-            ddlSalesRepLastName.SelectedIndex = 0;
-            ddlSalesRepTypeName.SelectedIndex = 0;
-            ddlTerritoryName.SelectedIndex = 0;
-            ddlRegionName.SelectedIndex = 0;
-            ddlDistributionRegionName.SelectedIndex = 0;
-            ddlSubBusinessUnitName.SelectedIndex = 0;
-            ddlBusinessUnitName.SelectedIndex = 0;
+
             BindGridView();
+            SortGrid(sender, e);
         }
 
         #endregion
         protected void btnSaveNewSalesRepresentative_Click(object sender, EventArgs e)
         {
-            bool isFormFilled = true;
-            string display = "";
-            SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
+        //    bool isFormFilled = true;
+        //    string display = "";
+        //    SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
 
-           // string companyKey = newCompanyKey.Text;
-            //string companyName = newCompanyName.Text;
-            //string companyLocalCurrency = newCompanyLocalCurrency.Text;
-            //string subSegmentName = newSubSegmentName.SelectedValue.ToString();
-           // string effectiveDate = Request.Form[newEffectiveDate.UniqueID];
+        //    string companyKey = newCompanyKey.Text;
+        //    string companyName = newCompanyName.Text;
+        //    string companyLocalCurrency = newCompanyLocalCurrency.Text;
+        //    string subSegmentName = newSubSegmentName.SelectedValue.ToString();
+        //    string effectiveDate = Request.Form[newEffectiveDate.UniqueID];
 
-
-            //if (String.IsNullOrEmpty(effectiveDate) || String.IsNullOrEmpty(companyKey)
-            //    || String.IsNullOrEmpty(companyName) || String.IsNullOrEmpty(companyLocalCurrency) || String.IsNullOrEmpty(subSegmentName))
-            //{
-            //    display = "Please select all the mandatory fields ";
-            //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-            //    isFormFilled = false;
-            //}
+        //    if (String.IsNullOrEmpty(effectiveDate) || String.IsNullOrEmpty(companyKey)
+        //       || String.IsNullOrEmpty(companyName) || String.IsNullOrEmpty(companyLocalCurrency) || String.IsNullOrEmpty(subSegmentName))
+        //    {
+        //        display = "Please select all the mandatory fields ";
+        //        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+        //        isFormFilled = false;
+        //    }
 
 
         //    if (isFormFilled)
@@ -560,21 +576,21 @@ namespace SalesReportingWebsite
         //    }
         }
 
-        //protected void btnAddNewSalesRepresentative_Click(object sender, EventArgs e)
-        //{
-        //    ModalPopupExtender1.Show();
-        //}
+        protected void btnAddNewSalesRepresentative_Click(object sender, EventArgs e)
+        {
+            ModalPopupExtender1.Show();
+        }
 
-        //protected void ddl_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    if (SalesRepresentativeGridView.EditIndex >= -1)
-        //    {
-        //        SalesRepresentativeGridView.EditIndex = -1;
-        //    }
+        protected void ddl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SalesRepresentativeGridView.EditIndex >= -1)
+            {
+                SalesRepresentativeGridView.EditIndex = -1;
+            }
 
-           
-        //    BindGridView();
-        //}
+
+            BindGridView();
+        }
 
         private void BindGridView()
         {
@@ -586,11 +602,11 @@ namespace SalesReportingWebsite
             string salesRepTypeName = ddlSalesRepTypeName.SelectedValue.ToString();
             string territoryName = ddlTerritoryName.SelectedValue.ToString();
             string regionName = ddlRegionName.SelectedValue.ToString();
-           // string distributionRegionName = ddlDistributionRegionName.SelectedValue.ToString();
+            // string distributionRegionName = ddlDistributionRegionName.SelectedValue.ToString();
             string subBusinessUnitName = ddlSubBusinessUnitName.SelectedValue.ToString();
             string businessUnitName = ddlBusinessUnitName.SelectedValue.ToString();
 
-            DataSet ds = obj.GetSKPickingBoard2(lastName, salesRepTypeName, territoryName, regionName,  subBusinessUnitName, businessUnitName, companyName);//distributionRegionName,
+            DataSet ds = obj.GetSKPickingBoard2(lastName, salesRepTypeName, territoryName, regionName, subBusinessUnitName, businessUnitName, companyName);//distributionRegionName,
             SalesRepresentativeGridView.DataSource = ds.Tables[0];
             SalesRepresentativeGridView.DataBind();
             count = ds.Tables[0].Rows.Count;
