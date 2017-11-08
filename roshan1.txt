@@ -1,244 +1,175 @@
-USE [CSIDW]
-GO
-/****** Object:  StoredProcedure [dbo].[Web_SR_AddNewSubBusinessUnit]    Script Date: 10/17/2017 8:27:02 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+.submit {
+    margin-right: -5px;
+    height: 30px;
+}
 
+header {
+    width: 1950px;
+}
 
-ALTER PROCEDURE [dbo].[Web_SR_AddNewSubBusinessUnit] 
-	 @SubBusinessUnitCode INT = NULL
-	 ,@SubBusinessUnitName NVARCHAR(100) = NULL
-	 ,@CompanyName NVARCHAR(100) = NULL
-	 ,@BusinessUnitName NVARCHAR(100)=NULL
-	,@SubBusinessUnitManager NVARCHAR(100) = NULL
-	,@EffectiveDate DATETIME
-AS
-SET NOCOUNT ON;
-DECLARE @BusinessUnitID INT =NULL;
-DECLARE @CompanyID INT = NULL;
-DECLARE @SubBusinessUnitManagerID  INT=NULL;
-DECLARE @SubBusinessUnitID INT=NULL;
+#MainContent_Table1 td {
+    width: 200px;
+}
 
-IF (@CompanyName IS NOT NULL)
-BEGIN
-	SET @CompanyID = (
-			SELECT TOP 1 [CompanyID]
-			FROM [dbo].[Company]
-			WHERE [CompanyName] = @CompanyName
-			);
-END
+select {
+    max-width: 95px;
+    min-width: 95px;
+}
 
-IF (@BusinessUnitName IS NOT NULL)
-BEGIN
-	SET @BusinessUnitID = (
-			SELECT TOP 1 [BusinessUnitID]
-			FROM [dbo].[BusinessUnit]
-			WHERE [BusinessUnitName] = @BusinessUnitName
-			);
-END
+input[type=text] {
+      max-width: 80px;
+    min-width: 80px;
+}
 
-IF (@SubBusinessUnitManager IS NOT NULL)
-BEGIN
-	SET @SubBusinessUnitManagerID = (
-			SELECT TOP 1 [CompanyID]
-			FROM [dbo].[Company]
-			WHERE [CompanyName] = @CompanyName
-			);
-END
+.SegmentGV input[type=text] {
+    max-width: 200px;
+    min-width: 200px;
+}
 
-IF EXISTS (SELECT [SubBusinessUnitCode] FROM [CSIDW].[dbo].[SubBusinessUnit] 
-WHERE LOWER([SubBusinessUnitCode]) = RTRIM(LTRIM(LOWER(@SubBusinessUnitCode))) AND [ExpirationDate] IS NULL
- AND [SubBusinessUnitID] != @SubBusinessUnitID )
-BEGIN
-	SELECT 'Duplicate SubBusinessUnitCode'
-END
-ELSE 
-BEGIN
-IF EXISTS (SELECT [SubBusinessUnitName] FROM [CSIDW].[dbo].[SubBusinessUnit] 
-WHERE LOWER([SubBusinessUnitName]) = RTRIM(LTRIM(LOWER(@SubBusinessUnitName))) AND [ExpirationDate] IS NULL
- AND [SubBusinessUnitID] != @SubBusinessUnitID )
-BEGIN
-	SELECT 'Duplicate SubBusinessUnitName'
-END
-ELSE 
-BEGIN 
-INSERT INTO [CSIDW].[dbo].[SubBusinessUnit] (
-	   [SubBusinessUnitCode]
-      ,[SubBusinessUnitName]
-	  ,[SubBusinessUnitManagerID]
-	  ,[BusinessUnitID]
-	  ,[CompanyID]
-      ,[EffectiveDate]
-	)
-VALUES (
-	@SubBusinessUnitCode
-	,@SubBusinessUnitName
-	,@SubBusinessUnitManagerID
-	,@BusinessUnitID
-	,@CompanyID
-	,@EffectiveDate
-	);
+#MainContent_Table1 td select {
+    width: 120px;
+}
 
-	SELECT 'Success'
-END
-END
+.w3-red, .w3-hover-red:hover {
+    color: #fff !important;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    font-size: 30px;
+    background-color: #2a3763 !important;
+}
 
+.w3-container, .w3-panel {
+    padding: 0.01em 16px;
+}
+.gridHeader th {
+    min-width:80px;
+}
 
-----------------------------------------
+.active {
+    background-color: #3e66a8;
+    border: none;
+    color: white;
+}
 
+.DateLabel {
+    min-width: 110px;
+    max-width: 110px;
+}
 
-USE [CSIDW]
-GO
-/****** Object:  StoredProcedure [dbo].[Web_SR_UpdateSubBusinessUnits]    Script Date: 10/17/2017 8:26:40 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+.dateCell {
+    width: 180px;
+}
 
-ALTER PROCEDURE [dbo].[Web_SR_UpdateSubBusinessUnits]
-     @SubBusinessUnitID INT = NULL
-	 ,@SubBusinessUnitCode INT = NULL
-	 ,@SubBusinessUnitName NVARCHAR(100) = NULL
-	,@EffectiveDate DATETIME
-	,@ExpirationDate DATETIME = NULL
-	,@CompanyName NVARCHAR(100) = NULL
-	,@SubBusinessUnitManager NVARCHAR(100) = NULL
-	,@BusinessUnitName NVARCHAR(100)=NULL
-	,@UpdateUser NVARCHAR(100) = NULL
-AS
-SET NOCOUNT ON;
+body {
+    font-size: .80em;
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    color: #696969;
+}
 
-DECLARE @CompanyID INT = NULL;
-DECLARE @SubBusinessUnitManagerID  INT=NULL;
-DECLARE @BusinessUnitID INT=NULL;
+.title {
+    display: block;
+    float: left;
+    text-align: left;
+    width: auto;
+}
 
-IF (@CompanyName IS NOT NULL)
-BEGIN
-	SET @CompanyID = (
-			SELECT TOP 1 [CompanyID]
-			FROM [dbo].[Company]
-			WHERE [CompanyName] = @CompanyName
-			);
-END
+.header {
+    background-color: #4b6c9e;
+    width: 100%;
+    height: 60px;
+    font-size: 1.1em;
+    color: White;
+    position: relative;
+}
 
-IF (@BusinessUnitName IS NOT NULL)
-BEGIN
-	SET @BusinessUnitID = (
-			SELECT TOP 1 [BusinessUnitID]
-			FROM [dbo].[BusinessUnit]
-			WHERE [BusinessUnitName] = @BusinessUnitName
-			);
-END
+.gridPager {
+    padding: 1px 8px 2px 8px;
+    font-size: 14px;
+}
 
-IF (@SubBusinessUnitManager IS NOT NULL)
-BEGIN
-	SET @SubBusinessUnitManagerID = (
-			SELECT TOP 1 [CompanyID]
-			FROM [dbo].[Company]
-			WHERE [CompanyName] = @CompanyName
-			);
-END
+.gridHeader {
+    border-color: #4b6c9e;
+    border-top-style: inset;
+}
 
-IF EXISTS (SELECT [SubBusinessUnitCode] FROM [CSIDW].[dbo].[SubBusinessUnit] 
-WHERE LOWER([SubBusinessUnitCode]) = RTRIM(LTRIM(LOWER(@SubBusinessUnitCode))) AND [ExpirationDate] IS NULL
- AND [SubBusinessUnitID] != @SubBusinessUnitID )
-BEGIN
-	SELECT 'Duplicate SubBusinessUnitCode'
-END
-ELSE 
-BEGIN
-IF EXISTS (SELECT [SubBusinessUnitName] FROM [CSIDW].[dbo].[SubBusinessUnit] 
-WHERE LOWER([SubBusinessUnitName]) = RTRIM(LTRIM(LOWER(@SubBusinessUnitName))) AND [ExpirationDate] IS NULL
- AND [SubBusinessUnitID] != @SubBusinessUnitID )
-BEGIN
-	SELECT 'Duplicate SubBusinessUnitName'
-END
-ELSE 
-BEGIN 
-UPDATE [CSIDW].[dbo].[SubBusinessUnit]
-SET [EffectiveDate] = @EffectiveDate
-	,[BusinessUnitID] = @BusinessUnitID
-	,[SubBusinessUnitCode]=@SubBusinessUnitCode
-	,[SubBusinessUnitName]=@SubBusinessUnitName
-	,[ExpirationDate] = @ExpirationDate
-	,[SubBusinessUnitManagerID] = @SubBusinessUnitManagerID
-	,[CompanyID] = @CompanyID
-	,[UpdateUser] = @UpdateUser
-	,[UpdateDate] = GETDATE()
-WHERE [SubBusinessUnitID] = @SubBusinessUnitID
+.errorPage {
+    width: 100%;
+    height: 60px;
+    font-size: 1.1em;
+    color: Red;
+    position: relative;
+}
 
-	SELECT 'Success'
-END
-END
+.rightAlignment {
+    text-align: right;
+    padding-right: 30px;
+    position: relative;
+}
 
+/* HEADINGS   
+----------------------------------------------------------*/
 
+　
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5em;
+    color: #ffffff;
+    font-variant: small-caps;
+    text-transform: none;
+    font-weight: 200;
+}
 
-----------------------------------------
+h1 {
+    font-size: 2.5em;
+    vertical-align: middle;
+    padding-left: 510px;
+}
 
-USE [CSIDW]
-GO
-/****** Object:  StoredProcedure [dbo].[Web_SR_GetSubBusinessUnitManagerName]    Script Date: 10/17/2017 8:26:27 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
+h4 {
+    /*
+   font-size: 1.5em;
+    font-weight: 600; */
+    color: Black;
+    font-weight: 100;
+}
 
-ALTER PROCEDURE [dbo].[Web_SR_GetSubBusinessUnitManagerName]
-AS
-   
+h2 {
+    background-color: #ffffff;
+    text-align: center;
+    color: Red;
+    font-weight: 300;
+}
 
-    SET NOCOUNT ON; 
+ .modalBackground
+    {
+        background-color: Black;
+        filter: alpha(opacity=90);
+        opacity: 0.8;
+    }
+    .modalPopup
+    {
+        background-color: #FFFFFF;
+        border-width: 3px;
+        padding: 10px;
+    }
+    .modalPopupSegment{
+        background-color: #FFFFFF;
+        border-width: 3px;
+        padding: 10px;
+        width:500px;
+    }
+#MainContent_Table2, #MainContent_Table2 td,#MainContent_Table2 th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
 
-SELECT DISTINCT [SalesRepFirstName]+ ' ' +[SalesRepLastName] AS [SubBusinessUnitManagerName] FROM [SalesRep] SR
-INNER JOIN [CSIDW].[dbo].[SalesRepContact] SRC ON SRC.[SalesRepID] = SR.[SalesRepID] AND SRC.[ActiveRecord] = 'A' 
- INNER JOIN [CSIDW].[dbo].[SalesRepType] SRT ON SRT.[SalesRepTypeID] = SRC.[SalesRepTypeID] AND SRT.[SalesRepTypeCode] IN ('M', 'B')
+#MainContent_Table2 {
+    border-collapse: collapse;
+    width: 100%;
+}
 
-
-
--------------------
-
-
-USE [CSIDW]
-GO
-/****** Object:  StoredProcedure [dbo].[Web_SR_GetSubBusinessUnitRecords]    Script Date: 10/15/2017 3:26:26 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-
-ALTER PROCEDURE [dbo].[Web_SR_GetSubBusinessUnitRecords]
-		@SubBusinessUnitManagerName nvarchar(100) = NULL
-		,@CompanyName nvarchar(100)=null
-		,@SubBusinessUnitName nvarchar(100)=null
-         ,@BusinessUnitName nvarchar(100)=NULL
-AS   
-
-    SET NOCOUNT ON; 
-
-	
-    SELECT DISTINCT SS.[SubBusinessUnitID]
-      ,SS.[SubBusinessUnitCode]
-      ,SS.[SubBusinessUnitName]
-      ,SS.[SubBusinessUnitManagerID]
-	  ,SR.[SalesRepFirstName] + ' ' + SR.[SalesRepLastName] AS [SubBusinessUnitManagerName]
-	  ,SS.[BusinessUnitID]
-	  ,BN.[BusinessUnitName]
-	  ,SSN.[CompanyName]
-	  ,SS.[CompanyID]
-      ,SS.[EffectiveDate]
-      ,SS.[ExpirationDate]
-      ,SS.[UpdateUser]
-      ,SS.[UpdateDate]      	  
-  FROM [CSIDW].[dbo].[SubBusinessUnit] SS
-  INNER JOIN [CSIDW].[dbo].[Company] SSN ON SSN.[CompanyID] = SS.[CompanyID] 
-  INNER JOIN [CSIDW].[dbo].[BusinessUnit] BN ON BN.[BusinessUnitID]=ss.[BusinessUnitID]
-  INNER JOIN [CSIDW].[dbo].[SalesRepContact] SRC ON SRC.[SubBusinessUnitID] = SS.[SubBusinessUnitID] AND SRC.[ActiveRecord] = 'A' 
-  INNER JOIN [CSIDW].[dbo].[SalesRep] SR ON SR.[SalesRepID]=SRC.[SalesRepID]
-  INNER JOIN [CSIDW].[dbo].[SalesRepType] SRT ON SRT.[SalesRepTypeID] = SRC.[SalesRepTypeID] AND SRT.[SalesRepTypeCode] IN ('M', 'B')
-		 
-  WHERE  SSN.[CompanyName] = ISNULL(@CompanyName, SSN.[CompanyName])
-         AND  BN.[BusinessUnitName]=ISNULL(@BusinessUnitName, BN.[BusinessUnitName]) 
-		 AND SR.[SalesRepFirstName] + ' ' + SR.[SalesRepLastName] = ISNULL(SR.[SalesRepFirstName] + ' ' + SR.[SalesRepLastName], @SubBusinessUnitManagerName)
-		-- AND SRC.[SubBusinessUnitID] = SS.[SubBusinessUnitID] AND SRC.[SubBusinessUnitID] IS NOT NULL
+#MainContent_Table2 th, #MainContent_Table2 td {
+    padding: 10px;
+}
