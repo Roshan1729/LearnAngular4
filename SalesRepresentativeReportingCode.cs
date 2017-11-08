@@ -551,6 +551,10 @@ public abstract class SalesRepresentativeReportingCode
         sqlCmd.Parameters.Add("@ExpirationDate", SqlDbType.DateTime).Value = li.ExpirationDate;
         sqlCmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = li.Title;
         sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
+        sqlCmd.Parameters.Add("@SalesRepID", SqlDbType.NVarChar).Value = li.SalesRepID;
+        sqlCmd.Parameters.Add("@SalesRepFirstName", SqlDbType.NVarChar).Value = li.SalesRepFirstName;
+        sqlCmd.Parameters.Add("@SalesRepLastName", SqlDbType.NVarChar).Value = li.SalesRepLastName;
+       // sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
         sqlCmd.Parameters.Add("@SalesRepCompanyName", SqlDbType.NVarChar).Value = li.SalesRepCompanyName;
         sqlCmd.Parameters.Add("@WorkPhone", SqlDbType.NVarChar).Value = li.WorkPhone;
         sqlCmd.Parameters.Add("@SalesRepTypeName", SqlDbType.NVarChar).Value = li.SalesRepTypeName;

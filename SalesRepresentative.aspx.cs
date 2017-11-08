@@ -116,6 +116,34 @@ namespace SalesReportingWebsite
                 {
                     li.SalesRepContactID = Convert.ToInt32(SalesRepresentativeGridView.DataKeys[e.RowIndex].Values[0]);
 
+                    if (((TextBox)row.FindControl("SalesRepFirstName")).Text != string.Empty)
+                    {
+                        li.SalesRepFirstName = Convert.ToString(((TextBox)row.FindControl("SalesRepFirstName")).Text);
+                    }
+
+
+                    else
+                    {
+                        display = "SalesRep FirstName cannot be empty";
+                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                        isFormFilled = false;
+                    }
+
+                    if (((TextBox)row.FindControl("SalesRepLastName")).Text != string.Empty)
+                    {
+                        li.SalesRepLastName = Convert.ToString(((TextBox)row.FindControl("SalesRepLastName")).Text);
+                    }
+
+
+                    else
+                    {
+                        display = "SalesRep LastName cannot be empty";
+                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                        isFormFilled = false;
+                    }
+
+
+
 
                     if (((TextBox)row.FindControl("Title")).Text != string.Empty)
                     {

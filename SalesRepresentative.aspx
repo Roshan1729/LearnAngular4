@@ -109,7 +109,7 @@
             Width="98%" Style="margin: 0% 1% 0% 1%" OnRowEditing="SalesRepresentative_RowEditing"
             OnRowCancelingEdit="SalesRepresentative_RowCancelingEdit" OnRowDataBound="SalesRepresentative_RowDataBound"
             OnRowUpdating="SalesRepresentative_RowUpdating"  AllowPaging="true"
-            PageSize="20" AllowSorting="true"
+            PageSize="10" AllowSorting="true"
             OnPageIndexChanging="SalesRepresentative_PageIndexChanging" CssClass="SegmentGV"
             OnSorting="SalesRepresentative_SortData" DataKeyNames="SalesRepID">
             
@@ -292,22 +292,7 @@
                         </asp:DropDownList>
                     </EditItemTemplate>
                 </asp:TemplateField>
-                <asp:TemplateField HeaderText="Effective Date">
-                    <ItemTemplate>
-                        <asp:Label runat="server" ID="lnl1" Text='<%#DataBinder.Eval(Container.DataItem, "EffectiveDate").ToString()%>'></asp:Label>
-                    </ItemTemplate>
-                    <EditItemTemplate>
-                        <asp:TextBox ID="EffectiveDate" runat="server" ReadOnly="true" Text='<%#Bind("EffectiveDate") %>'></asp:TextBox>
-                    </EditItemTemplate>
-                </asp:TemplateField>
-                <asp:TemplateField HeaderText="Expiration Date">
-                    <ItemTemplate>
-                        <asp:Label runat="server" ID="lnl2" Text='<%#DataBinder.Eval(Container.DataItem, "ExpirationDate").ToString()%>'></asp:Label>
-                    </ItemTemplate>
-                    <EditItemTemplate>
-                        <asp:TextBox ID="ExpirationDate" runat="server" ReadOnly="true" Text='<%#Bind("ExpirationDate") %>'></asp:TextBox>
-                    </EditItemTemplate>
-                </asp:TemplateField>
+                
 
                    <%-- <asp:TemplateField HeaderText="Customer Number">
                     <ItemTemplate>
@@ -509,6 +494,26 @@
                     </EditItemTemplate>
                 </asp:TemplateField>--%>
 
+
+                <asp:TemplateField HeaderText="Effective Date">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="lnl1" Text='<%#DataBinder.Eval(Container.DataItem, "EffectiveDate").ToString()%>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="EffectiveDate" runat="server" ReadOnly="true" Text='<%#Bind("EffectiveDate") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Expiration Date">
+                    <ItemTemplate>
+                        <asp:Label runat="server" ID="lnl2" Text='<%#DataBinder.Eval(Container.DataItem, "ExpirationDate").ToString()%>'></asp:Label>
+                    </ItemTemplate>
+                    <EditItemTemplate>
+                        <asp:TextBox ID="ExpirationDate" runat="server" ReadOnly="true" Text='<%#Bind("ExpirationDate") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                </asp:TemplateField>
+
+
+
                 <asp:BoundField DataField="UpdateUser" HeaderText="Update User" ReadOnly="true" ItemStyle-Width="100">
                     <ItemStyle HorizontalAlign="Center" VerticalAlign="Middle"></ItemStyle>
                 </asp:BoundField>
@@ -552,10 +557,6 @@
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
-
-                   
-
-
                     </asp:TableRow>
                     <asp:TableRow runat="server">
                        <asp:TableCell runat="server">Last Name:</asp:TableCell>
