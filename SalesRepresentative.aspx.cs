@@ -380,24 +380,22 @@ namespace SalesReportingWebsite
 
                         string res = Convert.ToString(result.Tables[0].Rows[0].ItemArray[0]);
 
-                        if (res.Equals("Duplicate CompanyKey"))
-                        {
-                            display = "Company Key already exists in the database";
-                            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                            isFormFilled = false;
-                        }
-                        else if (res.Equals("Duplicate CompanyName"))
-                        {
-                            display = "Company Name already exists in the database";
-                            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                            isFormFilled = false;
-                        }
+                        //if (res.Equals("Duplicate CompanyKey"))
+                        //{
+                        //    display = "Company Key already exists in the database";
+                        //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                        //    isFormFilled = false;
+                        //}
+                        //else if (res.Equals("Duplicate CompanyName"))
+                        //{
+                        //    display = "Company Name already exists in the database";
+                        //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                        //    isFormFilled = false;
+                        //}
 
-                        else if (res.Equals("Success"))
+                         if (res.Equals("Success"))
                         {
-                            display = "A new Sales Representative is successfully added in the database";
-                            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                            isFormFilled = true;
+                            
                         }
                     }
 
@@ -549,59 +547,88 @@ namespace SalesReportingWebsite
         #endregion
         protected void btnSaveNewSalesRepresentative_Click(object sender, EventArgs e)
         {
-        //    bool isFormFilled = true;
-        //    string display = "";
-        //    SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
+            bool isFormFilled = true;
+            string display = "";
+            SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
 
-        //    string companyKey = newCompanyKey.Text;
-        //    string companyName = newCompanyName.Text;
-        //    string companyLocalCurrency = newCompanyLocalCurrency.Text;
-        //    string subSegmentName = newSubSegmentName.SelectedValue.ToString();
-        //    string effectiveDate = Request.Form[newEffectiveDate.UniqueID];
+            string salesRepFirstName = newSalesRepFirstName.Text;
+            string salesRepLastName = newSalesRepLastName.Text;
+            string title = newTitle.Text;
+            string hireDate = Request.Form[newHireDate.UniqueID];
+            string terminationDate = Request.Form[newTerminationDate.UniqueID];
+            string notes = newNotes.Text;
+            string vendorID = newVendorNumber.Text;
+            string salesRepCompanyName = newSalesRepCompany.Text;
+            string demoSigned = Request.Form[newDemoSigned.UniqueID];
+            string effectiveDate = Request.Form[newEffectiveDate.UniqueID];
+            string inventoryNotes = newInventoryNotes.Text;
+            string salesRepTypeName = newSalesRepTypeName.SelectedValue.ToString();
+            string territoryName = newTerritoryName.SelectedValue.ToString();
+            string regionName = newRegionName.SelectedValue.ToString();
+            string distributionRegionName = newDistributionRegionName.SelectedValue.ToString();
+            string subBusinessUnitName = newSubBusinessUnitName.SelectedValue.ToString();
+            string businessUnitName = newBusinessUnitName.SelectedValue.ToString();
+            string companyName = newCompanyName.SelectedValue.ToString();
+            string address1 = newAddress1.Text;
+            string address2 = newAddress2.Text;
+            string address3 = newAddress3.Text;
+            string city = newCity.Text;
+            string stateProvinceName = newStateProvinceName.SelectedValue.ToString();
+            string postalCode = newPostalCode.Text;
+            string countryName = newCountryName.SelectedValue.ToString();
+            string customerID = newCustomerNumber.SelectedValue.ToString();
+            string workPhone = newWorkPhone.Text;
+            string voiceMailExtension = newVoiceMailExtension.Text;
+            string voiceMailPin = newVoiceMailPin.Text;
+            string faxNumber = newFaxNumber.Text;
+            string mobilePhone = newMobilePhone.Text;
+            string pager = newPager.Text;
+            string personalCellPhone = newPersonalCellPhone.Text;
+            string internationalPhone = newInternationalPhone.Text;
+            string internationalFax = newInternationalFax.Text;
+            string internationalCell = newInternationalCell.Text;
+            string primaryEmail = newPrimaryEmail.Text;
+            string secondaryEmail = newSecondaryEmail.Text;
+            string globaladdress = newGlobalAddress.SelectedValue.ToString();
 
-        //    if (String.IsNullOrEmpty(effectiveDate) || String.IsNullOrEmpty(companyKey)
-        //       || String.IsNullOrEmpty(companyName) || String.IsNullOrEmpty(companyLocalCurrency) || String.IsNullOrEmpty(subSegmentName))
-        //    {
-        //        display = "Please select all the mandatory fields ";
-        //        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-        //        isFormFilled = false;
-        //    }
+            if (String.IsNullOrEmpty(effectiveDate) || String.IsNullOrEmpty(salesRepFirstName)
+               || String.IsNullOrEmpty(salesRepLastName) || String.IsNullOrEmpty(salesRepTypeName) )
+            {
+                display = "Please select all the mandatory fields ";
+                ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                isFormFilled = false;
+            }
 
 
-        //    if (isFormFilled)
-        //    {
-        //        DataSet result = li.AddNewSalesRepresentative(companyKey, companyName, companyLocalCurrency, subSegmentName, effectiveDate);
+            if (isFormFilled)
+            {
+                DataSet result = li.AddNewSalesRepresentative(salesRepFirstName, salesRepLastName, title, hireDate, terminationDate, notes, vendorID, salesRepCompanyName, demoSigned,
+                    effectiveDate, inventoryNotes, salesRepTypeName, territoryName, regionName, distributionRegionName, subBusinessUnitName, businessUnitName, companyName, address1, address2, address3,
+                    city, stateProvinceName, postalCode, countryName, customerID, workPhone, voiceMailExtension, voiceMailPin, faxNumber, mobilePhone, pager, personalCellPhone, internationalPhone, internationalFax,
+                    internationalCell, primaryEmail, secondaryEmail, globaladdress);
 
-        //        string res = Convert.ToString(result.Tables[0].Rows[0].ItemArray[0]);
+                string res = Convert.ToString(result.Tables[0].Rows[0].ItemArray[0]);
 
-        //        if (res.Equals("Duplicate CompanyKey"))
-        //        {
-        //            display = "Company Key already exists in the database";
-        //            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-        //            isFormFilled = false;
-        //        }
-        //        else if (res.Equals("Duplicate CompanyName"))
-        //        {
-        //            display = "Company Name already exists in the database";
-        //            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-        //            isFormFilled = false;
-        //        }
-
-        //        else if (res.Equals("Success"))
-        //        {
-        //            display = "A new Company is successfully added in the database";
-        //            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-        //            isFormFilled = true;
-        //        }
-        //        if (isFormFilled)
-        //        {
-        //            newCompanyKey.Text = "";
-        //            newCompanyName.Text = "";
-        //            newCompanyLocalCurrency.SelectedIndex = 0;
-        //            newSubSegmentName.SelectedIndex = 0;
-        //            BindGridView();
-        //        }
-        //    }
+               if (res.Equals("Success"))
+                {
+                    display = "A new Sales Representative is successfully added in the database";
+                    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    isFormFilled = true;
+                }
+                if (isFormFilled)
+                {
+                    newSalesRepFirstName.Text = "";
+                    newSalesRepLastName.Text = "";
+                    newTitle.Text = "";
+                    newNotes.Text = "";
+                    newVendorNumber.Text = "";
+                    newSalesRepCompany.Text = "";
+                    newInventoryNotes.Text = "";
+                    newSalesRepTypeName.SelectedIndex = 0;
+                    newTerritoryName.SelectedIndex = 0;
+                    BindGridView();
+                }
+            }
         }
 
         protected void btnAddNewSalesRepresentative_Click(object sender, EventArgs e)

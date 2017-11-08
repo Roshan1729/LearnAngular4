@@ -544,7 +544,7 @@
                  
                         <asp:TableCell runat="server">First Name:</asp:TableCell>
                          <asp:TableCell runat="server">
-                       <asp:TextBox ID="newFirstName" runat="server"></asp:TextBox>
+                       <asp:TextBox ID="newSalesRepFirstName" runat="server"></asp:TextBox>
                      </asp:TableCell>
                             <asp:TableCell runat="server">Vendor Number:</asp:TableCell>
                          <asp:TableCell runat="server">
@@ -553,7 +553,7 @@
                         
                         <asp:TableCell runat="server">Sales Rep Type:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newSalesRepType" runat="server"  AppendDataBoundItems="true">
+                            <asp:DropDownList ID="newSalesRepTypeName" runat="server"  AppendDataBoundItems="true">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
@@ -561,11 +561,11 @@
                     <asp:TableRow runat="server">
                        <asp:TableCell runat="server">Last Name:</asp:TableCell>
                          <asp:TableCell runat="server">
-                       <asp:TextBox ID="newLastName" runat="server"></asp:TextBox>
+                       <asp:TextBox ID="newSalesRepLastName" runat="server"></asp:TextBox>
                      </asp:TableCell>
                         <asp:TableCell runat="server">Sales Rep Company:</asp:TableCell>
                          <asp:TableCell runat="server">
-                       <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+                       <asp:TextBox ID="newSalesRepCompany" runat="server"></asp:TextBox>
                      </asp:TableCell>
                         <asp:TableCell runat="server">Territory Name:</asp:TableCell>
                         <asp:TableCell runat="server">

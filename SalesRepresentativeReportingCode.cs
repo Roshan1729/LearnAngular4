@@ -599,7 +599,12 @@ public abstract class SalesRepresentativeReportingCode
     }
 
 
-    public DataSet AddNewSalesRepresentative(string companyKey, string companyName, string companyLocalCurrency, string subSegmentName, string effectiveDate)//string date, string period, string quantity, string amountLCY, string amountSpotUSD, string amountAverageUSD, string costLCY, string costSpotUSD, string costAverageUSD, string comment, string adjustmentType, string countryName, string subBusinessUnitName, string companyName, string subSegmentName, string accountSubTypeName, string subCategoryName, string currencyName)
+    public DataSet AddNewSalesRepresentative(string salesRepFirstName, string salesRepLastName, string title, string hireDate, string terminationDate,
+        string notes, string vendorID, string salesRepCompanyName, string demoSigned, string effectiveDate, string inventoryNotes, string salesRepTypeName,
+        string territoryName, string regionName, string distributionRegionName, string subBusinessUnitName, string businessUnitName, string companyName, string address1, 
+        string address2, string address3, string city, string stateProvinceName, string postalCode, string countryName, string customerID, string workPhone, string voiceMailExtension, 
+        string voiceMailPin, string faxNumber, string mobilePhone, string pager, string personalCellPhone, string internationalPhone, string internationalFax, string internationalCell,
+        string primaryEmail, string secondaryEmail, string globaladdress)
     {
         DataSet ds = new DataSet();
         using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString()))
@@ -608,13 +613,45 @@ public abstract class SalesRepresentativeReportingCode
                 using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_AddNewSalesRepresentative", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("SalesRepFirstName", salesRepFirstName);
+                    cmd.Parameters.AddWithValue("SalesRepLastName", salesRepLastName);
+                    cmd.Parameters.AddWithValue("Title", title);
+                    cmd.Parameters.AddWithValue("HireDate", Convert.ToDateTime(hireDate));
+                    cmd.Parameters.AddWithValue("TerminationDate", Convert.ToDateTime(terminationDate));
+                    cmd.Parameters.AddWithValue("Notes", notes);
+                    cmd.Parameters.AddWithValue("VendorID", vendorID);
+                    cmd.Parameters.AddWithValue("SalesRepCompanyName", salesRepCompanyName);
+                    cmd.Parameters.AddWithValue("DemoSigned", Convert.ToDateTime(demoSigned));
                     cmd.Parameters.AddWithValue("EffectiveDate", Convert.ToDateTime(effectiveDate));
-                    cmd.Parameters.AddWithValue("CompanyKey", companyKey);
+                    cmd.Parameters.AddWithValue("InventoryNotes", inventoryNotes);
+                    cmd.Parameters.AddWithValue("SalesRepTypeName", salesRepTypeName);
+                    cmd.Parameters.AddWithValue("TerritoryName", territoryName);
+                    cmd.Parameters.AddWithValue("RegionName", regionName);
+                    cmd.Parameters.AddWithValue("DistributionRegionName", distributionRegionName);
+                    cmd.Parameters.AddWithValue("SubBusinessUnitName", subBusinessUnitName);
+                    cmd.Parameters.AddWithValue("BusinessUnitName", businessUnitName);
                     cmd.Parameters.AddWithValue("CompanyName", companyName);
-                    cmd.Parameters.AddWithValue("CompanyLocalCurrency", companyLocalCurrency);
-                    cmd.Parameters.AddWithValue("SubSegmentName", subSegmentName);
-
-
+                    cmd.Parameters.AddWithValue("Address1", address1);
+                    cmd.Parameters.AddWithValue("Address2", address2);
+                    cmd.Parameters.AddWithValue("Address3", address3);
+                    cmd.Parameters.AddWithValue("City", city);
+                    cmd.Parameters.AddWithValue("StateProvinceName", stateProvinceName);
+                    cmd.Parameters.AddWithValue("PostalCode", postalCode);
+                    cmd.Parameters.AddWithValue("CountryName", countryName);
+                    cmd.Parameters.AddWithValue("CustomerID", customerID);
+                    cmd.Parameters.AddWithValue("WorkPhone", workPhone);
+                    cmd.Parameters.AddWithValue("VoiceMailExtension", voiceMailExtension);
+                    cmd.Parameters.AddWithValue("VoiceMailPin", voiceMailPin);
+                    cmd.Parameters.AddWithValue("FaxNumber", faxNumber);
+                    cmd.Parameters.AddWithValue("MobilePhone", mobilePhone);
+                    cmd.Parameters.AddWithValue("Pager", pager);
+                    cmd.Parameters.AddWithValue("PersonalCellPhone", personalCellPhone);
+                    cmd.Parameters.AddWithValue("InternationalPhone", internationalPhone);
+                    cmd.Parameters.AddWithValue("InternationalFax", internationalFax);
+                    cmd.Parameters.AddWithValue("InternationalCell", internationalCell);
+                    cmd.Parameters.AddWithValue("PrimaryEmail", primaryEmail);
+                    cmd.Parameters.AddWithValue("SecondaryEmail", secondaryEmail);
+                    cmd.Parameters.AddWithValue("Globaladdress", globaladdress);
                     connection.Open();
                     using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                     {
