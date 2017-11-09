@@ -605,48 +605,67 @@ namespace SalesReportingWebsite
             string display = "";
             SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
 
-            string salesRepFirstName = newSalesRepFirstName.Text;
-            string salesRepLastName = newSalesRepLastName.Text;
-            string title = newTitle.Text;
-            string hireDate = Request.Form[newHireDate.UniqueID];
-            string terminationDate = Request.Form[newTerminationDate.UniqueID];
-            string notes = newNotes.Text;
-            string vendorID = newVendorNumber.Text;
-            string salesRepCompanyName = newSalesRepCompany.Text;
-            string demoSigned = Request.Form[newDemoSigned.UniqueID];
-            string effectiveDate = Request.Form[newEffectiveDate.UniqueID];
-            string inventoryNotes = newInventoryNotes.Text;
-            string salesRepTypeName = newSalesRepTypeName.SelectedValue.ToString();
-            string territoryName = newTerritoryName.SelectedValue.ToString();
-            string regionName = newRegionName.SelectedValue.ToString();
-            string distributionRegionName = newDistributionRegionName.SelectedValue.ToString();
-            string subBusinessUnitName = newSubBusinessUnitName.SelectedValue.ToString();
-            string businessUnitName = newBusinessUnitName.SelectedValue.ToString();
-            string companyName = newCompanyName.SelectedValue.ToString();
-            string address1 = newAddress1.Text;
-            string address2 = newAddress2.Text;
-            string address3 = newAddress3.Text;
-            string city = newCity.Text;
-            string stateProvinceName = newStateProvinceName.SelectedValue.ToString();
-            string postalCode = newPostalCode.Text;
-            string countryName = newCountryName.SelectedValue.ToString();
-            string customerID = newCustomerNumber.SelectedValue.ToString();
-            string workPhone = newWorkPhone.Text;
-            string voiceMailExtension = newVoiceMailExtension.Text;
-            string voiceMailPin = newVoiceMailPin.Text;
-            string faxNumber = newFaxNumber.Text;
-            string mobilePhone = newMobilePhone.Text;
-            string pager = newPager.Text;
-            string personalCellPhone = newPersonalCellPhone.Text;
-            string internationalPhone = newInternationalPhone.Text;
-            string internationalFax = newInternationalFax.Text;
-            string internationalCell = newInternationalCell.Text;
-            string primaryEmail = newPrimaryEmail.Text;
-            string secondaryEmail = newSecondaryEmail.Text;
-            string globaladdress = newGlobalAddress.SelectedValue.ToString();
+            li.SalesRepFirstName = newSalesRepFirstName.Text;
+            li.SalesRepLastName = newSalesRepLastName.Text;
+            li.Title = newTitle.Text;
+            if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[newHireDate.UniqueID]))))
+            {
+                li.HireDate = Convert.ToDateTime((Request.Form[newHireDate.UniqueID]));
+            }
+            if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[newDemoSigned.UniqueID]))))
+            {
+                li.DemoSigned = Convert.ToDateTime((Request.Form[newDemoSigned.UniqueID]));
+            }
+            if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[newEffectiveDate.UniqueID]))))
+            {
+                li.EffectiveDate = Convert.ToDateTime((Request.Form[newEffectiveDate.UniqueID]));
+            }
+            if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[newTerminationDate.UniqueID]))))
+            {
+                li.TerminationDate = Convert.ToDateTime((Request.Form[newTerminationDate.UniqueID]));
+            }
+           
+            //    li.CustomerID = Convert.ToInt32(newCustomerNumber.Text);
+            
 
-            if (String.IsNullOrEmpty(effectiveDate) || String.IsNullOrEmpty(salesRepFirstName)
-               || String.IsNullOrEmpty(salesRepLastName) || String.IsNullOrEmpty(salesRepTypeName))
+           
+                //li.VoiceMailPin = Convert.ToInt32(newVoiceMailPin.Text);
+         
+            li.Notes = newNotes.Text;
+            li.VendorID = newVendorNumber.Text;
+            li.SalesRepCompanyName = newSalesRepCompany.Text;
+            li.InventoryNotes = newInventoryNotes.Text;
+            li.SalesRepTypeName = newSalesRepTypeName.SelectedValue.ToString();
+            li.TerritoryName = newTerritoryName.SelectedValue.ToString();
+            li.RegionName = newRegionName.SelectedValue.ToString();
+            li.DistributionRegionName = newDistributionRegionName.SelectedValue.ToString();
+            li.SubBusinessUnitName = newSubBusinessUnitName.SelectedValue.ToString();
+            li.BusinessUnitName = newBusinessUnitName.SelectedValue.ToString();
+            li.CompanyName = newCompanyName.SelectedValue.ToString();
+            li.Address1 = newAddress1.Text;
+            li.Address2 = newAddress2.Text;
+            li.Address3 = newAddress3.Text;
+            li.City = newCity.Text;
+            li.StateProvinceName = newStateProvinceName.SelectedValue.ToString();
+            li.PostalCode = newPostalCode.Text;
+            li.CountryName = newCountryName.SelectedValue.ToString();
+           // li.CustomerID = newCustomerNumber.SelectedValue.ToString();
+            li.WorkPhone = newWorkPhone.Text;
+            li.VoiceMailExtension = newVoiceMailExtension.Text;
+            //li.VoiceMailPin = newVoiceMailPin.Text;
+            li.FaxNumber = newFaxNumber.Text;
+            li.MobilePhone = newMobilePhone.Text;
+            li.Pager = newPager.Text;
+            li.PersonalCellPhone = newPersonalCellPhone.Text;
+            li.InternationalPhone = newInternationalPhone.Text;
+            li.InternationalFax = newInternationalFax.Text;
+            li.InternationalCell = newInternationalCell.Text;
+            li.PrimaryEmail = newPrimaryEmail.Text;
+            li.SecondaryEmail = newSecondaryEmail.Text;
+            //li.GlobalAddress = newGlobalAddress.SelectedValue.ToString();
+
+            if (  String.IsNullOrEmpty(li.SalesRepFirstName)
+               || String.IsNullOrEmpty(li.SalesRepLastName) || String.IsNullOrEmpty(li.SalesRepTypeName))
             {
                 display = "Please select all the mandatory fields ";
                 ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
@@ -656,10 +675,12 @@ namespace SalesReportingWebsite
 
             if (isFormFilled)
             {
-                DataSet result = li.AddNewSalesRepresentative(salesRepFirstName, salesRepLastName, title, hireDate, terminationDate, notes, vendorID, salesRepCompanyName, demoSigned,
-                    effectiveDate, inventoryNotes, salesRepTypeName, territoryName, regionName, distributionRegionName, subBusinessUnitName, businessUnitName, companyName, address1, address2, address3,
-                    city, stateProvinceName, postalCode, countryName, customerID, workPhone, voiceMailExtension, voiceMailPin, faxNumber, mobilePhone, pager, personalCellPhone, internationalPhone, internationalFax,
-                    internationalCell, primaryEmail, secondaryEmail, globaladdress);
+                // DataSet result = li.AddNewSalesRepresentative(salesRepFirstName, salesRepLastName, title, hireDate, terminationDate, notes, vendorID, salesRepCompanyName, demoSigned,
+                //     effectiveDate, inventoryNotes, salesRepTypeName, territoryName, regionName, distributionRegionName, subBusinessUnitName, businessUnitName, companyName, address1, address2, address3,
+                //     city, stateProvinceName, postalCode, countryName, customerID, workPhone, voiceMailExtension, voiceMailPin, faxNumber, mobilePhone, pager, personalCellPhone, internationalPhone, internationalFax,
+                //     internationalCell, primaryEmail, secondaryEmail, globaladdress);
+
+                DataSet result = li.AddNewSalesRepresentative(li);
 
                 string res = Convert.ToString(result.Tables[0].Rows[0].ItemArray[0]);
 

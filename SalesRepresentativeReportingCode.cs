@@ -65,9 +65,13 @@ public abstract class SalesRepresentativeReportingCode
         _SecondaryEmail = String.Empty;
         _EffectiveDate = DateTime.MinValue;
         _ExpirationDate = DateTime.MinValue;
+        _InventoryNotes = String.Empty;
+     //   _GlobalAddress = String.Empty;
 
     }
 
+    private string _InventoryNotes;
+   // private string _GlobalAddress;
     private int _SalesRepID;
     private string _SalesRepLastName;
     private int _SalesRepTypeID;
@@ -119,7 +123,20 @@ public abstract class SalesRepresentativeReportingCode
     private string _SecondaryEmail;
     private DateTime _EffectiveDate;
     private DateTime _ExpirationDate;
-    
+  
+
+    public string InventoryNotes
+    {
+        get { return _InventoryNotes; }
+        set { _InventoryNotes = value; }
+    }
+
+    //public string _GlobalAddress
+    //{
+    //    get { return _GlobalAddress; }
+    //    set { _GlobalAddress = value; }
+    //}
+
     public int SalesRepID
     {
         get { return _SalesRepID; }
@@ -431,9 +448,9 @@ public abstract class SalesRepresentativeReportingCode
         set { _ExpirationDate = value; }
     }
 
-    
 
-    public DataSet GetSKPickingBoard2(string salesRepLastName,string salesRepTypeName ,string territoryName, string regionName,  string subBusinessUnitName, string businessUnitName, string companyName)// string distributionRegionName,
+
+    public DataSet GetSKPickingBoard2(string salesRepLastName, string salesRepTypeName, string territoryName, string regionName, string subBusinessUnitName, string businessUnitName, string companyName)// string distributionRegionName,
     {
         DataSet ds = new DataSet();
 
@@ -590,9 +607,9 @@ public abstract class SalesRepresentativeReportingCode
             sqlCmd.Parameters.Add("@InternationalCell", SqlDbType.NVarChar).Value = li.InternationalCell;
         if (!String.IsNullOrEmpty(li.PrimaryEmail))
             sqlCmd.Parameters.Add("@PrimaryEmail", SqlDbType.NVarChar).Value = li.PrimaryEmail;
-        if(!String.IsNullOrEmpty(li.SecondaryEmail))
+        if (!String.IsNullOrEmpty(li.SecondaryEmail))
             sqlCmd.Parameters.Add("@SecondaryEmail", SqlDbType.NVarChar).Value = li.SecondaryEmail;
-       
+
         if (String.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
         {
             sqlCmd.Parameters.Add("@UpdateUser", SqlDbType.VarChar).Value = "sysadmin";
@@ -619,12 +636,13 @@ public abstract class SalesRepresentativeReportingCode
     }
 
 
-    public DataSet AddNewSalesRepresentative(string salesRepFirstName, string salesRepLastName, string title, string hireDate, string terminationDate,
-        string notes, string vendorID, string salesRepCompanyName, string demoSigned, string effectiveDate, string inventoryNotes, string salesRepTypeName,
-        string territoryName, string regionName, string distributionRegionName, string subBusinessUnitName, string businessUnitName, string companyName, string address1, 
-        string address2, string address3, string city, string stateProvinceName, string postalCode, string countryName, string customerID, string workPhone, string voiceMailExtension, 
-        string voiceMailPin, string faxNumber, string mobilePhone, string pager, string personalCellPhone, string internationalPhone, string internationalFax, string internationalCell,
-        string primaryEmail, string secondaryEmail, string globaladdress)
+    // public DataSet AddNewSalesRepresentative(string salesRepFirstName, string salesRepLastName, string title, string hireDate, string terminationDate,
+    //     string notes, string vendorID, string salesRepCompanyName, string demoSigned, string effectiveDate, string inventoryNotes, string salesRepTypeName,
+    //     string territoryName, string regionName, string distributionRegionName, string subBusinessUnitName, string businessUnitName, string companyName, string address1, 
+    //     string address2, string address3, string city, string stateProvinceName, string postalCode, string countryName, string customerID, string workPhone, string voiceMailExtension, 
+    //     string voiceMailPin, string faxNumber, string mobilePhone, string pager, string personalCellPhone, string internationalPhone, string internationalFax, string internationalCell,
+    //     string primaryEmail, string secondaryEmail, string globaladdress)
+    public DataSet AddNewSalesRepresentative(SalesRepresentativeReportingChild li)
     {
         DataSet ds = new DataSet();
         using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString()))
@@ -633,75 +651,80 @@ public abstract class SalesRepresentativeReportingCode
                 using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_AddNewSalesRepresentative", connection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("SalesRepFirstName", salesRepFirstName);
-                    cmd.Parameters.AddWithValue("SalesRepLastName", salesRepLastName);
-                    cmd.Parameters.AddWithValue("Title", title);
-                    cmd.Parameters.AddWithValue("HireDate", Convert.ToDateTime(hireDate));
-                    cmd.Parameters.AddWithValue("TerminationDate", Convert.ToDateTime(terminationDate));
-                    cmd.Parameters.AddWithValue("Notes", notes);
-                    cmd.Parameters.AddWithValue("VendorID", vendorID);
-                    cmd.Parameters.AddWithValue("SalesRepCompanyName", salesRepCompanyName);
-                    cmd.Parameters.AddWithValue("DemoSigned", Convert.ToDateTime(demoSigned));
-                    cmd.Parameters.AddWithValue("EffectiveDate", Convert.ToDateTime(effectiveDate));
-                    cmd.Parameters.AddWithValue("SalesRepTypeName", salesRepTypeName);
-                    if (!String.IsNullOrEmpty(salesRepTypeName))
-                        cmd.Parameters.AddWithValue("InventoryNotes", inventoryNotes);
-                    
-                        
-                    if (!String.IsNullOrEmpty(territoryName))
-                        cmd.Parameters.AddWithValue("TerritoryName", territoryName);
-                    if (!String.IsNullOrEmpty(regionName))
-                        cmd.Parameters.AddWithValue("RegionName", regionName);
-                    if (!String.IsNullOrEmpty(distributionRegionName))
-                        cmd.Parameters.AddWithValue("DistributionRegionName", distributionRegionName);
-                    if (!String.IsNullOrEmpty(subBusinessUnitName))
-                        cmd.Parameters.AddWithValue("SubBusinessUnitName", subBusinessUnitName);
-                    if (!String.IsNullOrEmpty(businessUnitName))
-                        cmd.Parameters.AddWithValue("BusinessUnitName", businessUnitName);
-                    if (!String.IsNullOrEmpty(companyName))
-                        cmd.Parameters.AddWithValue("CompanyName", companyName);
-                    if (!String.IsNullOrEmpty(address1))
-                        cmd.Parameters.AddWithValue("Address1", address1);
-                    if (!String.IsNullOrEmpty(address2))
-                        cmd.Parameters.AddWithValue("Address2", address2);
-                    if (!String.IsNullOrEmpty(address3))
-                        cmd.Parameters.AddWithValue("Address3", address3);
-                    if (!String.IsNullOrEmpty(city))
-                        cmd.Parameters.AddWithValue("City", city);
-                    if (!String.IsNullOrEmpty(stateProvinceName))
-                        cmd.Parameters.AddWithValue("StateProvinceName", stateProvinceName);
-                    if (!String.IsNullOrEmpty(postalCode))
-                        cmd.Parameters.AddWithValue("PostalCode", postalCode);
-                    if (!String.IsNullOrEmpty(countryName))
-                        cmd.Parameters.AddWithValue("CountryName", countryName);
-                    if (!String.IsNullOrEmpty(customerID))
-                        cmd.Parameters.AddWithValue("CustomerID", customerID);
-                    if (!String.IsNullOrEmpty(workPhone))
-                        cmd.Parameters.AddWithValue("WorkPhone", workPhone);
-                    if (!String.IsNullOrEmpty(voiceMailExtension))
-                        cmd.Parameters.AddWithValue("VoiceMailExtension", voiceMailExtension);
-                    if (!String.IsNullOrEmpty(voiceMailPin))
-                        cmd.Parameters.AddWithValue("VoiceMailPin", voiceMailPin);
-                    if (!String.IsNullOrEmpty(faxNumber))
-                        cmd.Parameters.AddWithValue("FaxNumber", faxNumber);
-                    if (!String.IsNullOrEmpty(mobilePhone))
-                        cmd.Parameters.AddWithValue("MobilePhone", mobilePhone);
-                    if (!String.IsNullOrEmpty(pager))
-                        cmd.Parameters.AddWithValue("Pager", pager);
-                    if (!String.IsNullOrEmpty(personalCellPhone))
-                        cmd.Parameters.AddWithValue("PersonalCellPhone", personalCellPhone);
-                    if (!String.IsNullOrEmpty(internationalPhone))
-                        cmd.Parameters.AddWithValue("InternationalPhone", internationalPhone);
-                    if (!String.IsNullOrEmpty(internationalFax))
-                        cmd.Parameters.AddWithValue("InternationalFax", internationalFax);
-                    if (!String.IsNullOrEmpty(internationalCell))
-                        cmd.Parameters.AddWithValue("InternationalCell", internationalCell);
-                    if (!String.IsNullOrEmpty(primaryEmail))
-                        cmd.Parameters.AddWithValue("PrimaryEmail", primaryEmail);
-                    if (!String.IsNullOrEmpty(secondaryEmail))
-                        cmd.Parameters.AddWithValue("SecondaryEmail", secondaryEmail);
-                    if (!String.IsNullOrEmpty(globaladdress))
-                        cmd.Parameters.AddWithValue("Globaladdress", globaladdress);
+                    cmd.Parameters.AddWithValue("SalesRepFirstName", li.SalesRepFirstName);
+                    cmd.Parameters.AddWithValue("SalesRepLastName", li.SalesRepLastName);
+                    if (!String.IsNullOrEmpty(li.Title))
+                        cmd.Parameters.AddWithValue("Title", li.Title);
+                    //if (!(li.CustomerID.GetValueOrDefault(0) == 0))
+                        cmd.Parameters.AddWithValue("CustomerID", li.CustomerID);
+                    if (!String.IsNullOrEmpty(li.SalesRepTypeName))
+                        cmd.Parameters.AddWithValue("SalesRepTypeName", li.SalesRepTypeName);
+                    if (!String.IsNullOrEmpty(li.SalesRepCompanyName))
+                        cmd.Parameters.AddWithValue("SalesRepCompanyName", li.SalesRepCompanyName);
+                    if (!String.IsNullOrEmpty(li.Address1))
+                        cmd.Parameters.AddWithValue("Address1", li.Address1);
+                    if (!String.IsNullOrEmpty(li.Address2))
+                        cmd.Parameters.AddWithValue("Address2", li.Address2);
+                    if (!String.IsNullOrEmpty(li.Address3))
+                        cmd.Parameters.AddWithValue("Address3", li.Address3);
+                    if (!String.IsNullOrEmpty(li.City))
+                        cmd.Parameters.AddWithValue("City", li.City);
+                    if (!String.IsNullOrEmpty(li.StateProvinceName))
+                        cmd.Parameters.AddWithValue("StateProvinceName", li.StateProvinceName);
+                    if (!String.IsNullOrEmpty(li.PostalCode))
+                        cmd.Parameters.AddWithValue("PostalCode", li.PostalCode);
+                    if (!String.IsNullOrEmpty(li.CountryName))
+                        cmd.Parameters.AddWithValue("CountryName", li.CountryName);
+                    if (li.HireDate != DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("HireDate", li.HireDate);
+                    if (li.TerminationDate != DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("TerminationDate", li.TerminationDate);
+                    if (!String.IsNullOrEmpty(li.WorkPhone))
+                        cmd.Parameters.AddWithValue("WorkPhone", li.WorkPhone);
+                    if (!String.IsNullOrEmpty(li.VoiceMailExtension))
+                        cmd.Parameters.AddWithValue("VoiceMailExtension", li.VoiceMailExtension);
+                   // if (!(li.VoiceMailPin.GetValueOrDefault(0) == 0))
+                        cmd.Parameters.AddWithValue("VoiceMailPin", li.VoiceMailPin);
+                    if (!String.IsNullOrEmpty(li.FaxNumber))
+                        cmd.Parameters.AddWithValue("FaxNumber", li.FaxNumber);
+                    if (!String.IsNullOrEmpty(li.MobilePhone))
+                        cmd.Parameters.AddWithValue("MobilePhone", li.MobilePhone);
+                    if (!String.IsNullOrEmpty(li.Pager))
+                        cmd.Parameters.AddWithValue("Pager", li.Pager);
+                    if (!String.IsNullOrEmpty(li.PersonalCellPhone))
+                        cmd.Parameters.AddWithValue("PersonalCellPhone", li.PersonalCellPhone);
+                    if (!String.IsNullOrEmpty(li.InternationalPhone))
+                        cmd.Parameters.AddWithValue("InternationalPhone", li.InternationalPhone);
+                    if (!String.IsNullOrEmpty(li.InternationalFax))
+                        cmd.Parameters.AddWithValue("InternationalFax", li.InternationalFax);
+                    if (!String.IsNullOrEmpty(li.InternationalCell))
+                        cmd.Parameters.AddWithValue("InternationalCell", li.InternationalCell);
+                    if (!String.IsNullOrEmpty(li.PrimaryEmail))
+                        cmd.Parameters.AddWithValue("PrimaryEmail", li.PrimaryEmail);
+                    if (!String.IsNullOrEmpty(li.SecondaryEmail))
+                        cmd.Parameters.AddWithValue("SecondaryEmail", li.SecondaryEmail);
+                    cmd.Parameters.AddWithValue("VendorID", li.VendorID);
+                    cmd.Parameters.AddWithValue("Notes", li.Notes);
+                    if (!String.IsNullOrEmpty(li.InventoryNotes))
+                        cmd.Parameters.AddWithValue("InventoryNotes", li.InventoryNotes);
+                    if (li.DemoSigned != DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("DemoSigned", li.DemoSigned);
+                    if (!String.IsNullOrEmpty(li.TerritoryName))
+                        cmd.Parameters.AddWithValue("TerritoryName", li.TerritoryName);
+                    if (!String.IsNullOrEmpty(li.RegionName))
+                        cmd.Parameters.AddWithValue("RegionName", li.RegionName);
+                    if (!String.IsNullOrEmpty(li.DistributionRegionName))
+                        cmd.Parameters.AddWithValue("DistributionRegionName", li.DistributionRegionName);
+                    if (!String.IsNullOrEmpty(li.SubBusinessUnitName))
+                        cmd.Parameters.AddWithValue("SubBusinessUnitName", li.SubBusinessUnitName);
+                    if (!String.IsNullOrEmpty(li.BusinessUnitName))
+                        cmd.Parameters.AddWithValue("BusinessUnitName", li.BusinessUnitName);
+                    if (!String.IsNullOrEmpty(li.CompanyName))
+                        cmd.Parameters.AddWithValue("CompanyName", li.CompanyName);
+                    if (li.EffectiveDate != DateTime.MinValue)
+                        cmd.Parameters.AddWithValue("EffectiveDate", li.EffectiveDate);
+                    //if (!String.IsNullOrEmpty(li.GlobalAddress))
+                    //    cmd.Parameters.AddWithValue("Globaladdress", li.GlobalAddress);
                     connection.Open();
                     using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                     {

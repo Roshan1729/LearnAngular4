@@ -121,17 +121,17 @@
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="SalesRepFirstName" Text='<%# Eval("SalesRepFirstName")%>'></asp:Label>
                             </ItemTemplate>
-                            <EditItemTemplate>
+                          <%--  <EditItemTemplate>
                                 <asp:TextBox ID="SalesRepFirstName" runat="server" Text='<%# Eval("SalesRepFirstName")%>'></asp:TextBox>
-                            </EditItemTemplate>
+                            </EditItemTemplate>--%>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Name">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="SalesRepLastName" Text='<%# Eval("SalesRepLastName")%>'></asp:Label>
                             </ItemTemplate>
-                            <EditItemTemplate>
+                           <%-- <EditItemTemplate>
                                 <asp:TextBox ID="SalesRepLastName" runat="server" Text='<%# Eval("SalesRepLastName")%>'></asp:TextBox>
-                            </EditItemTemplate>
+                            </EditItemTemplate>--%>
                         </asp:TemplateField>
 
 
