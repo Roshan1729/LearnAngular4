@@ -15,37 +15,41 @@ namespace DemoLoginApplication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!Page.User.Identity.IsAuthenticated)
+            if (!Page.User.Identity.IsAuthenticated)
             {
                 FormsAuthentication.RedirectToLoginPage();
             }
             else
             {
                 state.DataSource = StateNameList().Tables[0];
-                state.DataTextField = "SalesRepLastName";
+                state.DataTextField = "State";
                 state.DataBind();
             }
         }
 
-        public DataSet StateNameList()
+        protected DataSet StateNameList()
         {
-            DataSet dsPeriod = new DataSet();
-            SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ToString());
+            DataSet dsStates = new DataSet();
             try
             {
-                sqlConn.Open();
-                SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetStates", sqlConn);
-                da.Fill(dsPeriod);
+                string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("Web_SR_GetStates", con))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        con.Open();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dsStates);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            finally
-            {
-                sqlConn.Close();
-            }
-            return dsPeriod;
+            
+            return dsStates;
         }
 
         protected void DropDownList_SelectedIndexChanged(object sender, EventArgs e)
@@ -54,14 +58,14 @@ namespace DemoLoginApplication
             {
 
                 Test.Enabled = true;
-                
+
             }
             else
             {
                 Test.Enabled = false;
-                
+
             }
-            
+
         }
         protected void Tab1_Click(object sender, EventArgs e)
         {
