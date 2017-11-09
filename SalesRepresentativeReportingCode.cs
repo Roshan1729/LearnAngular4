@@ -548,30 +548,50 @@ public abstract class SalesRepresentativeReportingCode
 
         sqlCmd.Parameters.Add("@SalesRepContactID", SqlDbType.Int).Value = li.SalesRepContactID;
         sqlCmd.Parameters.Add("@EffectiveDate", SqlDbType.DateTime).Value = li.EffectiveDate;
-        sqlCmd.Parameters.Add("@ExpirationDate", SqlDbType.DateTime).Value = li.ExpirationDate;
+        sqlCmd.Parameters.Add("@HireDate", SqlDbType.DateTime).Value = li.HireDate;
+        if (li.ExpirationDate != DateTime.MinValue)
+            sqlCmd.Parameters.Add("@ExpirationDate", SqlDbType.DateTime).Value = li.ExpirationDate;
         sqlCmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = li.Title;
-        sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
-        sqlCmd.Parameters.Add("@SalesRepID", SqlDbType.NVarChar).Value = li.SalesRepID;
-        sqlCmd.Parameters.Add("@SalesRepFirstName", SqlDbType.NVarChar).Value = li.SalesRepFirstName;
-        sqlCmd.Parameters.Add("@SalesRepLastName", SqlDbType.NVarChar).Value = li.SalesRepLastName;
-       // sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
-        sqlCmd.Parameters.Add("@SalesRepCompanyName", SqlDbType.NVarChar).Value = li.SalesRepCompanyName;
-        sqlCmd.Parameters.Add("@WorkPhone", SqlDbType.NVarChar).Value = li.WorkPhone;
-        sqlCmd.Parameters.Add("@SalesRepTypeName", SqlDbType.NVarChar).Value = li.SalesRepTypeName;
-        sqlCmd.Parameters.Add("@TerritoryName", SqlDbType.NVarChar).Value = li.TerritoryName;
-        sqlCmd.Parameters.Add("@RegionName", SqlDbType.NVarChar).Value = li.RegionName;
-        sqlCmd.Parameters.Add("@SubBusinessUnitName", SqlDbType.NVarChar).Value = li.SubBusinessUnitName;
-        sqlCmd.Parameters.Add("@BusinessUnitName", SqlDbType.NVarChar).Value = li.BusinessUnitName;
-        sqlCmd.Parameters.Add("@VoiceMailExtension", SqlDbType.NVarChar).Value = li.VoiceMailExtension;
-        sqlCmd.Parameters.Add("@FaxNumber", SqlDbType.NVarChar).Value = li.FaxNumber;
-        sqlCmd.Parameters.Add("@MobilePhone", SqlDbType.NVarChar).Value = li.MobilePhone;
-        sqlCmd.Parameters.Add("@Pager", SqlDbType.NVarChar).Value = li.Pager;
-        sqlCmd.Parameters.Add("@PersonalCellPhone", SqlDbType.NVarChar).Value = li.PersonalCellPhone;
-        sqlCmd.Parameters.Add("@InternationalPhone", SqlDbType.NVarChar).Value = li.InternationalPhone;
-        sqlCmd.Parameters.Add("@InternationalFax", SqlDbType.NVarChar).Value = li.InternationalFax;
-        sqlCmd.Parameters.Add("@InternationalCell", SqlDbType.NVarChar).Value = li.InternationalCell;
-        sqlCmd.Parameters.Add("@PrimaryEmail", SqlDbType.NVarChar).Value = li.PrimaryEmail;
-        sqlCmd.Parameters.Add("@SecondaryEmail", SqlDbType.NVarChar).Value = li.SecondaryEmail;
+        if (!String.IsNullOrEmpty(li.CompanyName))
+            sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
+        //sqlCmd.Parameters.Add("@SalesRepID", SqlDbType.Int).Value = li.SalesRepID;
+        //sqlCmd.Parameters.Add("@SalesRepFirstName", SqlDbType.NVarChar).Value = li.SalesRepFirstName;
+        //sqlCmd.Parameters.Add("@SalesRepLastName", SqlDbType.NVarChar).Value = li.SalesRepLastName;
+        // sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
+        if (!String.IsNullOrEmpty(li.SalesRepCompanyName))
+            sqlCmd.Parameters.Add("@SalesRepCompanyName", SqlDbType.NVarChar).Value = li.SalesRepCompanyName;
+        if (!String.IsNullOrEmpty(li.WorkPhone))
+            sqlCmd.Parameters.Add("@WorkPhone", SqlDbType.NVarChar).Value = li.WorkPhone;
+        if (!String.IsNullOrEmpty(li.SalesRepTypeName))
+            sqlCmd.Parameters.Add("@SalesRepTypeName", SqlDbType.NVarChar).Value = li.SalesRepTypeName;
+        if (!String.IsNullOrEmpty(li.TerritoryName))
+            sqlCmd.Parameters.Add("@TerritoryName", SqlDbType.NVarChar).Value = li.TerritoryName;
+        if (!String.IsNullOrEmpty(li.RegionName))
+            sqlCmd.Parameters.Add("@RegionName", SqlDbType.NVarChar).Value = li.RegionName;
+        if (!String.IsNullOrEmpty(li.SubBusinessUnitName))
+            sqlCmd.Parameters.Add("@SubBusinessUnitName", SqlDbType.NVarChar).Value = li.SubBusinessUnitName;
+        if (!String.IsNullOrEmpty(li.BusinessUnitName))
+            sqlCmd.Parameters.Add("@BusinessUnitName", SqlDbType.NVarChar).Value = li.BusinessUnitName;
+        if (!String.IsNullOrEmpty(li.VoiceMailExtension))
+            sqlCmd.Parameters.Add("@VoiceMailExtension", SqlDbType.NVarChar).Value = li.VoiceMailExtension;
+        if (!String.IsNullOrEmpty(li.FaxNumber))
+            sqlCmd.Parameters.Add("@FaxNumber", SqlDbType.NVarChar).Value = li.FaxNumber;
+        if (!String.IsNullOrEmpty(li.MobilePhone))
+            sqlCmd.Parameters.Add("@MobilePhone", SqlDbType.NVarChar).Value = li.MobilePhone;
+        if (!String.IsNullOrEmpty(li.Pager))
+            sqlCmd.Parameters.Add("@Pager", SqlDbType.NVarChar).Value = li.Pager;
+        if (!String.IsNullOrEmpty(li.PersonalCellPhone))
+            sqlCmd.Parameters.Add("@PersonalCellPhone", SqlDbType.NVarChar).Value = li.PersonalCellPhone;
+        if (!String.IsNullOrEmpty(li.InternationalPhone))
+            sqlCmd.Parameters.Add("@InternationalPhone", SqlDbType.NVarChar).Value = li.InternationalPhone;
+        if (!String.IsNullOrEmpty(li.InternationalFax))
+            sqlCmd.Parameters.Add("@InternationalFax", SqlDbType.NVarChar).Value = li.InternationalFax;
+        if (!String.IsNullOrEmpty(li.InternationalCell))
+            sqlCmd.Parameters.Add("@InternationalCell", SqlDbType.NVarChar).Value = li.InternationalCell;
+        if (!String.IsNullOrEmpty(li.PrimaryEmail))
+            sqlCmd.Parameters.Add("@PrimaryEmail", SqlDbType.NVarChar).Value = li.PrimaryEmail;
+        if(!String.IsNullOrEmpty(li.SecondaryEmail))
+            sqlCmd.Parameters.Add("@SecondaryEmail", SqlDbType.NVarChar).Value = li.SecondaryEmail;
        
         if (String.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
         {
@@ -623,35 +643,65 @@ public abstract class SalesRepresentativeReportingCode
                     cmd.Parameters.AddWithValue("SalesRepCompanyName", salesRepCompanyName);
                     cmd.Parameters.AddWithValue("DemoSigned", Convert.ToDateTime(demoSigned));
                     cmd.Parameters.AddWithValue("EffectiveDate", Convert.ToDateTime(effectiveDate));
-                    cmd.Parameters.AddWithValue("InventoryNotes", inventoryNotes);
                     cmd.Parameters.AddWithValue("SalesRepTypeName", salesRepTypeName);
-                    cmd.Parameters.AddWithValue("TerritoryName", territoryName);
-                    cmd.Parameters.AddWithValue("RegionName", regionName);
-                    cmd.Parameters.AddWithValue("DistributionRegionName", distributionRegionName);
-                    cmd.Parameters.AddWithValue("SubBusinessUnitName", subBusinessUnitName);
-                    cmd.Parameters.AddWithValue("BusinessUnitName", businessUnitName);
-                    cmd.Parameters.AddWithValue("CompanyName", companyName);
-                    cmd.Parameters.AddWithValue("Address1", address1);
-                    cmd.Parameters.AddWithValue("Address2", address2);
-                    cmd.Parameters.AddWithValue("Address3", address3);
-                    cmd.Parameters.AddWithValue("City", city);
-                    cmd.Parameters.AddWithValue("StateProvinceName", stateProvinceName);
-                    cmd.Parameters.AddWithValue("PostalCode", postalCode);
-                    cmd.Parameters.AddWithValue("CountryName", countryName);
-                    cmd.Parameters.AddWithValue("CustomerID", customerID);
-                    cmd.Parameters.AddWithValue("WorkPhone", workPhone);
-                    cmd.Parameters.AddWithValue("VoiceMailExtension", voiceMailExtension);
-                    cmd.Parameters.AddWithValue("VoiceMailPin", voiceMailPin);
-                    cmd.Parameters.AddWithValue("FaxNumber", faxNumber);
-                    cmd.Parameters.AddWithValue("MobilePhone", mobilePhone);
-                    cmd.Parameters.AddWithValue("Pager", pager);
-                    cmd.Parameters.AddWithValue("PersonalCellPhone", personalCellPhone);
-                    cmd.Parameters.AddWithValue("InternationalPhone", internationalPhone);
-                    cmd.Parameters.AddWithValue("InternationalFax", internationalFax);
-                    cmd.Parameters.AddWithValue("InternationalCell", internationalCell);
-                    cmd.Parameters.AddWithValue("PrimaryEmail", primaryEmail);
-                    cmd.Parameters.AddWithValue("SecondaryEmail", secondaryEmail);
-                    cmd.Parameters.AddWithValue("Globaladdress", globaladdress);
+                    if (!String.IsNullOrEmpty(salesRepTypeName))
+                        cmd.Parameters.AddWithValue("InventoryNotes", inventoryNotes);
+                    
+                        
+                    if (!String.IsNullOrEmpty(territoryName))
+                        cmd.Parameters.AddWithValue("TerritoryName", territoryName);
+                    if (!String.IsNullOrEmpty(regionName))
+                        cmd.Parameters.AddWithValue("RegionName", regionName);
+                    if (!String.IsNullOrEmpty(distributionRegionName))
+                        cmd.Parameters.AddWithValue("DistributionRegionName", distributionRegionName);
+                    if (!String.IsNullOrEmpty(subBusinessUnitName))
+                        cmd.Parameters.AddWithValue("SubBusinessUnitName", subBusinessUnitName);
+                    if (!String.IsNullOrEmpty(businessUnitName))
+                        cmd.Parameters.AddWithValue("BusinessUnitName", businessUnitName);
+                    if (!String.IsNullOrEmpty(companyName))
+                        cmd.Parameters.AddWithValue("CompanyName", companyName);
+                    if (!String.IsNullOrEmpty(address1))
+                        cmd.Parameters.AddWithValue("Address1", address1);
+                    if (!String.IsNullOrEmpty(address2))
+                        cmd.Parameters.AddWithValue("Address2", address2);
+                    if (!String.IsNullOrEmpty(address3))
+                        cmd.Parameters.AddWithValue("Address3", address3);
+                    if (!String.IsNullOrEmpty(city))
+                        cmd.Parameters.AddWithValue("City", city);
+                    if (!String.IsNullOrEmpty(stateProvinceName))
+                        cmd.Parameters.AddWithValue("StateProvinceName", stateProvinceName);
+                    if (!String.IsNullOrEmpty(postalCode))
+                        cmd.Parameters.AddWithValue("PostalCode", postalCode);
+                    if (!String.IsNullOrEmpty(countryName))
+                        cmd.Parameters.AddWithValue("CountryName", countryName);
+                    if (!String.IsNullOrEmpty(customerID))
+                        cmd.Parameters.AddWithValue("CustomerID", customerID);
+                    if (!String.IsNullOrEmpty(workPhone))
+                        cmd.Parameters.AddWithValue("WorkPhone", workPhone);
+                    if (!String.IsNullOrEmpty(voiceMailExtension))
+                        cmd.Parameters.AddWithValue("VoiceMailExtension", voiceMailExtension);
+                    if (!String.IsNullOrEmpty(voiceMailPin))
+                        cmd.Parameters.AddWithValue("VoiceMailPin", voiceMailPin);
+                    if (!String.IsNullOrEmpty(faxNumber))
+                        cmd.Parameters.AddWithValue("FaxNumber", faxNumber);
+                    if (!String.IsNullOrEmpty(mobilePhone))
+                        cmd.Parameters.AddWithValue("MobilePhone", mobilePhone);
+                    if (!String.IsNullOrEmpty(pager))
+                        cmd.Parameters.AddWithValue("Pager", pager);
+                    if (!String.IsNullOrEmpty(personalCellPhone))
+                        cmd.Parameters.AddWithValue("PersonalCellPhone", personalCellPhone);
+                    if (!String.IsNullOrEmpty(internationalPhone))
+                        cmd.Parameters.AddWithValue("InternationalPhone", internationalPhone);
+                    if (!String.IsNullOrEmpty(internationalFax))
+                        cmd.Parameters.AddWithValue("InternationalFax", internationalFax);
+                    if (!String.IsNullOrEmpty(internationalCell))
+                        cmd.Parameters.AddWithValue("InternationalCell", internationalCell);
+                    if (!String.IsNullOrEmpty(primaryEmail))
+                        cmd.Parameters.AddWithValue("PrimaryEmail", primaryEmail);
+                    if (!String.IsNullOrEmpty(secondaryEmail))
+                        cmd.Parameters.AddWithValue("SecondaryEmail", secondaryEmail);
+                    if (!String.IsNullOrEmpty(globaladdress))
+                        cmd.Parameters.AddWithValue("Globaladdress", globaladdress);
                     connection.Open();
                     using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                     {

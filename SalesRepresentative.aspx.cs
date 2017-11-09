@@ -36,29 +36,72 @@ namespace SalesReportingWebsite
                     ddlSalesRepTypeName.DataTextField = "SalesRepTypeName";
                     ddlSalesRepTypeName.DataBind();
 
+                    newSalesRepTypeName.DataSource = ddlSalesRepTypeName.DataSource;
+                    newSalesRepTypeName.DataTextField = "SalesRepTypeName";
+                    newSalesRepTypeName.DataBind();
+
                     ddlTerritoryName.DataSource = li.TerritoryNameList().Tables[0];
                     ddlTerritoryName.DataTextField = "TerritoryName";
                     ddlTerritoryName.DataBind();
+
+                    newTerritoryName.DataSource = ddlTerritoryName.DataSource;
+                    newTerritoryName.DataTextField = "TerritoryName";
+                    newTerritoryName.DataBind();
 
                     ddlRegionName.DataSource = li.RegionNameList().Tables[0];
                     ddlRegionName.DataTextField = "RegionName";
                     ddlRegionName.DataBind();
 
+                    newRegionName.DataSource = ddlRegionName.DataSource;
+                    newRegionName.DataTextField = "RegionName";
+                    newRegionName.DataBind();
+
                     ddlDistributionRegionName.DataSource = li.DistributionRegionNameList().Tables[0];
                     ddlDistributionRegionName.DataTextField = "DistributionRegionName";
                     ddlDistributionRegionName.DataBind();
+
+                    newDistributionRegionName.DataSource = ddlDistributionRegionName.DataSource;
+                    newDistributionRegionName.DataTextField = "DistributionRegionName";
+                    newDistributionRegionName.DataBind();
 
                     ddlSubBusinessUnitName.DataSource = li.SubBusinessUnitNameList().Tables[0];
                     ddlSubBusinessUnitName.DataTextField = "SubBusinessUnitName";
                     ddlSubBusinessUnitName.DataBind();
 
+                    newSubBusinessUnitName.DataSource = ddlSubBusinessUnitName.DataSource;
+                    newSubBusinessUnitName.DataTextField = "SubBusinessUnitName";
+                    newSubBusinessUnitName.DataBind();
+
                     ddlBusinessUnitName.DataSource = li.BusinessUnitNameList().Tables[0];
                     ddlBusinessUnitName.DataTextField = "BusinessUnitName";
                     ddlBusinessUnitName.DataBind();
 
+                    newBusinessUnitName.DataSource = ddlBusinessUnitName.DataSource;
+                    newBusinessUnitName.DataTextField = "BusinessUnitName";
+                    newBusinessUnitName.DataBind();
+
                     ddlCompanyName.DataSource = li.CompanyNameList().Tables[0];
                     ddlCompanyName.DataTextField = "CompanyName";
                     ddlCompanyName.DataBind();
+
+                    newCompanyName.DataSource = ddlCompanyName.DataSource;
+                    newCompanyName.DataTextField = "CompanyName";
+                    newCompanyName.DataBind();
+
+
+                    newCountryName.DataSource = li.CountryNameList().Tables[0];
+                    newCountryName.DataTextField = "CountryName";
+                    newCountryName.DataBind();
+
+
+                    newStateProvinceName.DataSource = li.StateProvinceNameList().Tables[0];
+                    newStateProvinceName.DataTextField = "StateProvinceName";
+                    newStateProvinceName.DataBind();
+
+
+                    newCustomerNumber.DataSource = li.CustomerNumberList().Tables[0];
+                    newCustomerNumber.DataTextField = "CustomerID";
+                    newCustomerNumber.DataBind();
 
                     BindGridView();
                 }
@@ -155,6 +198,17 @@ namespace SalesReportingWebsite
                     //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
                     //    isFormFilled = false;
                     //}
+
+                    if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("HireDate").UniqueID]))))
+                    {
+                        li.HireDate = Convert.ToDateTime((Request.Form[row.FindControl("HireDate").UniqueID]));
+                    }
+                    else
+                    {
+                        display = "Hire Date cannot be empty";
+                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                        isFormFilled = false;
+                    }
 
                     if (((TextBox)row.FindControl("SalesRepCompanyName")).Text != string.Empty)
                     {
@@ -393,9 +447,9 @@ namespace SalesReportingWebsite
                         //    isFormFilled = false;
                         //}
 
-                         if (res.Equals("Success"))
+                        if (res.Equals("Success"))
                         {
-                            
+
                         }
                     }
 
@@ -592,7 +646,7 @@ namespace SalesReportingWebsite
             string globaladdress = newGlobalAddress.SelectedValue.ToString();
 
             if (String.IsNullOrEmpty(effectiveDate) || String.IsNullOrEmpty(salesRepFirstName)
-               || String.IsNullOrEmpty(salesRepLastName) || String.IsNullOrEmpty(salesRepTypeName) )
+               || String.IsNullOrEmpty(salesRepLastName) || String.IsNullOrEmpty(salesRepTypeName))
             {
                 display = "Please select all the mandatory fields ";
                 ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
@@ -609,7 +663,7 @@ namespace SalesReportingWebsite
 
                 string res = Convert.ToString(result.Tables[0].Rows[0].ItemArray[0]);
 
-               if (res.Equals("Success"))
+                if (res.Equals("Success"))
                 {
                     display = "A new Sales Representative is successfully added in the database";
                     ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);

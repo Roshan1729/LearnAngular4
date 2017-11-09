@@ -178,4 +178,68 @@ public class SalesRepresentativeReportingChild : SalesRepresentativeReportingCod
         }
         return dsValueStrm;
     }
+
+    public DataSet StateProvinceNameList()
+    {
+        DataSet dsValueStrm = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            sqlConn.Open();
+            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetStateProvinceName", sqlConn);
+            da.Fill(dsValueStrm);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return dsValueStrm;
+    }
+
+    public DataSet CountryNameList()
+    {
+        DataSet dsDateRequested = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            sqlConn.Open();
+            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetCountryName", sqlConn);
+            da.Fill(dsDateRequested);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return dsDateRequested;
+    }
+
+
+    public DataSet CustomerNumberList()
+    {
+        DataSet dsDateRequested = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            sqlConn.Open();
+            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetCustomerNumber", sqlConn);
+            da.Fill(dsDateRequested);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return dsDateRequested;
+    }
 }
