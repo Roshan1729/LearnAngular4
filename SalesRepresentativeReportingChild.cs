@@ -39,7 +39,7 @@ public class SalesRepresentativeReportingChild : SalesRepresentativeReportingCod
         try
         {
             sqlConn.Open();
-            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetBusinessUnitName", sqlConn);
+            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetBusinessUnitNameNumber", sqlConn);
             da.Fill(dsInventoryStatus);
         }
         catch (Exception ex)
@@ -59,7 +59,7 @@ public class SalesRepresentativeReportingChild : SalesRepresentativeReportingCod
         try
         {
             sqlConn.Open();
-            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetSubBusinessUnitName", sqlConn);
+            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetSubBusinessUnitNameNumber", sqlConn);
             da.Fill(dsValueStrm);
         }
         catch (Exception ex)
@@ -102,7 +102,7 @@ public class SalesRepresentativeReportingChild : SalesRepresentativeReportingCod
         try
         {
             sqlConn.Open();
-            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetRegionName", sqlConn);
+            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetRegionNameNumber", sqlConn);
             da.Fill(dsValueStrm);
         }
         catch (Exception ex)
@@ -123,7 +123,7 @@ public class SalesRepresentativeReportingChild : SalesRepresentativeReportingCod
         try
         {
             sqlConn.Open();
-            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetTerritoryName", sqlConn);
+            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetTerritoryNameNumber", sqlConn);
             da.Fill(dsValueStrm);
         }
         catch (Exception ex)
@@ -242,4 +242,157 @@ public class SalesRepresentativeReportingChild : SalesRepresentativeReportingCod
         }
         return dsDateRequested;
     }
+
+
+
+    internal DataSet GetTerritoryNameRelatedData(string AdjustmentTypeName)
+    {
+        DataSet ds = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_GetTerritoryNameRelatedData", sqlConn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("TerritoryName", TerritoryName);
+                sqlConn.Open();
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    adapter.Fill(ds);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return ds;
+    }
+
+
+    public DataSet NewSubBusinessUnitNameList(string territoryName)
+    {
+        DataSet ds = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_GetNewTerritorySubBusinessUnitName", sqlConn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("TerritoryName", territoryName);
+               // cmd.Parameters.AddWithValue("CompanyName", companyName);
+                sqlConn.Open();
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    adapter.Fill(ds);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return ds;
+    }
+
+
+
+    public DataSet NewBusinessUnitNameList(string territoryName)
+    {
+        DataSet ds = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_GetNewTerritoryBusinessUnitName", sqlConn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("TerritoryName", territoryName);
+                sqlConn.Open();
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    adapter.Fill(ds);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return ds;
+    }
+
+
+
+
+    public DataSet NewRegionNameList(string territoryName)
+    {
+        DataSet ds = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_GetNewTerritoryRegionName", sqlConn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("TerritoryName", territoryName);
+                sqlConn.Open();
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    adapter.Fill(ds);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return ds;
+    }
+
+
+
+
+    public DataSet NewCompanyNameList(string territoryName)
+    {
+        DataSet ds = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_GetNewTerritoryCompanyName", sqlConn))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("TerritoryName", territoryName);
+                sqlConn.Open();
+                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                {
+                    adapter.Fill(ds);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return ds;
+    }
+
 }

@@ -99,9 +99,9 @@ namespace SalesReportingWebsite
                     newStateProvinceName.DataBind();
 
 
-                    newCustomerNumber.DataSource = li.CustomerNumberList().Tables[0];
-                    newCustomerNumber.DataTextField = "CustomerID";
-                    newCustomerNumber.DataBind();
+                    //newCustomerNumber.DataSource = li.CustomerNumberList().Tables[0];
+                    //newCustomerNumber.DataTextField = "CustomerID";
+                    //newCustomerNumber.DataBind();
 
                     BindGridView();
                 }
@@ -498,8 +498,13 @@ namespace SalesReportingWebsite
 
                 //Select the Country of Customer in DropDownList
                 string territoryNames = (e.Row.FindControl("lblTerritoryName") as Label).Text;
-                ddlTerritoryNameList.Items.FindByValue(territoryNames).Selected = true;
+                ListItem item = ddlTerritoryNameList.Items.FindByValue(territoryNames);
 
+                if (item != null)
+                {
+                    ddlTerritoryNameList.SelectedValue = territoryNames;
+
+                }
 
                 //Find the DropDownList in the Row
                 DropDownList ddlRegionNameList = (e.Row.FindControl("RegionName") as DropDownList);
@@ -513,7 +518,13 @@ namespace SalesReportingWebsite
 
                 //Select the Country of Customer in DropDownList
                 string regionNames = (e.Row.FindControl("lblRegionName") as Label).Text;
-                ddlRegionNameList.Items.FindByValue(regionNames).Selected = true;
+                ListItem item1 = ddlRegionNameList.Items.FindByValue(regionNames);
+
+                if (item1 != null)
+                {
+                    ddlRegionNameList.SelectedValue = regionNames;
+
+                }
 
 
                 //DropDownList ddlDistributionRegionNameList = (e.Row.FindControl("DistributionRegionName") as DropDownList);
@@ -542,7 +553,13 @@ namespace SalesReportingWebsite
 
                 //Select the Country of Customer in DropDownList
                 string subBusinessUnitNames = (e.Row.FindControl("lblSubBusinessUnitName") as Label).Text;
-                ddlSubBusinessUnitNameList.Items.FindByValue(subBusinessUnitNames).Selected = true;
+                ListItem item2 = ddlSubBusinessUnitNameList.Items.FindByValue(subBusinessUnitNames);
+
+                if (item2 != null)
+                {
+                    ddlSubBusinessUnitNameList.SelectedValue = subBusinessUnitNames;
+
+                }
 
 
                 //Find the DropDownList in the Row
@@ -557,7 +574,13 @@ namespace SalesReportingWebsite
 
                 //Select the Country of Customer in DropDownList
                 string businessUnitNames = (e.Row.FindControl("lblBusinessUnitName") as Label).Text;
-                ddlBusinessUnitNameList.Items.FindByValue(businessUnitNames).Selected = true;
+                ListItem item3 = ddlBusinessUnitNameList.Items.FindByValue(businessUnitNames);
+
+                if (item3 != null)
+                {
+                    ddlBusinessUnitNameList.SelectedValue = businessUnitNames;
+
+                }
 
 
                 //Find the DropDownList in the Row
@@ -616,10 +639,10 @@ namespace SalesReportingWebsite
             {
                 li.DemoSigned = Convert.ToDateTime((Request.Form[newDemoSigned.UniqueID]));
             }
-            if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[newEffectiveDate.UniqueID]))))
-            {
-                li.EffectiveDate = Convert.ToDateTime((Request.Form[newEffectiveDate.UniqueID]));
-            }
+            //if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[newEffectiveDate.UniqueID]))))
+            //{
+            //    li.EffectiveDate = Convert.ToDateTime((Request.Form[newEffectiveDate.UniqueID]));
+            //}
             if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[newTerminationDate.UniqueID]))))
             {
                 li.TerminationDate = Convert.ToDateTime((Request.Form[newTerminationDate.UniqueID]));
@@ -632,7 +655,7 @@ namespace SalesReportingWebsite
                 //li.VoiceMailPin = Convert.ToInt32(newVoiceMailPin.Text);
          
             li.Notes = newNotes.Text;
-            li.VendorID = newVendorNumber.Text;
+          //  li.VendorID = newVendorNumber.Text;
             li.SalesRepCompanyName = newSalesRepCompany.Text;
             li.InventoryNotes = newInventoryNotes.Text;
             li.SalesRepTypeName = newSalesRepTypeName.SelectedValue.ToString();
@@ -651,14 +674,14 @@ namespace SalesReportingWebsite
             li.CountryName = newCountryName.SelectedValue.ToString();
            // li.CustomerID = newCustomerNumber.SelectedValue.ToString();
             li.WorkPhone = newWorkPhone.Text;
-            li.VoiceMailExtension = newVoiceMailExtension.Text;
+          //  li.VoiceMailExtension = newVoiceMailExtension.Text;
             //li.VoiceMailPin = newVoiceMailPin.Text;
             li.FaxNumber = newFaxNumber.Text;
             li.MobilePhone = newMobilePhone.Text;
-            li.Pager = newPager.Text;
+          //  li.Pager = newPager.Text;
             li.PersonalCellPhone = newPersonalCellPhone.Text;
             li.InternationalPhone = newInternationalPhone.Text;
-            li.InternationalFax = newInternationalFax.Text;
+           // li.InternationalFax = newInternationalFax.Text;
             li.InternationalCell = newInternationalCell.Text;
             li.PrimaryEmail = newPrimaryEmail.Text;
             li.SecondaryEmail = newSecondaryEmail.Text;
@@ -696,7 +719,7 @@ namespace SalesReportingWebsite
                     newSalesRepLastName.Text = "";
                     newTitle.Text = "";
                     newNotes.Text = "";
-                    newVendorNumber.Text = "";
+                  //  newVendorNumber.Text = "";
                     newSalesRepCompany.Text = "";
                     newInventoryNotes.Text = "";
                     newSalesRepTypeName.SelectedIndex = 0;
@@ -705,6 +728,59 @@ namespace SalesReportingWebsite
                 }
             }
         }
+        protected void OnSelectedTypeIndexChanged(object sender, EventArgs e)
+        {
+            string territoryName = newTerritoryName.SelectedValue.ToString();
+           
+            SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
+            newBusinessUnitName.Items.Clear();
+            newBusinessUnitName.Items.Insert(0, new ListItem("Select One"));
+            newBusinessUnitName.DataSource = li.NewBusinessUnitNameList(territoryName).Tables[0];
+            newBusinessUnitName.DataTextField = "BusinessUnitName";
+            newBusinessUnitName.DataBind();
+
+            newSubBusinessUnitName.Items.Clear();
+            newSubBusinessUnitName.Items.Insert(0, new ListItem("Select One"));
+            newSubBusinessUnitName.DataSource = li.NewSubBusinessUnitNameList(territoryName).Tables[0];
+            newSubBusinessUnitName.DataTextField = "SubBusinessUnitName";
+            newSubBusinessUnitName.DataBind();
+
+            newCompanyName.Items.Clear();
+            newCompanyName.Items.Insert(0, new ListItem("Select One"));
+            newCompanyName.DataSource = li.NewCompanyNameList(territoryName).Tables[0];
+            newCompanyName.DataTextField = "CompanyName";
+            newCompanyName.DataBind();
+
+
+            newRegionName.Items.Clear();
+            newRegionName.Items.Insert(0, new ListItem("Select One"));
+            newRegionName.DataSource = li.NewRegionNameList(territoryName).Tables[0];
+            newRegionName.DataTextField = "RegionName";
+            newRegionName.DataBind();
+
+
+            ModalPopupExtender1.Show();
+
+        }
+
+        //protected void ddlNewTerritoryName(object sender, EventArgs e)
+        //{
+        //    ModalPopupExtender1.Show();
+        //    btnSaveNewSalesRepresentative.Enabled = false;
+        //    SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
+        //    DataSet ds = li.GetTerritoryNameRelatedData(newTerritoryName.SelectedValue.ToString());
+
+        //    DropDownList ddlAdjustmentTypeNameList = (FindControl("ddlTerritoryName") as DropDownList);
+
+        //    newRegionName.SelectedValue = Convert.ToString(ds.Tables[0].Rows[0]["RegionName"]);
+        //    newCompanyName.SelectedValue = Convert.ToString(ds.Tables[0].Rows[0]["CompanyName"]);
+        //    newSubBusinessUnitName.SelectedValue = Convert.ToString(ds.Tables[0].Rows[0]["SubBusinessUnitName"]);
+        //    newBusinessUnitName.SelectedValue = Convert.ToString(ds.Tables[0].Rows[0]["BusinessUnitName"]);
+        //    btnSaveNewSalesRepresentative.Enabled = true;
+
+        //}
+
+
 
         protected void btnAddNewSalesRepresentative_Click(object sender, EventArgs e)
         {

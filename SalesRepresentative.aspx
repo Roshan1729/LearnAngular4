@@ -8,7 +8,7 @@
                 <asp:Table ID="Table1" runat="server" Width="100%" Style="margin-bottom: 0px">
                     <asp:TableRow>
                         <asp:TableCell>
-                            <asp:Button ID="btnAddNewSalesRepresentative" runat="server" Text="Add new Sales Representative" OnClick="btnAddNewSalesRepresentative_Click"
+                            <asp:Button ID="btnAddNewSalesRepresentative" runat="server" Text="Add New Sales Representative" OnClick="btnAddNewSalesRepresentative_Click"
                             />
                             <asp:HyperLink ID="HiddenAddNewSalesRepresentative" runat="server" Style="display: none;" />
                         </asp:TableCell>
@@ -121,17 +121,17 @@
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="SalesRepFirstName" Text='<%# Eval("SalesRepFirstName")%>'></asp:Label>
                             </ItemTemplate>
-                          <%--  <EditItemTemplate>
+                            <EditItemTemplate>
                                 <asp:TextBox ID="SalesRepFirstName" runat="server" Text='<%# Eval("SalesRepFirstName")%>'></asp:TextBox>
-                            </EditItemTemplate>--%>
+                            </EditItemTemplate>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="Last Name">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="SalesRepLastName" Text='<%# Eval("SalesRepLastName")%>'></asp:Label>
                             </ItemTemplate>
-                           <%-- <EditItemTemplate>
+                            <EditItemTemplate>
                                 <asp:TextBox ID="SalesRepLastName" runat="server" Text='<%# Eval("SalesRepLastName")%>'></asp:TextBox>
-                            </EditItemTemplate>--%>
+                            </EditItemTemplate>
                         </asp:TemplateField>
 
 
@@ -183,14 +183,14 @@
                             </EditItemTemplate>
                         </asp:TemplateField>
 
-                        <asp:TemplateField HeaderText="Vendor Number">
+                  <%--      <asp:TemplateField HeaderText="Vendor Number">
                             <ItemTemplate>
                                 <asp:Label runat="server" ID="VendorID" Text='<%# Eval("VendorID")%>'></asp:Label>
                             </ItemTemplate>
                             <EditItemTemplate>
                                 <asp:TextBox ID="VendorID" runat="server" Text='<%# Eval("VendorID")%>'></asp:TextBox>
                             </EditItemTemplate>
-                        </asp:TemplateField>
+                        </asp:TemplateField>--%>
 
                         <asp:TemplateField HeaderText="Sales Rep Company">
                             <ItemTemplate>
@@ -379,7 +379,7 @@
                                     </asp:TemplateField>
 
 
-                                    <asp:TemplateField HeaderText="Voice Mail Ext">
+                                 <%--   <asp:TemplateField HeaderText="Voice Mail Ext">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="VoiceMailExtension" Text='<%# Eval("VoiceMailExtension")%>'></asp:Label>
                                         </ItemTemplate>
@@ -396,7 +396,7 @@
                                         <EditItemTemplate>
                                             <asp:TextBox ID="VoiceMailPin" runat="server" Text='<%# Eval("VoiceMailPin")%>'></asp:TextBox>
                                         </EditItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
 
                                     <asp:TemplateField HeaderText="Fax Number">
                                         <ItemTemplate>
@@ -418,14 +418,14 @@
                                     </asp:TemplateField>
 
 
-                                    <asp:TemplateField HeaderText="Pager">
+                                  <%--  <asp:TemplateField HeaderText="Pager">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="Pager" Text='<%# Eval("Pager")%>'></asp:Label>
                                         </ItemTemplate>
                                         <EditItemTemplate>
                                             <asp:TextBox ID="Pager" runat="server" Text='<%# Eval("Pager")%>'></asp:TextBox>
                                         </EditItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
 
                                     <asp:TemplateField HeaderText="Personal CellPhone">
                                         <ItemTemplate>
@@ -445,14 +445,14 @@
                                         </EditItemTemplate>
                                     </asp:TemplateField>
 
-                                    <asp:TemplateField HeaderText="International Fax">
+<%--                                    <asp:TemplateField HeaderText="International Fax">
                                         <ItemTemplate>
                                             <asp:Label runat="server" ID="InternationalFax" Text='<%# Eval("InternationalFax")%>'></asp:Label>
                                         </ItemTemplate>
                                         <EditItemTemplate>
                                             <asp:TextBox ID="InternationalFax" runat="server" Text='<%# Eval("InternationalFax")%>'></asp:TextBox>
                                         </EditItemTemplate>
-                                    </asp:TemplateField>
+                                    </asp:TemplateField>--%>
 
                                     <asp:TemplateField HeaderText="International Cell">
                                         <ItemTemplate>
@@ -494,7 +494,7 @@
                                         </asp:TemplateField>--%>
 
 
-                                        <asp:TemplateField HeaderText="Effective Date">
+                                    <%--    <asp:TemplateField HeaderText="Effective Date">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="lnl1" Text='<%#DataBinder.Eval(Container.DataItem, "EffectiveDate").ToString()%>'></asp:Label>
                                             </ItemTemplate>
@@ -510,7 +510,7 @@
                                                 <asp:TextBox ID="ExpirationDate" runat="server" ReadOnly="true" Text='<%#Bind("ExpirationDate") %>'></asp:TextBox>
                                             </EditItemTemplate>
                                         </asp:TemplateField>
-
+--%>
 
 
                                         <asp:BoundField DataField="UpdateUser" HeaderText="Update User" ReadOnly="true" ItemStyle-Width="100">
@@ -530,7 +530,7 @@
             <cc1:ModalPopupExtender ID="ModalPopupExtender1" runat="server" PopupControlID="Panel1" TargetControlID="HiddenAddNewSalesRepresentative"
                 CancelControlID="btnClose" BackgroundCssClass="modalBackground">
             </cc1:ModalPopupExtender>
-            <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" align="center" Style="display: none">
+            <asp:Panel ID="Panel1" runat="server" CssClass="modalPopup" align="center"  Style="display: none;width: 90%; height: 90%; overflow: scroll">
                 <asp:Label ID="Label15" runat="server" Text="" Font-Size="Large" Style="text-align: left;">Add New Sales Representaive</asp:Label>
 
                 <asp:Table ID="Table2" runat="server">
@@ -545,11 +545,15 @@
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newSalesRepFirstName" runat="server"></asp:TextBox>
                         </asp:TableCell>
-                        <asp:TableCell runat="server">Vendor Number:</asp:TableCell>
+                      <%--  <asp:TableCell runat="server">Vendor Number:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newVendorNumber" runat="server"></asp:TextBox>
-                        </asp:TableCell>
-
+                        </asp:TableCell>--%>
+                        <asp:TableCell runat="server">
+                             </asp:TableCell>
+                        <asp:TableCell runat="server">
+                             </asp:TableCell>
+                     
                         <asp:TableCell runat="server">Sales Rep Type:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="newSalesRepTypeName" runat="server" AppendDataBoundItems="true">
@@ -569,7 +573,7 @@
                         </asp:TableCell>
                         <asp:TableCell runat="server">Territory Name:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newTerritoryName" runat="server" AppendDataBoundItems="true">
+                            <asp:DropDownList ID="newTerritoryName" runat="server" AppendDataBoundItems="true" OnSelectedIndexChanged = "OnSelectedTypeIndexChanged" AutoPostBack="true">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
@@ -599,10 +603,14 @@
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newHireDate" runat="server" CssClass="DateLabel"></asp:TextBox>
                         </asp:TableCell>
-                        <asp:TableCell runat="server">Effective Date:</asp:TableCell>
+                        <asp:TableCell runat="server">Termination Date:</asp:TableCell>
+                        <asp:TableCell runat="server">
+                            <asp:TextBox ID="newTerminationDate" runat="server" CssClass="DateLabel"></asp:TextBox>
+                        </asp:TableCell>
+                      <%--  <asp:TableCell runat="server">Effective Date:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newEffectiveDate" runat="server" CssClass="DateLabel"></asp:TextBox>
-                        </asp:TableCell>
+                        </asp:TableCell>--%>
                         <asp:TableCell runat="server">Distribution Region Name:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="newDistributionRegionName" runat="server" AppendDataBoundItems="true">
@@ -611,7 +619,7 @@
                         </asp:TableCell>
                     </asp:TableRow>
 
-                    <asp:TableRow runat="server">
+  <%--              <asp:TableRow runat="server">
                         <asp:TableCell runat="server">Termination Date:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newTerminationDate" runat="server" CssClass="DateLabel"></asp:TextBox>
@@ -629,23 +637,36 @@
                             </asp:DropDownList>
                         </asp:TableCell>
 
-                    </asp:TableRow>
+                    </asp:TableRow>--%>
 
                     <asp:TableRow runat="server">
 
-                        <asp:TableCell runat="server" rowspan="2">Notes:</asp:TableCell>
-                        <asp:TableCell runat="server" rowspan="2">
+                        <asp:TableCell runat="server" rowspan="3">Notes:</asp:TableCell>
+                        <asp:TableCell runat="server" rowspan="3">
                             <asp:TextBox ID="newNotes" runat="server" TextMode="multiline" Columns="50" Rows="5"></asp:TextBox>
                         </asp:TableCell>
 
-                        <asp:TableCell runat="server" rowspan="2">Inventory Notes:</asp:TableCell>
-                        <asp:TableCell runat="server" rowspan="2">
+                        <asp:TableCell runat="server" rowspan="3">Inventory Notes:</asp:TableCell>
+                        <asp:TableCell runat="server" rowspan="3">
                             <asp:TextBox ID="newInventoryNotes" runat="server" TextMode="multiline" Columns="50" Rows="5"></asp:TextBox>
                         </asp:TableCell>
+
 
                         <asp:TableCell runat="server">Business Unit Name:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:DropDownList ID="newBusinessUnitName" runat="server" AppendDataBoundItems="true">
+                                <asp:ListItem Selected="True">Select One</asp:ListItem>
+                            </asp:DropDownList>
+                        </asp:TableCell>
+
+                    </asp:TableRow>
+
+
+                    <asp:TableRow runat="server">
+
+                           <asp:TableCell runat="server">Sub Business Unit Name:</asp:TableCell>
+                        <asp:TableCell runat="server">
+                            <asp:DropDownList ID="newSubBusinessUnitName" runat="server" AppendDataBoundItems="true">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
                         </asp:TableCell>
@@ -675,11 +696,9 @@
                             <asp:TextBox ID="newAddress1" runat="server"></asp:TextBox>
                         </asp:TableCell>
 
-                        <asp:TableCell runat="server">Customer Number/Ship To:</asp:TableCell>
+                        <asp:TableCell runat="server">Customer Number:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newCustomerNumber" runat="server" AppendDataBoundItems="true">
-                                <asp:ListItem Selected="True">Select One</asp:ListItem>
-                            </asp:DropDownList>
+                            <asp:TextBox ID="newCustomerNumber" runat="server"></asp:TextBox>
                         </asp:TableCell>
 
                         <asp:TableCell runat="server">Personal Cell Phone:</asp:TableCell>
@@ -715,16 +734,19 @@
                             <asp:TextBox ID="newAddress3" runat="server"></asp:TextBox>
                         </asp:TableCell>
 
-                        <asp:TableCell runat="server">Voice Mail Ext:</asp:TableCell>
+                        <%--<asp:TableCell runat="server">Voice Mail Ext:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newVoiceMailExtension" runat="server"></asp:TextBox>
-                        </asp:TableCell>
+                        </asp:TableCell>--%>
 
-                        <asp:TableCell runat="server">International Fax:</asp:TableCell>
+                      <%--  <asp:TableCell runat="server">International Fax:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newInternationalFax" runat="server"></asp:TextBox>
-                        </asp:TableCell>
-
+                        </asp:TableCell>--%>
+                        <asp:TableCell runat="server">
+                             </asp:TableCell>
+                        <asp:TableCell runat="server">
+                             </asp:TableCell>
                     </asp:TableRow>
 
                     <asp:TableRow runat="server">
@@ -733,12 +755,14 @@
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newCity" runat="server"></asp:TextBox>
                         </asp:TableCell>
-
-                        <asp:TableCell runat="server">Voice Mail Pin:</asp:TableCell>
+                        <asp:TableCell runat="server"></asp:TableCell>
+                       <%-- <asp:TableCell runat="server"></asp:TableCell>--%>
+                     <%--   <asp:TableCell runat="server">Voice Mail Pin:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newVoiceMailPin" runat="server"></asp:TextBox>
-                        </asp:TableCell>
-
+                        </asp:TableCell>--%>
+                        <asp:TableCell runat="server">
+                             </asp:TableCell>
                         <asp:TableCell runat="server">International Cell:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newInternationalCell" runat="server"></asp:TextBox>
@@ -797,7 +821,7 @@
                             </asp:DropDownList>
                         </asp:TableCell>
 
-                        <asp:TableCell runat="server">Pager:</asp:TableCell>
+                     <%--   <asp:TableCell runat="server">Pager:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newPager" runat="server"></asp:TextBox>
                         </asp:TableCell>
@@ -807,7 +831,7 @@
                             <asp:DropDownList ID="newGlobalAddress" runat="server" AppendDataBoundItems="true">
                                 <asp:ListItem Selected="True">Select One</asp:ListItem>
                             </asp:DropDownList>
-                        </asp:TableCell>
+                        </asp:TableCell>--%>
                     </asp:TableRow>
 
                 </asp:Table>
