@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Services;
 
 namespace SalesReportingWebsite
 {
@@ -110,6 +111,17 @@ namespace SalesReportingWebsite
 
         #region EventHandling
 
+        [WebMethod]
+        public static string[] SearchCustomers(string prefix)
+        {
+            SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
+            List<string> customers = new List<string>();
+            customers = li.SuggestCustomers(prefix, 0);
+            return customers.ToArray(); ;
+        }
+
+
+
         protected void chkBoxResetCheckedChanged(object sender, EventArgs e)
         {
             if (SalesRepresentativeGridView.EditIndex >= -1)
@@ -158,32 +170,33 @@ namespace SalesReportingWebsite
                 try
                 {
                     li.SalesRepContactID = Convert.ToInt32(SalesRepresentativeGridView.DataKeys[e.RowIndex].Values[0]);
-
-                    if (((TextBox)row.FindControl("SalesRepFirstName")).Text != string.Empty)
-                    {
-                        li.SalesRepFirstName = Convert.ToString(((TextBox)row.FindControl("SalesRepFirstName")).Text);
-                    }
-
-
-                    else
-                    {
-                        display = "SalesRep FirstName cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
-
-                    if (((TextBox)row.FindControl("SalesRepLastName")).Text != string.Empty)
-                    {
-                        li.SalesRepLastName = Convert.ToString(((TextBox)row.FindControl("SalesRepLastName")).Text);
-                    }
+                    li.SalesRepFirstName = Convert.ToString(((TextBox)row.FindControl("SalesRepFirstName")).Text);
+                    li.SalesRepLastName = Convert.ToString(((TextBox)row.FindControl("SalesRepLastName")).Text);
+                    //if (((TextBox)row.FindControl("SalesRepFirstName")).Text != string.Empty)
+                    //{
+                    //    li.SalesRepFirstName = Convert.ToString(((TextBox)row.FindControl("SalesRepFirstName")).Text);
+                    //}
 
 
-                    else
-                    {
-                        display = "SalesRep LastName cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "SalesRep FirstName cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
+
+                    //if (((TextBox)row.FindControl("SalesRepLastName")).Text != string.Empty)
+                    //{
+                    //    li.SalesRepLastName = Convert.ToString(((TextBox)row.FindControl("SalesRepLastName")).Text);
+                    //}
+
+
+                    //else
+                    //{
+                    //    display = "SalesRep LastName cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
 
 
@@ -192,34 +205,19 @@ namespace SalesReportingWebsite
                     {
                         li.Title = Convert.ToString(((TextBox)row.FindControl("Title")).Text);
                     }
-                    //else
-                    //{
-                    //    display = "Title cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
+                   
 
-                    if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("HireDate").UniqueID]))))
+                    if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("DemoSigned").UniqueID]))))
                     {
-                        li.HireDate = Convert.ToDateTime((Request.Form[row.FindControl("HireDate").UniqueID]));
+                        li.DemoSigned = Convert.ToDateTime((Request.Form[row.FindControl("DemoSigned").UniqueID]));
                     }
-                    else
-                    {
-                        display = "Hire Date cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                  
 
                     if (((TextBox)row.FindControl("SalesRepCompanyName")).Text != string.Empty)
                     {
                         li.SalesRepCompanyName = Convert.ToString(((TextBox)row.FindControl("SalesRepCompanyName")).Text);
                     }
-                    //else
-                    //{
-                    //    display = "SalesRep Company Name cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
+                  
 
                     if (((DropDownList)row.FindControl("CompanyName")).SelectedValue != "Select One")
                     {
@@ -291,92 +289,36 @@ namespace SalesReportingWebsite
                     }
 
 
-                    if (((TextBox)row.FindControl("VoiceMailExtension")).Text != string.Empty)
-                    {
-                        li.VoiceMailExtension = Convert.ToString(((TextBox)row.FindControl("VoiceMailExtension")).Text);
-                    }
-                    //else
-                    //{
-                    //    display = "VoiceMailExtension cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
+                
 
                     if (((TextBox)row.FindControl("FaxNumber")).Text != string.Empty)
                     {
                         li.FaxNumber = Convert.ToString(((TextBox)row.FindControl("FaxNumber")).Text);
                     }
-                    //else
-                    //{
-                    //    display = "FaxNumber cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
+                    
                     if (((TextBox)row.FindControl("MobilePhone")).Text != string.Empty)
                     {
                         li.MobilePhone = Convert.ToString(((TextBox)row.FindControl("MobilePhone")).Text);
                     }
-                    //else
-                    //{
-                    //    display = "MobilePhone cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
-                    if (((TextBox)row.FindControl("Pager")).Text != string.Empty)
-                    {
-                        li.Pager = Convert.ToString(((TextBox)row.FindControl("Pager")).Text);
-                    }
-                    //else
-                    //{
-                    //    display = "Pager cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
+                   
 
                     if (((TextBox)row.FindControl("PersonalCellPhone")).Text != string.Empty)
                     {
                         li.PersonalCellPhone = Convert.ToString(((TextBox)row.FindControl("PersonalCellPhone")).Text);
                     }
-                    //else
-                    //{
-                    //    display = "PersonalCellPhone cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
+                   
 
                     if (((TextBox)row.FindControl("InternationalPhone")).Text != string.Empty)
                     {
                         li.InternationalPhone = Convert.ToString(((TextBox)row.FindControl("InternationalPhone")).Text);
                     }
-                    //else
-                    //{
-                    //    display = "InternationalPhone cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
-
-
-                    if (((TextBox)row.FindControl("InternationalFax")).Text != string.Empty)
-                    {
-                        li.InternationalFax = Convert.ToString(((TextBox)row.FindControl("InternationalFax")).Text);
-                    }
-                    //else
-                    //{
-                    //    display = "InternationalFax cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
+                   
 
                     if (((TextBox)row.FindControl("InternationalCell")).Text != string.Empty)
                     {
                         li.InternationalCell = Convert.ToString(((TextBox)row.FindControl("InternationalCell")).Text);
                     }
-                    //else
-                    //{
-                    //    display = "InternationalCell cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
+                   
                     if (((TextBox)row.FindControl("PrimaryEmail")).Text != string.Empty)
                     {
                         li.PrimaryEmail = Convert.ToString(((TextBox)row.FindControl("PrimaryEmail")).Text);
@@ -392,38 +334,33 @@ namespace SalesReportingWebsite
                     {
                         li.SecondaryEmail = Convert.ToString(((TextBox)row.FindControl("SecondaryEmail")).Text);
                     }
-                    //else
-                    //{
-                    //    display = "SecondaryEmail cannot be empty";
-                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                    //    isFormFilled = false;
-                    //}
+                 
 
-                    if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("EffectiveDate").UniqueID]))))
+                    if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("HireDate").UniqueID]))))
                     {
-                        li.EffectiveDate = Convert.ToDateTime((Request.Form[row.FindControl("EffectiveDate").UniqueID]));
+                        li.HireDate = Convert.ToDateTime((Request.Form[row.FindControl("HireDate").UniqueID]));
                     }
                     else
                     {
-                        display = "Effective Date cannot be empty";
+                        display = "HireDate Date cannot be empty";
                         ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
                         isFormFilled = false;
                     }
 
-                    if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("ExpirationDate").UniqueID]))))
+                    if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("TerminationDate").UniqueID]))))
                     {
-                        li.ExpirationDate = Convert.ToDateTime((Request.Form[row.FindControl("ExpirationDate").UniqueID]));
+                        li.TerminationDate = Convert.ToDateTime((Request.Form[row.FindControl("TerminationDate").UniqueID]));
                     }
                     else
                     {
-                        display = "Expiration Date cannot be empty";
+                        display = "Hire Date cannot be empty";
                         ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
                         isFormFilled = false;
                     }
 
-                    if (li.ExpirationDate < li.EffectiveDate)
+                    if (li.HireDate  > li.TerminationDate)
                     {
-                        display = "Expiration Date must be after Effective date";
+                        display = "Termination Date must be after Hire date";
                         ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
                         isFormFilled = false;
                     }
@@ -647,15 +584,15 @@ namespace SalesReportingWebsite
             {
                 li.TerminationDate = Convert.ToDateTime((Request.Form[newTerminationDate.UniqueID]));
             }
-           
-            //    li.CustomerID = Convert.ToInt32(newCustomerNumber.Text);
-            
 
-           
-                //li.VoiceMailPin = Convert.ToInt32(newVoiceMailPin.Text);
-         
+            //    li.CustomerID = Convert.ToInt32(newCustomerNumber.Text);
+
+
+
+            //li.VoiceMailPin = Convert.ToInt32(newVoiceMailPin.Text);
+
             li.Notes = newNotes.Text;
-          //  li.VendorID = newVendorNumber.Text;
+            //  li.VendorID = newVendorNumber.Text;
             li.SalesRepCompanyName = newSalesRepCompany.Text;
             li.InventoryNotes = newInventoryNotes.Text;
             li.SalesRepTypeName = newSalesRepTypeName.SelectedValue.ToString();
@@ -669,25 +606,26 @@ namespace SalesReportingWebsite
             li.Address2 = newAddress2.Text;
             li.Address3 = newAddress3.Text;
             li.City = newCity.Text;
+            li.Address1 = newCustomerNumber.Text;
             li.StateProvinceName = newStateProvinceName.SelectedValue.ToString();
             li.PostalCode = newPostalCode.Text;
             li.CountryName = newCountryName.SelectedValue.ToString();
-           // li.CustomerID = newCustomerNumber.SelectedValue.ToString();
+            // li.CustomerID = newCustomerNumber.SelectedValue.ToString();
             li.WorkPhone = newWorkPhone.Text;
-          //  li.VoiceMailExtension = newVoiceMailExtension.Text;
+            //  li.VoiceMailExtension = newVoiceMailExtension.Text;
             //li.VoiceMailPin = newVoiceMailPin.Text;
             li.FaxNumber = newFaxNumber.Text;
             li.MobilePhone = newMobilePhone.Text;
-          //  li.Pager = newPager.Text;
+            //  li.Pager = newPager.Text;
             li.PersonalCellPhone = newPersonalCellPhone.Text;
             li.InternationalPhone = newInternationalPhone.Text;
-           // li.InternationalFax = newInternationalFax.Text;
+            // li.InternationalFax = newInternationalFax.Text;
             li.InternationalCell = newInternationalCell.Text;
             li.PrimaryEmail = newPrimaryEmail.Text;
             li.SecondaryEmail = newSecondaryEmail.Text;
             //li.GlobalAddress = newGlobalAddress.SelectedValue.ToString();
 
-            if (  String.IsNullOrEmpty(li.SalesRepFirstName)
+            if (String.IsNullOrEmpty(li.SalesRepFirstName)
                || String.IsNullOrEmpty(li.SalesRepLastName) || String.IsNullOrEmpty(li.SalesRepTypeName))
             {
                 display = "Please select all the mandatory fields ";
@@ -719,7 +657,7 @@ namespace SalesReportingWebsite
                     newSalesRepLastName.Text = "";
                     newTitle.Text = "";
                     newNotes.Text = "";
-                  //  newVendorNumber.Text = "";
+                    //  newVendorNumber.Text = "";
                     newSalesRepCompany.Text = "";
                     newInventoryNotes.Text = "";
                     newSalesRepTypeName.SelectedIndex = 0;
@@ -731,7 +669,7 @@ namespace SalesReportingWebsite
         protected void OnSelectedTypeIndexChanged(object sender, EventArgs e)
         {
             string territoryName = newTerritoryName.SelectedValue.ToString();
-           
+
             SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
             newBusinessUnitName.Items.Clear();
             newBusinessUnitName.Items.Insert(0, new ListItem("Select One"));

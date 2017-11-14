@@ -564,10 +564,12 @@ public abstract class SalesRepresentativeReportingCode
         //   {
 
         sqlCmd.Parameters.Add("@SalesRepContactID", SqlDbType.Int).Value = li.SalesRepContactID;
-        sqlCmd.Parameters.Add("@EffectiveDate", SqlDbType.DateTime).Value = li.EffectiveDate;
+       // sqlCmd.Parameters.Add("@EffectiveDate", SqlDbType.DateTime).Value = li.EffectiveDate;
         sqlCmd.Parameters.Add("@HireDate", SqlDbType.DateTime).Value = li.HireDate;
-        if (li.ExpirationDate != DateTime.MinValue)
-            sqlCmd.Parameters.Add("@ExpirationDate", SqlDbType.DateTime).Value = li.ExpirationDate;
+        if (li.DemoSigned != DateTime.MinValue)
+            sqlCmd.Parameters.Add("@DemoSigned", SqlDbType.DateTime).Value = li.DemoSigned;
+       // if (li.TerminationDate != DateTime.MinValue)
+         sqlCmd.Parameters.Add("@TerminationDate", SqlDbType.DateTime).Value = li.TerminationDate;
         sqlCmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = li.Title;
         if (!String.IsNullOrEmpty(li.CompanyName))
             sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
@@ -589,20 +591,20 @@ public abstract class SalesRepresentativeReportingCode
             sqlCmd.Parameters.Add("@SubBusinessUnitName", SqlDbType.NVarChar).Value = li.SubBusinessUnitName;
         if (!String.IsNullOrEmpty(li.BusinessUnitName))
             sqlCmd.Parameters.Add("@BusinessUnitName", SqlDbType.NVarChar).Value = li.BusinessUnitName;
-        if (!String.IsNullOrEmpty(li.VoiceMailExtension))
-            sqlCmd.Parameters.Add("@VoiceMailExtension", SqlDbType.NVarChar).Value = li.VoiceMailExtension;
+        //if (!String.IsNullOrEmpty(li.VoiceMailExtension))
+        //    sqlCmd.Parameters.Add("@VoiceMailExtension", SqlDbType.NVarChar).Value = li.VoiceMailExtension;
         if (!String.IsNullOrEmpty(li.FaxNumber))
             sqlCmd.Parameters.Add("@FaxNumber", SqlDbType.NVarChar).Value = li.FaxNumber;
         if (!String.IsNullOrEmpty(li.MobilePhone))
             sqlCmd.Parameters.Add("@MobilePhone", SqlDbType.NVarChar).Value = li.MobilePhone;
-        if (!String.IsNullOrEmpty(li.Pager))
-            sqlCmd.Parameters.Add("@Pager", SqlDbType.NVarChar).Value = li.Pager;
+        //if (!String.IsNullOrEmpty(li.Pager))
+        //    sqlCmd.Parameters.Add("@Pager", SqlDbType.NVarChar).Value = li.Pager;
         if (!String.IsNullOrEmpty(li.PersonalCellPhone))
             sqlCmd.Parameters.Add("@PersonalCellPhone", SqlDbType.NVarChar).Value = li.PersonalCellPhone;
         if (!String.IsNullOrEmpty(li.InternationalPhone))
             sqlCmd.Parameters.Add("@InternationalPhone", SqlDbType.NVarChar).Value = li.InternationalPhone;
-        if (!String.IsNullOrEmpty(li.InternationalFax))
-            sqlCmd.Parameters.Add("@InternationalFax", SqlDbType.NVarChar).Value = li.InternationalFax;
+        //if (!String.IsNullOrEmpty(li.InternationalFax))
+        //    sqlCmd.Parameters.Add("@InternationalFax", SqlDbType.NVarChar).Value = li.InternationalFax;
         if (!String.IsNullOrEmpty(li.InternationalCell))
             sqlCmd.Parameters.Add("@InternationalCell", SqlDbType.NVarChar).Value = li.InternationalCell;
         if (!String.IsNullOrEmpty(li.PrimaryEmail))
@@ -677,7 +679,7 @@ public abstract class SalesRepresentativeReportingCode
                         cmd.Parameters.AddWithValue("CountryName", li.CountryName);
                     if (li.HireDate != DateTime.MinValue)
                         cmd.Parameters.AddWithValue("HireDate", li.HireDate);
-                    if (li.TerminationDate != DateTime.MinValue)
+                    //if (li.TerminationDate != DateTime.MinValue)
                         cmd.Parameters.AddWithValue("TerminationDate", li.TerminationDate);
                     if (!String.IsNullOrEmpty(li.WorkPhone))
                         cmd.Parameters.AddWithValue("WorkPhone", li.WorkPhone);
@@ -707,7 +709,7 @@ public abstract class SalesRepresentativeReportingCode
                     cmd.Parameters.AddWithValue("Notes", li.Notes);
                     if (!String.IsNullOrEmpty(li.InventoryNotes))
                         cmd.Parameters.AddWithValue("InventoryNotes", li.InventoryNotes);
-                    if (li.DemoSigned != DateTime.MinValue)
+                    //if (li.DemoSigned != DateTime.MinValue)
                         cmd.Parameters.AddWithValue("DemoSigned", li.DemoSigned);
                     if (!String.IsNullOrEmpty(li.TerritoryName))
                         cmd.Parameters.AddWithValue("TerritoryName", li.TerritoryName);
@@ -721,7 +723,7 @@ public abstract class SalesRepresentativeReportingCode
                         cmd.Parameters.AddWithValue("BusinessUnitName", li.BusinessUnitName);
                     if (!String.IsNullOrEmpty(li.CompanyName))
                         cmd.Parameters.AddWithValue("CompanyName", li.CompanyName);
-                    if (li.EffectiveDate != DateTime.MinValue)
+                   // if (li.EffectiveDate != DateTime.MinValue)
                         cmd.Parameters.AddWithValue("EffectiveDate", li.EffectiveDate);
                     //if (!String.IsNullOrEmpty(li.GlobalAddress))
                     //    cmd.Parameters.AddWithValue("Globaladdress", li.GlobalAddress);
