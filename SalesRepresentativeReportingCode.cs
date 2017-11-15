@@ -573,10 +573,7 @@ public abstract class SalesRepresentativeReportingCode
         sqlCmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = li.Title;
         if (!String.IsNullOrEmpty(li.CompanyName))
             sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
-        //sqlCmd.Parameters.Add("@SalesRepID", SqlDbType.Int).Value = li.SalesRepID;
-        //sqlCmd.Parameters.Add("@SalesRepFirstName", SqlDbType.NVarChar).Value = li.SalesRepFirstName;
-        //sqlCmd.Parameters.Add("@SalesRepLastName", SqlDbType.NVarChar).Value = li.SalesRepLastName;
-        // sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
+       
         if (!String.IsNullOrEmpty(li.SalesRepCompanyName))
             sqlCmd.Parameters.Add("@SalesRepCompanyName", SqlDbType.NVarChar).Value = li.SalesRepCompanyName;
         if (!String.IsNullOrEmpty(li.WorkPhone))
@@ -677,14 +674,14 @@ public abstract class SalesRepresentativeReportingCode
                         cmd.Parameters.AddWithValue("PostalCode", li.PostalCode);
                     if (!String.IsNullOrEmpty(li.CountryName))
                         cmd.Parameters.AddWithValue("CountryName", li.CountryName);
-                    if (li.HireDate != DateTime.MinValue)
+                  //  if (li.HireDate != DateTime.MinValue)
                         cmd.Parameters.AddWithValue("HireDate", li.HireDate);
-                    //if (li.TerminationDate != DateTime.MinValue)
+                    if (li.TerminationDate != DateTime.MinValue)
                         cmd.Parameters.AddWithValue("TerminationDate", li.TerminationDate);
                     if (!String.IsNullOrEmpty(li.WorkPhone))
                         cmd.Parameters.AddWithValue("WorkPhone", li.WorkPhone);
-                    if (!String.IsNullOrEmpty(li.VoiceMailExtension))
-                        cmd.Parameters.AddWithValue("VoiceMailExtension", li.VoiceMailExtension);
+                    //if (!String.IsNullOrEmpty(li.VoiceMailExtension))
+                    //    cmd.Parameters.AddWithValue("VoiceMailExtension", li.VoiceMailExtension);
                    // if (!(li.VoiceMailPin.GetValueOrDefault(0) == 0))
                         cmd.Parameters.AddWithValue("VoiceMailPin", li.VoiceMailPin);
                     if (!String.IsNullOrEmpty(li.FaxNumber))
@@ -705,11 +702,11 @@ public abstract class SalesRepresentativeReportingCode
                         cmd.Parameters.AddWithValue("PrimaryEmail", li.PrimaryEmail);
                     if (!String.IsNullOrEmpty(li.SecondaryEmail))
                         cmd.Parameters.AddWithValue("SecondaryEmail", li.SecondaryEmail);
-                    cmd.Parameters.AddWithValue("VendorID", li.VendorID);
+                    //cmd.Parameters.AddWithValue("VendorID", li.VendorID);
                     cmd.Parameters.AddWithValue("Notes", li.Notes);
                     if (!String.IsNullOrEmpty(li.InventoryNotes))
                         cmd.Parameters.AddWithValue("InventoryNotes", li.InventoryNotes);
-                    //if (li.DemoSigned != DateTime.MinValue)
+                    if (li.DemoSigned != DateTime.MinValue)
                         cmd.Parameters.AddWithValue("DemoSigned", li.DemoSigned);
                     if (!String.IsNullOrEmpty(li.TerritoryName))
                         cmd.Parameters.AddWithValue("TerritoryName", li.TerritoryName);
@@ -723,10 +720,21 @@ public abstract class SalesRepresentativeReportingCode
                         cmd.Parameters.AddWithValue("BusinessUnitName", li.BusinessUnitName);
                     if (!String.IsNullOrEmpty(li.CompanyName))
                         cmd.Parameters.AddWithValue("CompanyName", li.CompanyName);
-                   // if (li.EffectiveDate != DateTime.MinValue)
-                        cmd.Parameters.AddWithValue("EffectiveDate", li.EffectiveDate);
+                    // if (li.EffectiveDate != DateTime.MinValue)
+                    //    cmd.Parameters.AddWithValue("EffectiveDate", li.EffectiveDate);
                     //if (!String.IsNullOrEmpty(li.GlobalAddress))
                     //    cmd.Parameters.AddWithValue("Globaladdress", li.GlobalAddress);
+
+                    if (String.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
+                    {
+                        cmd.Parameters.Add("@UpdateUser", SqlDbType.VarChar).Value = "sysadmin";
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add("@UpdateUser", SqlDbType.VarChar).Value = HttpContext.Current.User.Identity.Name;
+                    }
+
+
                     connection.Open();
                     using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
                     {

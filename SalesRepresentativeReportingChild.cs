@@ -395,36 +395,36 @@ public class SalesRepresentativeReportingChild : SalesRepresentativeReportingCod
 
 
 
-    public List<string> SuggestCustomers(string prefixText, int count)
-    {
-        List<string> customers = new List<string>();
-        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
-        try
-        {
-            using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_SuggestCustomerName", sqlConn))
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("PrefixText", prefixText);
-                cmd.Parameters.AddWithValue("Count", count);
-                sqlConn.Open();
-                using (SqlDataReader sdr = cmd.ExecuteReader())
-                {
-                    while (sdr.Read())
-                    {
-                        customers.Add(sdr["ContactName"].ToString());
-                    }
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            throw ex;
-        }
-        finally
-        {
-            sqlConn.Close();
-        }
-        return customers;
-    }
+    //public List<string> SuggestCustomers(string prefixText, int count)
+    //{
+    //    List<string> customers = new List<string>();
+    //    SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+    //    try
+    //    {
+    //        using (SqlCommand cmd = new SqlCommand("dbo.Web_SR_SuggestCustomerName", sqlConn))
+    //        {
+    //            cmd.CommandType = CommandType.StoredProcedure;
+    //            cmd.Parameters.AddWithValue("PrefixText", prefixText);
+    //            cmd.Parameters.AddWithValue("Count", count);
+    //            sqlConn.Open();
+    //            using (SqlDataReader sdr = cmd.ExecuteReader())
+    //            {
+    //                while (sdr.Read())
+    //                {
+    //                    customers.Add(sdr["CustomerNumber"].ToString());
+    //                }
+    //            }
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        throw ex;
+    //    }
+    //    finally
+    //    {
+    //        sqlConn.Close();
+    //    }
+    //    return customers;
+    //}
 
 }

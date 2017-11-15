@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="Sales Representative" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SalesRepresentative.aspx.cs" Inherits="SalesReportingWebsite.SalesRepresentative" EnableEventValidation="false" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
  <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
             <asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
@@ -699,11 +700,21 @@
                         <asp:TableCell runat="server">Customer Number:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newCustomerNumber" runat="server"></asp:TextBox>
+                            <%--<cc1:AutoCompleteExtender ID="TextBox1_AutoCompleteExtender" runat="server" 
+                                DelimiterCharacters="" ServiceMethod="SearchCustomers" ServicePath="" 
+                                TargetControlID="newCustomerNumber">
+                            </cc1:AutoCompleteExtender>--%>
                         </asp:TableCell>
 
                         <asp:TableCell runat="server">Personal Cell Phone:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newPersonalCellPhone" runat="server"></asp:TextBox>
+                             <asp:RegularExpressionValidator 
+                            ErrorMessage="Invalid Personal Cell Phone Number" 
+                            Text="Invalid Personal Cell Phone Number1" 
+                            ControlToValidate="newPersonalCellPhone" 
+                            ValidationExpression="^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}|(\([0-9]{3}\)|[0-9]{3})[0-9]{3}[0-9]{4}$" 
+                            runat="server" />
                         </asp:TableCell>
 
                     </asp:TableRow>
@@ -718,11 +729,23 @@
                         <asp:TableCell runat="server">Work Phone:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newWorkPhone" runat="server"></asp:TextBox>
+                            <asp:RegularExpressionValidator 
+                            ErrorMessage="Work Phone Number" 
+                            Text="Invalid Work Phone number" 
+                            ControlToValidate="newWorkPhone" 
+                            ValidationExpression="^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}|(\([0-9]{3}\)|[0-9]{3})[0-9]{3}[0-9]{4}$" 
+                            runat="server" />
                         </asp:TableCell>
 
                         <asp:TableCell runat="server">International Phone:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newInternationalPhone" runat="server"></asp:TextBox>
+                              <asp:RegularExpressionValidator 
+                            ErrorMessage="International Phone Number" 
+                            Text="Invalid International Phone number" 
+                            ControlToValidate="newInternationalPhone" 
+                            ValidationExpression="^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}|(\([0-9]{3}\)|[0-9]{3})[0-9]{3}[0-9]{4}$" 
+                            runat="server" />
                         </asp:TableCell>
 
                     </asp:TableRow>
@@ -766,6 +789,12 @@
                         <asp:TableCell runat="server">International Cell:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newInternationalCell" runat="server"></asp:TextBox>
+                              <asp:RegularExpressionValidator 
+                            ErrorMessage="Invalid Cell Number" 
+                            Text="Invalid International cell number" 
+                            ControlToValidate="newInternationalCell" 
+                            ValidationExpression="^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}|(\([0-9]{3}\)|[0-9]{3})[0-9]{3}[0-9]{4}$" 
+                            runat="server" />
                         </asp:TableCell>
 
                     </asp:TableRow>
@@ -783,11 +812,22 @@
                         <asp:TableCell runat="server">Fax Number:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newFaxNumber" runat="server"></asp:TextBox>
+                              <asp:RegularExpressionValidator 
+                            ErrorMessage="Invalid Fax Number" 
+                            Text="Invalid Fax Number" 
+                            ControlToValidate="newFaxNumber" 
+                            ValidationExpression="^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}|(\([0-9]{3}\)|[0-9]{3})[0-9]{3}[0-9]{4}$" 
+                            runat="server" />
                         </asp:TableCell>
 
                         <asp:TableCell runat="server">Primary Email:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newPrimaryEmail" runat="server"></asp:TextBox>
+                             <asp:RegularExpressionValidator 
+                            ErrorMessage="Invalid Primary Address" 
+                            Text="Invalid Primary Email Address" 
+                            ControlToValidate="newPrimaryEmail" 
+                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" runat="server" />
                         </asp:TableCell>
 
                     </asp:TableRow>
@@ -802,11 +842,22 @@
                         <asp:TableCell runat="server">Mobile Phone:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newMobilePhone" runat="server"></asp:TextBox>
+                             <asp:RegularExpressionValidator 
+                            ErrorMessage="Invalid Mobile Phone Number" 
+                            Text="Invalid Mobile Phone Number" 
+                            ControlToValidate="newMobilePhone" 
+                            ValidationExpression="^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}|(\([0-9]{3}\)|[0-9]{3})[0-9]{3}[0-9]{4}$" 
+                            runat="server" />
                         </asp:TableCell>
 
                         <asp:TableCell runat="server">Secondary Email:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newSecondaryEmail" runat="server"></asp:TextBox>
+                             <asp:RegularExpressionValidator 
+                            ErrorMessage="Invalid Email Address" 
+                            Text="Invalid Secondary Email" 
+                            ControlToValidate="newSecondaryEmail" 
+                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" runat="server" />
                         </asp:TableCell>
 
                     </asp:TableRow>

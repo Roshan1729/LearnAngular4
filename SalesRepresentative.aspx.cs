@@ -15,16 +15,16 @@ namespace SalesReportingWebsite
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            VBFunctions.ADFunctions obj = new VBFunctions.ADFunctions();
-            string userID = obj.GetUserName();
-            // string dirEntry = obj.GetDirectoryEntry();
-            memberships = obj.VerifyGroupMemberships("LDAP://192.168.100.3/ou=Cooper Network Users,dc=coopersurgical1,dc=com", "webapps", "Yankees#1", userID);
+            //VBFunctions.ADFunctions obj = new VBFunctions.ADFunctions();
+            //string userID = obj.GetUserName();
+            //// string dirEntry = obj.GetDirectoryEntry();
+            //memberships = obj.VerifyGroupMemberships("LDAP://192.168.100.3/ou=Cooper Network Users,dc=coopersurgical1,dc=com", "webapps", "Yankees#1", userID);
 
             if (!Page.IsPostBack)
 
             {
-                if (memberships == 1 || memberships == 4)
-                {
+                //if (memberships == 1 || memberships == 4)
+                //{
                     SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
 
                     DataTable table = new DataTable();
@@ -105,20 +105,20 @@ namespace SalesReportingWebsite
                     //newCustomerNumber.DataBind();
 
                     BindGridView();
-                }
+             //   }
             }
         }
 
         #region EventHandling
 
-        [WebMethod]
-        public static string[] SearchCustomers(string prefix)
-        {
-            SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
-            List<string> customers = new List<string>();
-            customers = li.SuggestCustomers(prefix, 0);
-            return customers.ToArray(); ;
-        }
+        //[WebMethod]
+        //public static List<string> SearchCustomers(string prefix)
+        //{
+        //    SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
+        //    List<string> customers = new List<string>();
+        //    customers = li.SuggestCustomers(prefix, 0);
+        //    return customers;
+        //}
 
 
 
@@ -205,19 +205,19 @@ namespace SalesReportingWebsite
                     {
                         li.Title = Convert.ToString(((TextBox)row.FindControl("Title")).Text);
                     }
-                   
+
 
                     if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("DemoSigned").UniqueID]))))
                     {
                         li.DemoSigned = Convert.ToDateTime((Request.Form[row.FindControl("DemoSigned").UniqueID]));
                     }
-                  
+
 
                     if (((TextBox)row.FindControl("SalesRepCompanyName")).Text != string.Empty)
                     {
                         li.SalesRepCompanyName = Convert.ToString(((TextBox)row.FindControl("SalesRepCompanyName")).Text);
                     }
-                  
+
 
                     if (((DropDownList)row.FindControl("CompanyName")).SelectedValue != "Select One")
                     {
@@ -289,36 +289,36 @@ namespace SalesReportingWebsite
                     }
 
 
-                
+
 
                     if (((TextBox)row.FindControl("FaxNumber")).Text != string.Empty)
                     {
                         li.FaxNumber = Convert.ToString(((TextBox)row.FindControl("FaxNumber")).Text);
                     }
-                    
+
                     if (((TextBox)row.FindControl("MobilePhone")).Text != string.Empty)
                     {
                         li.MobilePhone = Convert.ToString(((TextBox)row.FindControl("MobilePhone")).Text);
                     }
-                   
+
 
                     if (((TextBox)row.FindControl("PersonalCellPhone")).Text != string.Empty)
                     {
                         li.PersonalCellPhone = Convert.ToString(((TextBox)row.FindControl("PersonalCellPhone")).Text);
                     }
-                   
+
 
                     if (((TextBox)row.FindControl("InternationalPhone")).Text != string.Empty)
                     {
                         li.InternationalPhone = Convert.ToString(((TextBox)row.FindControl("InternationalPhone")).Text);
                     }
-                   
+
 
                     if (((TextBox)row.FindControl("InternationalCell")).Text != string.Empty)
                     {
                         li.InternationalCell = Convert.ToString(((TextBox)row.FindControl("InternationalCell")).Text);
                     }
-                   
+
                     if (((TextBox)row.FindControl("PrimaryEmail")).Text != string.Empty)
                     {
                         li.PrimaryEmail = Convert.ToString(((TextBox)row.FindControl("PrimaryEmail")).Text);
@@ -334,7 +334,7 @@ namespace SalesReportingWebsite
                     {
                         li.SecondaryEmail = Convert.ToString(((TextBox)row.FindControl("SecondaryEmail")).Text);
                     }
-                 
+
 
                     if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("HireDate").UniqueID]))))
                     {
@@ -358,7 +358,7 @@ namespace SalesReportingWebsite
                         isFormFilled = false;
                     }
 
-                    if (li.HireDate  > li.TerminationDate)
+                    if (li.HireDate > li.TerminationDate)
                     {
                         display = "Termination Date must be after Hire date";
                         ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
