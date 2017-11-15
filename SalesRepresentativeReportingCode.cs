@@ -40,7 +40,7 @@ public abstract class SalesRepresentativeReportingCode
         _BusinessUnitID = 0;
         _CompanyID = 0;
         _CustomerID = 0;
-        _CustomerNumber = 0;
+        _CustomerNumber = String.Empty;
         _Address1 = String.Empty;
         _Address2 = String.Empty;
         _Address3 = String.Empty;
@@ -98,7 +98,7 @@ public abstract class SalesRepresentativeReportingCode
     private int _BusinessUnitID;
     private int _CompanyID;
     private int _CustomerID;
-    private int _CustomerNumber;
+    private string _CustomerNumber;
     private string _Address1;
     private string _Address2;
     private string _Address3;
@@ -294,7 +294,7 @@ public abstract class SalesRepresentativeReportingCode
     }
 
 
-    public int CustomerNumber
+    public string CustomerNumber
     {
         get { return _CustomerNumber; }
         set { _CustomerNumber = value; }

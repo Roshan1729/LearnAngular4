@@ -700,10 +700,7 @@
                         <asp:TableCell runat="server">Customer Number:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newCustomerNumber" runat="server"></asp:TextBox>
-                            <%--<cc1:AutoCompleteExtender ID="TextBox1_AutoCompleteExtender" runat="server" 
-                                DelimiterCharacters="" ServiceMethod="SearchCustomers" ServicePath="" 
-                                TargetControlID="newCustomerNumber">
-                            </cc1:AutoCompleteExtender>--%>
+                            
                         </asp:TableCell>
 
                         <asp:TableCell runat="server">Personal Cell Phone:</asp:TableCell>

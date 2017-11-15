@@ -25,87 +25,87 @@ namespace SalesReportingWebsite
             {
                 //if (memberships == 1 || memberships == 4)
                 //{
-                    SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
+                SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
 
-                    DataTable table = new DataTable();
+                DataTable table = new DataTable();
 
-                    ddlSalesRepLastName.DataSource = li.LastNameList().Tables[0];
-                    ddlSalesRepLastName.DataTextField = "SalesRepLastName";
-                    ddlSalesRepLastName.DataBind();
+                ddlSalesRepLastName.DataSource = li.LastNameList().Tables[0];
+                ddlSalesRepLastName.DataTextField = "SalesRepLastName";
+                ddlSalesRepLastName.DataBind();
 
-                    ddlSalesRepTypeName.DataSource = li.SalesRepTypeNameList().Tables[0];
-                    ddlSalesRepTypeName.DataTextField = "SalesRepTypeName";
-                    ddlSalesRepTypeName.DataBind();
+                ddlSalesRepTypeName.DataSource = li.SalesRepTypeNameList().Tables[0];
+                ddlSalesRepTypeName.DataTextField = "SalesRepTypeName";
+                ddlSalesRepTypeName.DataBind();
 
-                    newSalesRepTypeName.DataSource = ddlSalesRepTypeName.DataSource;
-                    newSalesRepTypeName.DataTextField = "SalesRepTypeName";
-                    newSalesRepTypeName.DataBind();
+                newSalesRepTypeName.DataSource = ddlSalesRepTypeName.DataSource;
+                newSalesRepTypeName.DataTextField = "SalesRepTypeName";
+                newSalesRepTypeName.DataBind();
 
-                    ddlTerritoryName.DataSource = li.TerritoryNameList().Tables[0];
-                    ddlTerritoryName.DataTextField = "TerritoryName";
-                    ddlTerritoryName.DataBind();
+                ddlTerritoryName.DataSource = li.TerritoryNameList().Tables[0];
+                ddlTerritoryName.DataTextField = "TerritoryName";
+                ddlTerritoryName.DataBind();
 
-                    newTerritoryName.DataSource = ddlTerritoryName.DataSource;
-                    newTerritoryName.DataTextField = "TerritoryName";
-                    newTerritoryName.DataBind();
+                newTerritoryName.DataSource = ddlTerritoryName.DataSource;
+                newTerritoryName.DataTextField = "TerritoryName";
+                newTerritoryName.DataBind();
 
-                    ddlRegionName.DataSource = li.RegionNameList().Tables[0];
-                    ddlRegionName.DataTextField = "RegionName";
-                    ddlRegionName.DataBind();
+                ddlRegionName.DataSource = li.RegionNameList().Tables[0];
+                ddlRegionName.DataTextField = "RegionName";
+                ddlRegionName.DataBind();
 
-                    newRegionName.DataSource = ddlRegionName.DataSource;
-                    newRegionName.DataTextField = "RegionName";
-                    newRegionName.DataBind();
+                newRegionName.DataSource = ddlRegionName.DataSource;
+                newRegionName.DataTextField = "RegionName";
+                newRegionName.DataBind();
 
-                    ddlDistributionRegionName.DataSource = li.DistributionRegionNameList().Tables[0];
-                    ddlDistributionRegionName.DataTextField = "DistributionRegionName";
-                    ddlDistributionRegionName.DataBind();
+                ddlDistributionRegionName.DataSource = li.DistributionRegionNameList().Tables[0];
+                ddlDistributionRegionName.DataTextField = "DistributionRegionName";
+                ddlDistributionRegionName.DataBind();
 
-                    newDistributionRegionName.DataSource = ddlDistributionRegionName.DataSource;
-                    newDistributionRegionName.DataTextField = "DistributionRegionName";
-                    newDistributionRegionName.DataBind();
+                newDistributionRegionName.DataSource = ddlDistributionRegionName.DataSource;
+                newDistributionRegionName.DataTextField = "DistributionRegionName";
+                newDistributionRegionName.DataBind();
 
-                    ddlSubBusinessUnitName.DataSource = li.SubBusinessUnitNameList().Tables[0];
-                    ddlSubBusinessUnitName.DataTextField = "SubBusinessUnitName";
-                    ddlSubBusinessUnitName.DataBind();
+                ddlSubBusinessUnitName.DataSource = li.SubBusinessUnitNameList().Tables[0];
+                ddlSubBusinessUnitName.DataTextField = "SubBusinessUnitName";
+                ddlSubBusinessUnitName.DataBind();
 
-                    newSubBusinessUnitName.DataSource = ddlSubBusinessUnitName.DataSource;
-                    newSubBusinessUnitName.DataTextField = "SubBusinessUnitName";
-                    newSubBusinessUnitName.DataBind();
+                newSubBusinessUnitName.DataSource = ddlSubBusinessUnitName.DataSource;
+                newSubBusinessUnitName.DataTextField = "SubBusinessUnitName";
+                newSubBusinessUnitName.DataBind();
 
-                    ddlBusinessUnitName.DataSource = li.BusinessUnitNameList().Tables[0];
-                    ddlBusinessUnitName.DataTextField = "BusinessUnitName";
-                    ddlBusinessUnitName.DataBind();
+                ddlBusinessUnitName.DataSource = li.BusinessUnitNameList().Tables[0];
+                ddlBusinessUnitName.DataTextField = "BusinessUnitName";
+                ddlBusinessUnitName.DataBind();
 
-                    newBusinessUnitName.DataSource = ddlBusinessUnitName.DataSource;
-                    newBusinessUnitName.DataTextField = "BusinessUnitName";
-                    newBusinessUnitName.DataBind();
+                newBusinessUnitName.DataSource = ddlBusinessUnitName.DataSource;
+                newBusinessUnitName.DataTextField = "BusinessUnitName";
+                newBusinessUnitName.DataBind();
 
-                    ddlCompanyName.DataSource = li.CompanyNameList().Tables[0];
-                    ddlCompanyName.DataTextField = "CompanyName";
-                    ddlCompanyName.DataBind();
+                ddlCompanyName.DataSource = li.CompanyNameList().Tables[0];
+                ddlCompanyName.DataTextField = "CompanyName";
+                ddlCompanyName.DataBind();
 
-                    newCompanyName.DataSource = ddlCompanyName.DataSource;
-                    newCompanyName.DataTextField = "CompanyName";
-                    newCompanyName.DataBind();
-
-
-                    newCountryName.DataSource = li.CountryNameList().Tables[0];
-                    newCountryName.DataTextField = "CountryName";
-                    newCountryName.DataBind();
+                newCompanyName.DataSource = ddlCompanyName.DataSource;
+                newCompanyName.DataTextField = "CompanyName";
+                newCompanyName.DataBind();
 
 
-                    newStateProvinceName.DataSource = li.StateProvinceNameList().Tables[0];
-                    newStateProvinceName.DataTextField = "StateProvinceName";
-                    newStateProvinceName.DataBind();
+                newCountryName.DataSource = li.CountryNameList().Tables[0];
+                newCountryName.DataTextField = "CountryName";
+                newCountryName.DataBind();
 
 
-                    //newCustomerNumber.DataSource = li.CustomerNumberList().Tables[0];
-                    //newCustomerNumber.DataTextField = "CustomerID";
-                    //newCustomerNumber.DataBind();
+                newStateProvinceName.DataSource = li.StateProvinceNameList().Tables[0];
+                newStateProvinceName.DataTextField = "StateProvinceName";
+                newStateProvinceName.DataBind();
 
-                    BindGridView();
-             //   }
+
+                //newCustomerNumber.DataSource = li.CustomerNumberList().Tables[0];
+                //newCustomerNumber.DataTextField = "CustomerID";
+                //newCustomerNumber.DataBind();
+
+                BindGridView();
+                //   }
             }
         }
 
@@ -585,7 +585,7 @@ namespace SalesReportingWebsite
                 li.TerminationDate = Convert.ToDateTime((Request.Form[newTerminationDate.UniqueID]));
             }
 
-            //    li.CustomerID = Convert.ToInt32(newCustomerNumber.Text);
+              li.CustomerID = Convert.ToInt32(newCustomerNumber.Text);
 
 
 
@@ -610,7 +610,7 @@ namespace SalesReportingWebsite
             li.StateProvinceName = newStateProvinceName.SelectedValue.ToString();
             li.PostalCode = newPostalCode.Text;
             li.CountryName = newCountryName.SelectedValue.ToString();
-            // li.CustomerID = newCustomerNumber.SelectedValue.ToString();
+          // li.CustomerID = newCustomerNumber.Text;
             li.WorkPhone = newWorkPhone.Text;
             //  li.VoiceMailExtension = newVoiceMailExtension.Text;
             //li.VoiceMailPin = newVoiceMailPin.Text;
@@ -645,7 +645,14 @@ namespace SalesReportingWebsite
 
                 string res = Convert.ToString(result.Tables[0].Rows[0].ItemArray[0]);
 
-                if (res.Equals("Success"))
+                if (res.Equals("Customer Number does not exists"))
+                {
+                    display = "Customer Number does not exists";
+                    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    isFormFilled = true;
+                    ModalPopupExtender1.Show();
+                }
+                else if (res.Equals("Success"))
                 {
                     display = "A new Sales Representative is successfully added in the database";
                     ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
