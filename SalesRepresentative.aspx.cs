@@ -121,7 +121,10 @@ namespace SalesReportingWebsite
         //}
 
 
-
+       protected void chkBoxExternalRepCheckedChanged(object sender, EventArgs e)
+        {
+            ModalPopupExtender1.Show();
+        }
         protected void chkBoxResetCheckedChanged(object sender, EventArgs e)
         {
             if (SalesRepresentativeGridView.EditIndex >= -1)
@@ -563,6 +566,7 @@ namespace SalesReportingWebsite
         {
             bool isFormFilled = true;
             string display = "";
+     
             SalesRepresentativeReportingChild li = new SalesRepresentativeReportingChild();
 
             li.SalesRepFirstName = newSalesRepFirstName.Text;
@@ -585,7 +589,7 @@ namespace SalesReportingWebsite
                 li.TerminationDate = Convert.ToDateTime((Request.Form[newTerminationDate.UniqueID]));
             }
 
-              li.CustomerID = Convert.ToInt32(newCustomerNumber.Text);
+            li.CustomerID = Convert.ToInt32(newCustomerNumber.Text);
 
 
 
@@ -606,11 +610,10 @@ namespace SalesReportingWebsite
             li.Address2 = newAddress2.Text;
             li.Address3 = newAddress3.Text;
             li.City = newCity.Text;
-            li.Address1 = newCustomerNumber.Text;
             li.StateProvinceName = newStateProvinceName.SelectedValue.ToString();
             li.PostalCode = newPostalCode.Text;
             li.CountryName = newCountryName.SelectedValue.ToString();
-          // li.CustomerID = newCustomerNumber.Text;
+            li.CustomerNumber = newCustomerNumber.Text;
             li.WorkPhone = newWorkPhone.Text;
             //  li.VoiceMailExtension = newVoiceMailExtension.Text;
             //li.VoiceMailPin = newVoiceMailPin.Text;
@@ -648,6 +651,14 @@ namespace SalesReportingWebsite
                 if (res.Equals("Customer Number does not exists"))
                 {
                     display = "Customer Number does not exists";
+                    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    isFormFilled = true;
+                    ModalPopupExtender1.Show();
+                }
+
+              else  if (res.Equals("PostalCode does not exists"))
+                {
+                    display = "PostalCode does not exists";
                     ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
                     isFormFilled = true;
                     ModalPopupExtender1.Show();

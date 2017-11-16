@@ -723,16 +723,11 @@
                             <asp:TextBox ID="newAddress2" runat="server"></asp:TextBox>
                         </asp:TableCell>
 
-                        <asp:TableCell runat="server">Work Phone:</asp:TableCell>
+                         <asp:TableCell runat="server">Postal Code:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newWorkPhone" runat="server"></asp:TextBox>
-                            <asp:RegularExpressionValidator 
-                            ErrorMessage="Work Phone Number" 
-                            Text="Invalid Work Phone number" 
-                            ControlToValidate="newWorkPhone" 
-                            ValidationExpression="^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}|(\([0-9]{3}\)|[0-9]{3})[0-9]{3}[0-9]{4}$" 
-                            runat="server" />
+                            <asp:TextBox ID="newPostalCode" runat="server"></asp:TextBox>
                         </asp:TableCell>
+
 
                         <asp:TableCell runat="server">International Phone:</asp:TableCell>
                         <asp:TableCell runat="server">
@@ -754,36 +749,20 @@
                             <asp:TextBox ID="newAddress3" runat="server"></asp:TextBox>
                         </asp:TableCell>
 
-                        <%--<asp:TableCell runat="server">Voice Mail Ext:</asp:TableCell>
+                       
+                        <asp:TableCell runat="server">Work Phone:</asp:TableCell>
                         <asp:TableCell runat="server">
-                            <asp:TextBox ID="newVoiceMailExtension" runat="server"></asp:TextBox>
-                        </asp:TableCell>--%>
-
-                      <%--  <asp:TableCell runat="server">International Fax:</asp:TableCell>
-                        <asp:TableCell runat="server">
-                            <asp:TextBox ID="newInternationalFax" runat="server"></asp:TextBox>
-                        </asp:TableCell>--%>
-                        <asp:TableCell runat="server">
-                             </asp:TableCell>
-                        <asp:TableCell runat="server">
-                             </asp:TableCell>
-                    </asp:TableRow>
-
-                    <asp:TableRow runat="server">
-
-                        <asp:TableCell runat="server">City:</asp:TableCell>
-                        <asp:TableCell runat="server">
-                            <asp:TextBox ID="newCity" runat="server"></asp:TextBox>
+                            <asp:TextBox ID="newWorkPhone" runat="server"></asp:TextBox>
+                            <asp:RegularExpressionValidator 
+                            ErrorMessage="Work Phone Number" 
+                            Text="Invalid Work Phone number" 
+                            ControlToValidate="newWorkPhone" 
+                            ValidationExpression="^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}|(\([0-9]{3}\)|[0-9]{3})[0-9]{3}[0-9]{4}$" 
+                            runat="server" />
                         </asp:TableCell>
-                        <asp:TableCell runat="server"></asp:TableCell>
-                       <%-- <asp:TableCell runat="server"></asp:TableCell>--%>
-                     <%--   <asp:TableCell runat="server">Voice Mail Pin:</asp:TableCell>
-                        <asp:TableCell runat="server">
-                            <asp:TextBox ID="newVoiceMailPin" runat="server"></asp:TextBox>
-                        </asp:TableCell>--%>
-                        <asp:TableCell runat="server">
-                             </asp:TableCell>
-                        <asp:TableCell runat="server">International Cell:</asp:TableCell>
+
+                    
+                      <asp:TableCell runat="server">International Cell:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newInternationalCell" runat="server"></asp:TextBox>
                               <asp:RegularExpressionValidator 
@@ -793,6 +772,27 @@
                             ValidationExpression="^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}|(\([0-9]{3}\)|[0-9]{3})[0-9]{3}[0-9]{4}$" 
                             runat="server" />
                         </asp:TableCell>
+                    </asp:TableRow>
+
+                    <asp:TableRow runat="server">
+
+                        <asp:TableCell runat="server">City:</asp:TableCell>
+                        <asp:TableCell runat="server">
+                            <asp:TextBox ID="newCity" runat="server"></asp:TextBox>
+                        </asp:TableCell>
+                        
+                        <asp:TableCell runat="server">Country:</asp:TableCell>
+                        <asp:TableCell runat="server">
+                            <asp:DropDownList ID="newCountryName" runat="server" AppendDataBoundItems="true">
+                                <asp:ListItem Selected="True">Select One</asp:ListItem>
+                            </asp:DropDownList>
+                        </asp:TableCell>
+                        <asp:TableCell runat="server">External Representative</asp:TableCell>
+                          <asp:TableCell runat="server">
+                    <asp:CheckBox ID="ExternalRepStatus" runat="server" OnCheckedChanged="chkBoxExternalRepCheckedChanged" AutoPostBack="true" />
+
+                          </asp:TableCell>
+                       
 
                     </asp:TableRow>
 
@@ -831,11 +831,9 @@
 
                     <asp:TableRow runat="server">
 
-                        <asp:TableCell runat="server">Postal Code:</asp:TableCell>
-                        <asp:TableCell runat="server">
-                            <asp:TextBox ID="newPostalCode" runat="server"></asp:TextBox>
-                        </asp:TableCell>
-
+                      
+                        <asp:TableCell runat="server"></asp:TableCell>
+                        <asp:TableCell runat="server"></asp:TableCell>
                         <asp:TableCell runat="server">Mobile Phone:</asp:TableCell>
                         <asp:TableCell runat="server">
                             <asp:TextBox ID="newMobilePhone" runat="server"></asp:TextBox>
@@ -858,31 +856,9 @@
                         </asp:TableCell>
 
                     </asp:TableRow>
-
-
-                    <asp:TableRow runat="server">
-
-                        <asp:TableCell runat="server">Country:</asp:TableCell>
-                        <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newCountryName" runat="server" AppendDataBoundItems="true">
-                                <asp:ListItem Selected="True">Select One</asp:ListItem>
-                            </asp:DropDownList>
-                        </asp:TableCell>
-
-                     <%--   <asp:TableCell runat="server">Pager:</asp:TableCell>
-                        <asp:TableCell runat="server">
-                            <asp:TextBox ID="newPager" runat="server"></asp:TextBox>
-                        </asp:TableCell>
-
-                        <asp:TableCell runat="server">Global Address:</asp:TableCell>
-                        <asp:TableCell runat="server">
-                            <asp:DropDownList ID="newGlobalAddress" runat="server" AppendDataBoundItems="true">
-                                <asp:ListItem Selected="True">Select One</asp:ListItem>
-                            </asp:DropDownList>
-                        </asp:TableCell>--%>
-                    </asp:TableRow>
-
                 </asp:Table>
+                <br />
+                <br />
                 <asp:Button ID="btnSaveNewSalesRepresentative" runat="server" Text="Save" OnClick="btnSaveNewSalesRepresentative_Click" />
                 <asp:Button ID="btnClose" runat="server" Text="Close" />
             </asp:Panel>
