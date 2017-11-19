@@ -1,11 +1,148 @@
 
+　
+ALTER PROCEDURE [dbo].[Web_SR_UpdateSalesRepresentative]
+     @SalesRepContactID INT = NULL
+	,@TerminationDate DATETIME
+	,@HireDate DATETIME	
+	,@DemoSigned DATETIME
+	,@Title NVARCHAR(250) = NULL
+	,@CompanyName NVARCHAR(250) = NULL
+	,@SalesRepCompanyName NVARCHAR(100)=NULL
+	,@WorkPhone NVARCHAR(100)=NULL
+	,@SalesRepTypeName NVARCHAR(100)=NULL
+	,@TerritoryName NVARCHAR(100)=NULL
+	,@RegionName NVARCHAR(100)=NULL
+	,@SubBusinessUnitName NVARCHAR(100)=NULL
+	,@BusinessUnitName NVARCHAR(100)=NULL
+	,@VoiceMailExtension NVARCHAR(50)=NULL
+	,@FaxNumber NVARCHAR(50)=NULL
+	,@MobilePhone NVARCHAR(50)=NULL
+	,@Address1 NVARCHAR(300)=NULL
+	,@Address2 NVARCHAR(300)=NULL
+	,@Address3 NVARCHAR(300)=NULL
+	,@Pager NVARCHAR(50)=NULL
+	,@Notes NVARCHAR(800)=NULL
+	,@InventoryNotes NVARCHAR(800)=NULL
+	,@PersonalCellPhone NVARCHAR(50)=NULL
+	,@InternationalPhone NVARCHAR(50)=NULL
+	,@InternationalFax NVARCHAR(50)=NULL
+	,@InternationalCell NVARCHAR(50)=NULL
+	,@PrimaryEmail NVARCHAR(50)=NULL
+	,@SecondaryEmail NVARCHAR(50)=NULL
+	,@UpdateUser NVARCHAR(100) = NULL
+AS
+SET NOCOUNT ON;
+
+DECLARE @SalesRepID INT=NULL
+DECLARE @SalesRepTypeID INT=NULL
+DECLARE @TerritoryID INT=NULL
+DECLARE @RegionID INT=NULL
+DECLARE @SubBusinessUnitID INT=NULL
+DECLARE @BusinessUnitID INT=NULL
+DECLARE @CompanyID INT=NULL
+
+IF (@SalesRepTypeName IS NOT NULL)
+BEGIN
+	SET @SalesRepTypeID = (
+			SELECT TOP 1 [SalesRepTypeID]
+			FROM [dbo].[SalesRepType]
+			WHERE [SalesRepTypeName] = @SalesRepTypeName
+			);
+END
+
+IF (@TerritoryName IS NOT NULL)
+BEGIN
+	SET @TerritoryID = (
+			SELECT TOP 1 [TerritoryID]
+			FROM [dbo].[Territory]
+			WHERE (CAST([TerritoryCode] AS VARCHAR(20))+Space(3)+[TerritoryName]) = @TerritoryName
+			);
+END
+
+IF (@RegionName IS NOT NULL)
+BEGIN
+	SET @RegionID = (
+			SELECT TOP 1 [RegionID]
+			FROM [dbo].[Region]
+			WHERE (CAST([RegionCode] AS VARCHAR(20))+Space(3)+[RegionName]) = @RegionName
+			);
+END
+
+IF (@SubBusinessUnitName IS NOT NULL)
+BEGIN
+	SET @SubBusinessUnitID = (
+			SELECT TOP 1 [SubBusinessUnitID]
+			FROM [dbo].[SubBusinessUnit]
+			WHERE (CAST([SubBusinessUnitCode] AS VARCHAR(20))+SPACE(3)+[SubBusinessUnitName]) = @SubBusinessUnitName
+			);
+END
+
+IF (@BusinessUnitName IS NOT NULL)
+BEGIN
+	SET @BusinessUnitID = (
+			SELECT TOP 1 [BusinessUnitID]
+			FROM [dbo].[BusinessUnit]
+			WHERE (CAST([BusinessUnitCode] AS VARCHAR(20))+Space(3)+[BusinessUnitName]) = @BusinessUnitName
+			);
+END
+IF (@CompanyName IS NOT NULL)
+BEGIN
+	SET @CompanyID = (
+			SELECT TOP 1 [CompanyID]
+			FROM [dbo].[Company]
+			WHERE [CompanyName] = @CompanyName
+			);
+END
+
+ 
+BEGIN 
+UPDATE [CSIDW].[dbo].[SalesRepContact]
+SET   
+      [Title]= @Title
+      ,[CompanyID]= @CompanyID
+	  ,[BusinessUnitID]= @BusinessUnitID
+	  ,[SubBusinessUnitID]= @SubBusinessUnitID
+	  ,[RegionID] = @RegionID
+	  ,[TerritoryID] = @TerritoryID
+	  ,[SalesRepTypeID] = @SalesRepTypeID
+	  ,[SalesRepCompanyName]= @SalesRepCompanyName
+	,[TerminationDate]= @TerminationDate 
+	 ,[Address1]=@Address1
+	 ,[Address2]=@Address2
+	 ,[Address3]=@Address3
+	  ,[WorkPhone] =@WorkPhone
+	  ,[FaxNumber]= @FaxNumber 
+	  ,[MobilePhone]=  @MobilePhone 
+	 ,[Notes] =  @Notes
+	  ,[PersonalCellPhone]= @PersonalCellPhone 
+	  ,[InternationalPhone]= @InternationalPhone
+	 ,[InventoryNotes]=  @InventoryNotes 
+	  ,[InternationalCell]=  @InternationalCell 
+	  ,[PrimaryEmail]= @PrimaryEmail 
+	  ,[SecondaryEmail]= @SecondaryEmail 
+     ,[DemoSigned] = @DemoSigned
+      ,[HireDate] = @HireDate
+	  --,[ExpirationDate] = @ExpirationDate
+	  ,[UpdateUser] = @UpdateUser
+	  ,[UpdateDate] = GETDATE()
+WHERE [SalesRepContactID] = @SalesRepContactID;
+
+	SELECT 'Success'
+END
+
+　
+　
+-------------------------------------
+
+　
+　
 ALTER PROCEDURE [dbo].[Web_SR_AddNewSalesRepresentative] 
 	--@SalesRepContactID INT = NULL
 	--,@SalesRepID INT =NULL
 	 @SalesRepFirstName NVARCHAR(100)=NULL
 	,@SalesRepLastName NVARCHAR(100)=NULL
 	,@Title NVARCHAR(100) = NULL
-	,@CustomerID INT=NULL
+	,@CustomerNumber NVARCHAR(100)=NULL
 	,@SalesRepTypeName NVARCHAR(100)=NULL
 	,@SalesRepCompanyName NVARCHAR(100)=NULL
 	,@Address1 NVARCHAR(100)=NULL
@@ -54,6 +191,7 @@ DECLARE @DistributionRegionID INT=NULL;
 DECLARE @SubBusinessUnitID INT=NULL;
 DECLARE @BusinessUnitID INT=NULL;
 DECLARE @CompanyID INT=NULL;
+DECLARE @CustomerID INT=NULL;
 DECLARE @CountryID NVARCHAR(100)=NULL;
 DECLARE @StateProvinceID NVARCHAR(100)=NULL;
 DECLARE @PostalCodeID NVARCHAR(100)=NULL;
@@ -94,7 +232,7 @@ BEGIN
 	SET @TerritoryID = (
 			SELECT TOP 1 [TerritoryID]
 			FROM [dbo].[Territory]
-			WHERE [TerritoryName] = @TerritoryName
+			WHERE (CAST([TerritoryCode] AS VARCHAR(20))+Space(3)+[TerritoryName]) = @TerritoryName
 			);
 END
 
@@ -103,7 +241,7 @@ BEGIN
 	SET @RegionID = (
 			SELECT TOP 1 [RegionID]
 			FROM [dbo].[Region]
-			WHERE [RegionName] = @RegionName
+			WHERE (CAST([RegionCode] AS VARCHAR(20))+Space(3)+[RegionName]) = @RegionName
 			);
 END
 
@@ -123,7 +261,7 @@ BEGIN
 	SET @SubBusinessUnitID = (
 			SELECT TOP 1 [SubBusinessUnitID]
 			FROM [dbo].[SubBusinessUnit]
-			WHERE [SubBusinessUnitName] = @SubBusinessUnitName
+			WHERE (CAST([SubBusinessUnitCode] AS VARCHAR(20))+SPACE(3)+[SubBusinessUnitName]) = @SubBusinessUnitName
 			);
 END
 
@@ -132,7 +270,7 @@ BEGIN
 	SET @BusinessUnitID = (
 			SELECT TOP 1 [BusinessUnitID]
 			FROM [dbo].[BusinessUnit]
-			WHERE [BusinessUnitName] = @BusinessUnitName
+			WHERE (CAST([BusinessUnitCode] AS VARCHAR(20))+Space(3)+[BusinessUnitName]) = @BusinessUnitName
 			);
 END
 
@@ -156,21 +294,40 @@ BEGIN
 			);
 END
 
-　
+IF (@CustomerNumber IS NOT NULL)
+BEGIN
+	SET @CustomerID = (
+			SELECT TOP 1 [CustomerID]
+			FROM [dbo].[Customer]
+			WHERE [CustomerNumber] = @CustomerNumber
+			);
+END
+
+IF NOT EXISTS (SELECT 1 FROM [dbo].[Customer]  WHERE [CustomerNumber] = @CustomerNumber) 
+BEGIN
+    SELECT 'Customer Number does not exists'
+END
+--ELSE　
+IF NOT EXISTS (SELECT 1 FROM [dbo].[PostalCode]  WHERE [PostalCode] = @PostalCode) 
+BEGIN
+    SELECT 'PostalCode does not exists'
+END
+ELSE　
+
 BEGIN
 INSERT INTO [CSIDW].[dbo].[SalesRep] (
 	--  [SalesRepID]
 	  [SalesRepFirstName]
 	  ,[SalesRepLastName]
-      ,[EffectiveDate]
-	  ,[ExpirationDate]
+      --,[EffectiveDate]
+	 -- ,[ExpirationDate]
 	)
 VALUES (
 	--@SalesRepID
 	@SalesRepFirstName
 	,@SalesRepLastName
-	,@HireDate
-	,@TerminationDate
+	--,@HireDate
+	--,@TerminationDate
 	);
 
 SET @SalesRepID = (SELECT SCOPE_IDENTITY());	
@@ -211,6 +368,7 @@ INSERT INTO [CSIDW].[dbo].[SalesRepContact] (
 	  ,[PostalCodeID]
 	  ,[CountryID]
 	  ,[CustomerID]
+	  ,[WorkPhone]
 	 -- ,[VoiceMailPin] 
      -- ,[EffectiveDate]
 	)
@@ -249,6 +407,7 @@ VALUES (
 	,@PostalCodeID 
 	,@CountryID
 	,@CustomerID 
+	,@WorkPhone
 	--,@VoiceMailPin 
 	--,@EffectiveDate
 	);
@@ -257,7 +416,22 @@ VALUES (
 	SELECT 'Success'
 END
 
-------------------------------------------------------------
+　
+　
+　
+　
+　
+------------------------------------------
+
+　
+　
+USE [CSIDW]
+GO
+/****** Object:  StoredProcedure [dbo].[Web_SR_GetSalesRepresentativeRecords]    Script Date: 11/19/2017 9:24:02 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 
 　
 　
@@ -320,177 +494,31 @@ AS
      -- ,SS.[ExpirationDate]
       ,SS.[UpdateUser]
       ,SS.[UpdateDate]      	  
-  FROM [CSIDW].[dbo].[SalesRepContact] SS
+    FROM [CSIDW].[dbo].[SalesRepContact] SS
   LEFT JOIN [CSIDW].[dbo].[SalesRep] SSN ON SSN.[SalesRepID] = SS.[SalesRepID] 
- AND SSN.[SalesRepLastName] = ISNULL(@SalesRepLastName, SSN.[SalesRepLastName])
   LEFT JOIN [CSIDW].[dbo].[SalesRepType] SRT ON SRT.[SalesRepTypeID] = SS.[SalesRepTypeID] 
-  AND SRT.[SalesRepTypeName] = ISNULL(@SalesRepTypeName, SRT.[SalesRepTypeName])
   LEFT JOIN [CSIDW].[dbo].[Territory] T ON T.[TerritoryID] = SS.[TerritoryID] 
- AND T.[TerritoryName] = ISNULL(@TerritoryName, T.[TerritoryName])
+ AND (CAST(T.[TerritoryCode] AS VARCHAR(20))+Space(3)+T.[TerritoryName]) = ISNULL(@TerritoryName, (CAST(T.[TerritoryCode] AS VARCHAR(20))+Space(3)+T.[TerritoryName]))
  LEFT JOIN [CSIDW].[dbo].[Region] R ON R.[RegionID] = SS.[RegionID] 
- AND R.[RegionName] = ISNULL(@RegionName, R.[RegionName])
+ AND (CAST(R.[RegionCode] AS VARCHAR(20))+Space(3)+R.[RegionName]) = ISNULL(@RegionName, (CAST(R.[RegionCode] AS VARCHAR(20))+Space(3)+R.[RegionName]))
  LEFT JOIN [CSIDW].[dbo].[Customer] DR ON DR.[CustomerID] = SS.[CustomerID] 
   LEFT JOIN [CSIDW].[dbo].[SubBusinessUnit]  SB ON SB.[SubBusinessUnitID] = SS.[SubBusinessUnitID] 
-  AND SB.[SubBusinessUnitName] = ISNULL(@SubBusinessUnitName, SB.[SubBusinessUnitName])
+  AND (CAST(SB.[SubBusinessUnitCode] AS VARCHAR(20))+SPACE(3)+SB.[SubBusinessUnitName]) = ISNULL(@SubBusinessUnitName, (CAST(SB.[SubBusinessUnitCode] AS VARCHAR(20))+SPACE(3)+SB.[SubBusinessUnitName]))
   LEFT JOIN [CSIDW].[dbo].[BusinessUnit]  B ON B.[BusinessUnitID] = SS.[BusinessUnitID] 
-  AND B.[BusinessUnitName] = ISNULL(@BusinessUnitName, B.[BusinessUnitName])
+  AND (CAST(B.[BusinessUnitCode] AS VARCHAR(20))+Space(3)+B.[BusinessUnitName]) = ISNULL(@BusinessUnitName, (CAST(B.[BusinessUnitCode] AS VARCHAR(20))+Space(3)+B.[BusinessUnitName]))
   LEFT JOIN [CSIDW].[dbo].[Company]  C ON C.[CompanyID] = SS.[CompanyID] 
-  AND  C.[CompanyName] = ISNULL(@CompanyName, C.[CompanyName])
   LEFT JOIN [CSIDW].[dbo].[StateProvince]  SP ON SP.[StateProvinceID] = SS.[StateProvinceID] 
   LEFT JOIN [CSIDW].[dbo].[PostalCode]  PC ON PC.[PostalCodeID] = SS.[PostalCodeID] 
   LEFT JOIN [CSIDW].[dbo].[Country]  CO ON CO.[CountryID] = SS.[CountryID] 
- -- WHERE
- -- AND DR.[DistributionRegionName] = ISNULL(@DistributionRegionName, DR.[DistributionRegionName]);
+ WHERE SSN.[SalesRepLastName] = ISNULL(@SalesRepLastName, SSN.[SalesRepLastName])
+       AND SRT.[SalesRepTypeName] = ISNULL(@SalesRepTypeName, SRT.[SalesRepTypeName])
+	   AND  C.[CompanyName] = ISNULL(@CompanyName, C.[CompanyName])
+	  
+ ------------------------------------
 
 　
 　
  ------------------------------------
 
-ALTER PROCEDURE [dbo].[Web_SR_UpdateSalesRepresentative]
-     @SalesRepContactID INT = NULL
-	,@DemoSigned DATETIME	
-	,@HireDate DATETIME	
-	,@TerminationDate DATETIME
-	,@ExpirationDate DATETIME = NULL
-	,@Title NVARCHAR(250) = NULL
-	,@CompanyName NVARCHAR(250) = NULL
-	,@SalesRepCompanyName NVARCHAR(100)=NULL
-	,@WorkPhone NVARCHAR(100)=NULL
-	,@SalesRepTypeName NVARCHAR(100)=NULL
-	,@TerritoryName NVARCHAR(100)=NULL
-	,@RegionName NVARCHAR(100)=NULL
-	,@SubBusinessUnitName NVARCHAR(100)=NULL
-	,@BusinessUnitName NVARCHAR(100)=NULL
-	,@VoiceMailExtension NVARCHAR(50)=NULL
-	,@FaxNumber NVARCHAR(50)=NULL
-	,@MobilePhone NVARCHAR(50)=NULL
-	,@Pager NVARCHAR(50)=NULL
-	,@PersonalCellPhone NVARCHAR(50)=NULL
-	,@InternationalPhone NVARCHAR(50)=NULL
-	,@InternationalFax NVARCHAR(50)=NULL
-	,@InternationalCell NVARCHAR(50)=NULL
-	,@PrimaryEmail NVARCHAR(50)=NULL
-	,@SecondaryEmail NVARCHAR(50)=NULL
-	,@UpdateUser NVARCHAR(100) = NULL
-AS
-SET NOCOUNT ON;
-
-DECLARE @SalesRepID INT=NULL
-DECLARE @SalesRepTypeID INT=NULL
-DECLARE @TerritoryID INT=NULL
-DECLARE @RegionID INT=NULL
-DECLARE @SubBusinessUnitID INT=NULL
-DECLARE @BusinessUnitID INT=NULL
-DECLARE @CompanyID INT=NULL
-
-IF (@SalesRepTypeName IS NOT NULL)
-BEGIN
-	SET @SalesRepTypeID = (
-			SELECT TOP 1 [SalesRepTypeID]
-			FROM [dbo].[SalesRepType]
-			WHERE [SalesRepTypeName] = @SalesRepTypeName
-			);
-END
-
-IF (@TerritoryName IS NOT NULL)
-BEGIN
-	SET @TerritoryID = (
-			SELECT TOP 1 [TerritoryID]
-			FROM [dbo].[Territory]
-			WHERE [TerritoryName] = @TerritoryName
-			);
-END
-
-IF (@RegionName IS NOT NULL)
-BEGIN
-	SET @RegionID = (
-			SELECT TOP 1 [RegionID]
-			FROM [dbo].[Region]
-			WHERE [RegionName] = @RegionName
-			);
-END
-
-IF (@SubBusinessUnitName IS NOT NULL)
-BEGIN
-	SET @SubBusinessUnitID = (
-			SELECT TOP 1 [SubBusinessUnitID]
-			FROM [dbo].[SubBusinessUnit]
-			WHERE [SubBusinessUnitName] = @SubBusinessUnitName
-			);
-END
-
-IF (@BusinessUnitName IS NOT NULL)
-BEGIN
-	SET @BusinessUnitID = (
-			SELECT TOP 1 [BusinessUnitID]
-			FROM [dbo].[BusinessUnit]
-			WHERE [BusinessUnitName] = @BusinessUnitName
-			);
-END
-IF (@CompanyName IS NOT NULL)
-BEGIN
-	SET @CompanyID = (
-			SELECT TOP 1 [CompanyID]
-			FROM [dbo].[Company]
-			WHERE [CompanyName] = @CompanyName
-			);
-END
-
- 
-BEGIN 
-UPDATE [CSIDW].[dbo].[SalesRepContact]
-SET   
-      [Title]= @Title
-      ,[CompanyID]= @CompanyID
-	  ,[BusinessUnitID]= @BusinessUnitID
-	  ,[SubBusinessUnitID]= @SubBusinessUnitID
-	  ,[RegionID] = @RegionID
-	  ,[TerritoryID] = @TerritoryID
-	  ,[SalesRepTypeID] = @SalesRepTypeID
-	  ,[SalesRepCompanyName]= @SalesRepCompanyName
-	  --,[VoiceMailExtension]= @VoiceMailExtension 
-	  ,[WorkPhone] =@WorkPhone
-	  ,[FaxNumber]= @FaxNumber 
-	  ,[MobilePhone]=  @MobilePhone 
-	  --,[Pager] =  @Pager
-	  ,[PersonalCellPhone]= @PersonalCellPhone 
-	  ,[InternationalPhone]= @InternationalPhone
-	  --,[InternationalFax]=  @InternationalFax 
-	  ,[InternationalCell]=  @InternationalCell 
-	  ,[PrimaryEmail]= @PrimaryEmail 
-	  ,[SecondaryEmail]= @SecondaryEmail 
-      ,[DemoSigned] = @DemoSigned
-      ,[HireDate] = @HireDate
-	  ,[TerminationDate] =@TerminationDate
-	 --,[ExpirationDate] = @ExpirationDate
-	  ,[UpdateUser] = @UpdateUser
-	  ,[UpdateDate] = GETDATE()
-WHERE [SalesRepContactID] = @SalesRepContactID;
-
-	SELECT 'Success'
-END
-
 　
--------------------------------
-
 　
-CREATE PROCEDURE [dbo].[Web_SR_SuggestCustomerName] 
-    @PrefixText NVARCHAR(100)
-   -- @Count INT
-AS 
-
-    SET NOCOUNT ON;
-    SELECT DISTINCT CustomerNumber
-    FROM [dbo].[Customer]
-    WHERE CustomerNumber LIKE 
-	 @PrefixText + '%';
-
-  
-  
-
-  
-  select * from SalesRepContact
-
-  
-  
-  select * from PostalCode
