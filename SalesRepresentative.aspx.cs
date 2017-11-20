@@ -210,6 +210,41 @@ namespace SalesReportingWebsite
                     }
 
 
+                    if (((TextBox)row.FindControl("Notes")).Text != string.Empty)
+                    {
+                        li.Notes = Convert.ToString(((TextBox)row.FindControl("Notes")).Text);
+                    }
+
+
+
+                    if (((TextBox)row.FindControl("InventoryNotes")).Text != string.Empty)
+                    {
+                        li.InventoryNotes = Convert.ToString(((TextBox)row.FindControl("InventoryNotes")).Text);
+                    }
+
+                    if (((TextBox)row.FindControl("WorkPhone")).Text != string.Empty)
+                    {
+                        li.WorkPhone = Convert.ToString(((TextBox)row.FindControl("WorkPhone")).Text);
+                    }
+
+                    if (((TextBox)row.FindControl("Address1")).Text != string.Empty)
+                    {
+                        li.Address1 = Convert.ToString(((TextBox)row.FindControl("Address1")).Text);
+                    }
+
+                    if (((TextBox)row.FindControl("Address2")).Text != string.Empty)
+                    {
+                        li.Address2 = Convert.ToString(((TextBox)row.FindControl("Address2")).Text);
+                    }
+
+                    if (((TextBox)row.FindControl("Address3")).Text != string.Empty)
+                    {
+                        li.Address3 = Convert.ToString(((TextBox)row.FindControl("Address3")).Text);
+                    }
+
+
+
+
                     if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("DemoSigned").UniqueID]))))
                     {
                         li.DemoSigned = Convert.ToDateTime((Request.Form[row.FindControl("DemoSigned").UniqueID]));
@@ -248,12 +283,12 @@ namespace SalesReportingWebsite
                     {
                         li.TerritoryName = ((DropDownList)row.FindControl("TerritoryName")).SelectedValue;
                     }
-                    else
-                    {
-                        display = "Select TerritoryName from dropdown";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "Select TerritoryName from dropdown";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
 
                     if (((DropDownList)row.FindControl("RegionName")).SelectedValue != "Select One")
@@ -326,12 +361,12 @@ namespace SalesReportingWebsite
                     {
                         li.PrimaryEmail = Convert.ToString(((TextBox)row.FindControl("PrimaryEmail")).Text);
                     }
-                    else
-                    {
-                        display = "PrimaryEmail cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "PrimaryEmail cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (((TextBox)row.FindControl("SecondaryEmail")).Text != string.Empty)
                     {
@@ -339,27 +374,35 @@ namespace SalesReportingWebsite
                     }
 
 
+                    if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("DemoSigned").UniqueID]))))
+                    {
+                        li.DemoSigned = Convert.ToDateTime((Request.Form[row.FindControl("DemoSigned").UniqueID]));
+                    }
+
+
+
+
                     if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("HireDate").UniqueID]))))
                     {
                         li.HireDate = Convert.ToDateTime((Request.Form[row.FindControl("HireDate").UniqueID]));
                     }
-                    else
-                    {
-                        display = "HireDate Date cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "Hire Date cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (!String.IsNullOrEmpty(Convert.ToString((Request.Form[row.FindControl("TerminationDate").UniqueID]))))
                     {
                         li.TerminationDate = Convert.ToDateTime((Request.Form[row.FindControl("TerminationDate").UniqueID]));
                     }
-                    else
-                    {
-                        display = "Hire Date cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    //else
+                    //{
+                    //    display = "Termination Date cannot be empty";
+                    //    ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //    isFormFilled = false;
+                    //}
 
                     if (li.HireDate > li.TerminationDate)
                     {

@@ -573,7 +573,10 @@ public abstract class SalesRepresentativeReportingCode
         sqlCmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = li.Title;
         if (!String.IsNullOrEmpty(li.CompanyName))
             sqlCmd.Parameters.Add("@CompanyName", SqlDbType.NVarChar).Value = li.CompanyName;
-
+        if (!String.IsNullOrEmpty(li.Notes))
+            sqlCmd.Parameters.Add("@Notes", SqlDbType.NVarChar).Value = li.Notes;
+        if (!String.IsNullOrEmpty(li.InventoryNotes))
+            sqlCmd.Parameters.Add("@InventoryNotes", SqlDbType.NVarChar).Value = li.InventoryNotes;
         if (!String.IsNullOrEmpty(li.SalesRepCompanyName))
             sqlCmd.Parameters.Add("@SalesRepCompanyName", SqlDbType.NVarChar).Value = li.SalesRepCompanyName;
         if (!String.IsNullOrEmpty(li.WorkPhone))
@@ -590,6 +593,17 @@ public abstract class SalesRepresentativeReportingCode
             sqlCmd.Parameters.Add("@BusinessUnitName", SqlDbType.NVarChar).Value = li.BusinessUnitName;
         //if (!String.IsNullOrEmpty(li.VoiceMailExtension))
         //    sqlCmd.Parameters.Add("@VoiceMailExtension", SqlDbType.NVarChar).Value = li.VoiceMailExtension;
+
+        if (!String.IsNullOrEmpty(li.Address1))
+            sqlCmd.Parameters.Add("@Address1", SqlDbType.NVarChar).Value = li.Address1;
+
+        if (!String.IsNullOrEmpty(li.Address2))
+            sqlCmd.Parameters.Add("@Address2", SqlDbType.NVarChar).Value = li.Address2;
+
+        if (!String.IsNullOrEmpty(li.Address3))
+            sqlCmd.Parameters.Add("@Address3", SqlDbType.NVarChar).Value = li.Address3;
+
+
         if (!String.IsNullOrEmpty(li.FaxNumber))
             sqlCmd.Parameters.Add("@FaxNumber", SqlDbType.NVarChar).Value = li.FaxNumber;
         if (!String.IsNullOrEmpty(li.MobilePhone))
@@ -654,7 +668,8 @@ public abstract class SalesRepresentativeReportingCode
                     cmd.Parameters.AddWithValue("SalesRepLastName", li.SalesRepLastName);
                     if (!String.IsNullOrEmpty(li.Title))
                         cmd.Parameters.AddWithValue("Title", li.Title);
-                    cmd.Parameters.AddWithValue("CustomerNumber", li.CustomerNumber);
+                   // if (!String.IsNullOrEmpty(li.CustomerNumber))
+                        cmd.Parameters.AddWithValue("CustomerNumber", li.CustomerNumber);
                     if (!String.IsNullOrEmpty(li.SalesRepTypeName))
                         cmd.Parameters.AddWithValue("SalesRepTypeName", li.SalesRepTypeName);
                     if (!String.IsNullOrEmpty(li.SalesRepCompanyName))
