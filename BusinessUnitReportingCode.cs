@@ -164,7 +164,10 @@ public abstract class BusinessUnitReportingCode
 
         sqlCmd.Parameters.Add("@BusinessUnitID", SqlDbType.Int).Value = li.BusinessUnitID;
         sqlCmd.Parameters.Add("@EffectiveDate", SqlDbType.DateTime).Value = li.EffectiveDate;
-        sqlCmd.Parameters.Add("@ExpirationDate", SqlDbType.DateTime).Value = li.ExpirationDate;
+        if (li.ExpirationDate != DateTime.MinValue)
+        {
+            sqlCmd.Parameters.Add("@ExpirationDate", SqlDbType.DateTime).Value = li.ExpirationDate;
+        }
         sqlCmd.Parameters.Add("@BusinessUnitCode", SqlDbType.Int).Value = li.BusinessUnitCode;
         sqlCmd.Parameters.Add("@BusinessUnitName", SqlDbType.NVarChar).Value = li.BusinessUnitName;
         sqlCmd.Parameters.Add("@BusinessUnitManagerName", SqlDbType.NVarChar).Value = li.BusinessUnitManagerName;

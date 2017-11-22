@@ -56,6 +56,27 @@ public class BusinessUnitReportingChild : BusinessUnitReportingCode
         return dsDateRequested;
     }
 
+
+    public DataSet CompanyEffectiveNameList()
+    {
+        DataSet dsDateRequested = new DataSet();
+        SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());
+        try
+        {
+            sqlConn.Open();
+            SqlDataAdapter da = new SqlDataAdapter("Web_SR_GetEffecctiveCompanyName", sqlConn);
+            da.Fill(dsDateRequested);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            sqlConn.Close();
+        }
+        return dsDateRequested;
+    }
     public DataSet BusinessUnitManagerNameList() {
         DataSet dsInventoryStatus = new DataSet();
         SqlConnection sqlConn = new SqlConnection(ConfigurationManager.ConnectionStrings["DBConnectionString"].ToString());

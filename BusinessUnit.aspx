@@ -151,6 +151,12 @@
                 <asp:TableCell runat="server">Business Unit Code:</asp:TableCell>
                 <asp:TableCell runat="server">
                     <asp:TextBox ID="newBusinessUnitCode" runat="server" ></asp:TextBox>
+                        <asp:RegularExpressionValidator 
+                            ErrorMessage="Invalid Business Unit Code" 
+                            Text="BusinessUnit Code should be Numbers" 
+                            ControlToValidate="newBusinessUnitCode" 
+                            ValidationExpression="^[0-9]{1,10}$" 
+                            runat="server" />
                 </asp:TableCell>
       </asp:TableRow>
              <asp:TableRow runat="server">

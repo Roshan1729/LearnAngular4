@@ -22,7 +22,7 @@ namespace SalesReportingWebsite
             if (!Page.IsPostBack)
 
             {
-                
+
                 if (memberships == 1 || memberships == 2 || memberships == 3)
                 {
                     BusinessUnitReportingChild li = new BusinessUnitReportingChild();
@@ -41,7 +41,7 @@ namespace SalesReportingWebsite
                     ddlBusinessUnitManagerName.DataTextField = "BusinessUnitManagerName";
                     ddlBusinessUnitManagerName.DataBind();
 
-                    newCompanyName.DataSource = li.CompanyNameList().Tables[0];
+                    newCompanyName.DataSource = li.CompanyEffectiveNameList().Tables[0];
                     newCompanyName.DataTextField = "CompanyName";
                     newCompanyName.DataBind();
 
@@ -58,11 +58,11 @@ namespace SalesReportingWebsite
                 }
             }
 
-           
+
         }
-        
+
         #region EventHandling
-              
+
         protected void BusinessUnit_RowEditing(object sender, GridViewEditEventArgs e)
         {
             BusinessUnitGridView.EditIndex = e.NewEditIndex;
@@ -71,7 +71,7 @@ namespace SalesReportingWebsite
 
             BindGridView();
         }
-        
+
         protected void BusinessUnit_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
             BusinessUnitGridView.EditIndex = -1;
@@ -117,12 +117,12 @@ namespace SalesReportingWebsite
                     {
                         li.BusinessUnitManagerName = ((DropDownList)row.FindControl("BusinessUnitManagerName")).SelectedValue;
                     }
-                    else
-                    {
-                        display = "Select Business Unit Manager Name from dropdown";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
+                    // else
+                    // {
+                    //     display = "Select Business Unit Manager Name from dropdown";
+                    //     ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //     isFormFilled = false;
+                    // }
 
                     if (((DropDownList)row.FindControl("CompanyName")).SelectedValue != "Select One")
                     {
@@ -149,28 +149,39 @@ namespace SalesReportingWebsite
                     {
                         li.ExpirationDate = Convert.ToDateTime((Request.Form[row.FindControl("ExpirationDate").UniqueID]));
                     }
-                    else
+                    // else
+                    // {
+                    //     display = "Expiration Date cannot be empty";
+                    //     ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                    //     isFormFilled = false;
+                    // }
+                    if (li.ExpirationDate!=DateTime.MinValue)
                     {
-                        display = "Expiration Date cannot be empty";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
+                        if (li.ExpirationDate < li.EffectiveDate)
+                        {
+                            display = "Expiration Date must be after Effective date";
+                            ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
+                            isFormFilled = false;
+                        }
                     }
-
-                    if (li.ExpirationDate < li.EffectiveDate)
-                    {
-                        display = "Expiration Date must be after Effective date";
-                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
-                        isFormFilled = false;
-                    }
-
-                    if (isFormFilled)
+                    
+                        if (isFormFilled)
                     {
                         if (memberships == 1 || memberships == 2)
                         {
                             DataSet result = li.UpdateSKPickingBoard(li, memberships);
 
                             string res = Convert.ToString(result.Tables[0].Rows[0].ItemArray[0]);
-
+                            if (res.Contains("Effective Date should be after"))
+                            {
+                                ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + res + "');", true);
+                                isFormFilled = false;
+                            }
+                            else if (res.Contains("Expiration Date should be before"))
+                            {
+                                ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + res + "');", true);
+                                isFormFilled = false;
+                            }
                             if (res.Equals("Duplicate BusinessUnitCode"))
                             {
                                 display = "BusinessUnit Code already exists in the database";
@@ -187,8 +198,8 @@ namespace SalesReportingWebsite
                         }
                         else
                         {
-                             display = "You must be a member of Consolidated Sales Reporting – Admin or Consolidated Sales Reporting – Finance  groups to make changes.";
-                             ClientScript.RegisterStartupScript(this.GetType(), "yourMessage", "alert('" + display + "');", true);
+                            display = "You must be a member of Consolidated Sales Reporting – Admin or Consolidated Sales Reporting – Finance  groups to make changes.";
+                            ClientScript.RegisterStartupScript(this.GetType(), "yourMessage", "alert('" + display + "');", true);
                         }
 
                     }
@@ -275,7 +286,7 @@ namespace SalesReportingWebsite
             BindGridView();
             PageGrid(sender, e);
         }
-        
+
         protected void chkBoxResetCheckedChanged(object sender, EventArgs e)
         {
             if (BusinessUnitGridView.EditIndex >= -1)
@@ -289,26 +300,26 @@ namespace SalesReportingWebsite
         }
 
         #endregion
-  protected void btnSaveNewBusinessUnit_Click(object sender, EventArgs e)
+        protected void btnSaveNewBusinessUnit_Click(object sender, EventArgs e)
         {
             bool isFormFilled = true;
             string display = "";
             BusinessUnitReportingChild li = new BusinessUnitReportingChild();
             string businessUnitCode = newBusinessUnitCode.Text;
             string businessUnitName = newBusinessUnitName.Text;
-            string businessUnitManagerName = newBusinessUnitManagerName.Text;
-            string companyName = newCompanyName.Text;
+            string businessUnitManagerName = newBusinessUnitManagerName.SelectedValue.ToString();
+            string companyName = newCompanyName.SelectedValue.ToString();
             string effectiveDate = Request.Form[newEffectiveDate.UniqueID];
-            
-          
-            if (String.IsNullOrEmpty(effectiveDate) || String.IsNullOrEmpty(businessUnitCode) 
-                || String.IsNullOrEmpty(businessUnitName) || String.IsNullOrEmpty(businessUnitManagerName) || String.IsNullOrEmpty(companyName))
+
+
+            if (String.IsNullOrEmpty(effectiveDate) || String.IsNullOrEmpty(businessUnitCode)
+                || String.IsNullOrEmpty(businessUnitName) || String.IsNullOrEmpty(businessUnitManagerName) || companyName.Equals("Select One"))
             {
                 display = "Please select all the mandatory fields ";
                 ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
                 isFormFilled = false;
             }
-            
+
 
             if (isFormFilled)
             {
@@ -317,8 +328,13 @@ namespace SalesReportingWebsite
                     DataSet result = li.AddNewBusinessUnit(businessUnitCode, businessUnitName, businessUnitManagerName, companyName, effectiveDate);
 
                     string res = Convert.ToString(result.Tables[0].Rows[0].ItemArray[0]);
-
-                    if (res.Equals("Duplicate BusinessUnitCode"))
+                    if (res.Contains("Effective Date should be after"))
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + res + "');", true);
+                        isFormFilled = false;
+                        ModalPopupExtender1.Show();
+                    }
+                   else if (res.Equals("Duplicate BusinessUnitCode"))
                     {
                         display = "Business Unit Code already exists in the database";
                         ClientScript.RegisterStartupScript(this.GetType(), "Alert", "alert('" + display + "');", true);
@@ -377,7 +393,7 @@ namespace SalesReportingWebsite
         {
             int count;
             BusinessUnitReportingChild obj = new BusinessUnitReportingChild();
-           
+
             string businessUnitName = ddlBusinessUnitName.SelectedValue.ToString();
             string businessUnitManagerName = ddlBusinessUnitManagerName.SelectedValue.ToString();
             string companyName = ddlCompanyName.SelectedValue.ToString();
@@ -393,14 +409,14 @@ namespace SalesReportingWebsite
             {
                 lblRecordCount.Text = "Record Count: " + count;
             }
-            
+
         }
-                
+
         protected void btnExportToExcel_Click(object sender, EventArgs e)
         {
 
             ModalPopupExtender2.Show();
-           
+
         }
 
         protected void btnexcelDownloadAll_Click(object sender, EventArgs e)
