@@ -1,0 +1,189 @@
+﻿.submit {
+    margin-right: -5px;
+    height: 30px;
+}
+
+header {
+    width: 1950px;
+}
+
+#MainContent_Table1 td {
+    width: 200px;
+}
+
+select {
+    max-width: 95px;
+    min-width: 95px;
+}
+
+/*input[type=text] {
+      max-width: 80px;
+    min-width: 80px;
+}*/
+
+/*.SegmentGV input[type=text] {
+    max-width: 200px;
+    min-width: 200px;
+}*/
+
+#MainContent_Table1 td select {
+    width: 120px;
+}
+
+.w3-red, .w3-hover-red:hover {
+    color: #fff !important;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20px;
+    font-size: 30px;
+    background-color: #2a3763 !important;
+}
+
+.w3-container, .w3-panel {
+    padding: 0.01em 16px;
+}
+.gridHeader th {
+    min-width:80px;
+}
+
+.active {
+    background-color: #3e66a8;
+    border: none;
+    color: white;
+}
+
+.DateLabel {
+    min-width: 110px;
+    max-width: 110px;
+}
+
+.dateCell {
+    width: 180px;
+}
+
+body {
+    font-size: .80em;
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    color: #696969;
+}
+
+.title {
+    display: block;
+    float: left;
+    text-align: left;
+    width: auto;
+}
+
+.header {
+    background-color: #4b6c9e;
+    width: 100%;
+    height: 60px;
+    font-size: 1.1em;
+    color: White;
+    position: relative;
+}
+
+.gridPager {
+    padding: 1px 8px 2px 8px;
+    font-size: 14px;
+}
+
+.gridHeader {
+    border-color: #4b6c9e;
+    border-top-style: inset;
+}
+
+.errorPage {
+    width: 100%;
+    height: 60px;
+    font-size: 1.1em;
+    color: Red;
+    position: relative;
+}
+
+.rightAlignment {
+    text-align: right;
+    padding-right: 30px;
+    position: relative;
+}
+
+/* HEADINGS   
+----------------------------------------------------------*/
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5em;
+    color: #ffffff;
+    font-variant: small-caps;
+    text-transform: none;
+    font-weight: 200;
+}
+
+h1 {
+    font-size: 2.5em;
+    vertical-align: middle;
+    padding-left: 510px;
+}
+
+h4 {
+    /*
+   font-size: 1.5em;
+    font-weight: 600; */
+    color: Black;
+    font-weight: 100;
+}
+
+h2 {
+    background-color: #ffffff;
+    text-align: center;
+    color: Red;
+    font-weight: 300;
+}
+
+ .modalBackground
+    {
+        background-color: Black;
+        filter: alpha(opacity=90);
+        opacity: 0.8;
+    }
+    .modalPopup
+    {
+        background-color: #FFFFFF;
+        border-width: 3px;
+        padding: 10px;
+    }
+    .modalPopupSegment{
+        background-color: #FFFFFF;
+        border-width: 3px;
+        padding: 10px;
+        width:500px;
+    }
+#MainContent_Table2, #MainContent_Table2 td,#MainContent_Table2 th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#MainContent_Table2 {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#MainContent_Table2 th, #MainContent_Table2 td {
+    padding: 10px;
+}
+
+#MainContent_Table3, #MainContent_Table3 td,#MainContent_Table3 th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#MainContent_Table3 {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#MainContent_Table3 th, #MainContent_Table3 td {
+    padding: 10px;
+}
