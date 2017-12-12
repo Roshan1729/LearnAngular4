@@ -3,38 +3,40 @@ AS
 Begin
     SET NOCOUNT ON;  
     Declare @listCityName varchar(MAX)
-	select @listCityName= COALESCE(@listCityName + ',', '') + name
-	From (select DISTINCT name
-		FROM  REVIEW.LK_CITY)c;
+	select DISTINCT name
+		FROM  REVIEW.LK_CITY c;
 
 		Declare @listBoroughName varchar(MAX)
-	select @listBoroughName= COALESCE(@listBoroughName + ',', '') + name
-	From (select DISTINCT name
-		FROM  REVIEW.LK_BOROUGH)b;
+	select DISTINCT name
+		FROM  REVIEW.LK_BOROUGH b;
 
 		Declare @listCountyName varchar(MAX)
-	select @listCountyName= COALESCE(@listCountyName + ',', '') + name
-	From (select DISTINCT name
-		FROM  REVIEW.LK_COUNTY)co;
+	select DISTINCT name
+		FROM  REVIEW.LK_COUNTY co;
 
-		Declare @listPlaceName varchar(MAX)
-	select @listPlaceName= COALESCE(@listPlaceName + ',', '') + name
-	From (select DISTINCT name
-		FROM  REVIEW.LK_PLACE)p;
+	select DISTINCT name
+		FROM  REVIEW.LK_PLACE p;
 
 		Declare @listTownName varchar(MAX)
-	select @listTownName= COALESCE(@listTownName + ',', '') + name
-	From (select DISTINCT name
-		FROM  REVIEW.LK_TOWN)t;
+	select DISTINCT name
+		FROM  REVIEW.LK_TOWN t;
 
 		Declare @listVillageName varchar(MAX)
-	select @listVillageName= COALESCE(@listVillageName + ',', '') + name
-	From (select DISTINCT name
-		FROM  REVIEW.LK_VILLAGE)v;
+	select DISTINCT name
+		FROM  REVIEW.LK_VILLAGE v;
 
 		Declare @listWaterBodyName varchar(MAX)
-	select @listwaterbodyname= COALESCE(@listWaterBodyName + ',', '') + name
-	From (select DISTINCT name
-		FROM  REVIEW.LK_WATERBODY)wb;
+	 select DISTINCT name
+		FROM  REVIEW.LK_WATERBODY wb;
+
+		SELECT @listCityName AS LocationNameList
+		,@listBoroughName AS AdjustmentTypeList
+		,@listCountyName AS CountryNameList
+		,@Listpl AS SubBusinessUnitList
+		,@listCompanyName AS CompanyNameList
+		,@listSubSegmentName AS SubSegmentNameList
+		,@listAccountSubTypeName AS AccountSubTypeNameList
+		,@listSubCategoryName AS SubCategoryNameList
+		,@listWaterBodyName AS CurrencyNameList
 
 	End;
