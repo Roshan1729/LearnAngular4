@@ -1,0 +1,62 @@
+ else
+            {
+                state.DataSource = StateNameList().Tables[0];
+                state.DataTextField = "StateName";
+                state.DataBind();
+                state.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+                ZIP.DataSource = ZipList().Tables[0];
+                ZIP.DataTextField = "ZipCode";
+                ZIP.DataBind();
+                ZIP.Items.Insert(0, new ListItem("--Select--", "NA"));
+            }
+        }
+
+        protected DataSet StateNameList()
+        {
+            DataSet dsStates = new DataSet();
+            try
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("Web_SR_GetStates", con))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        con.Open();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dsStates);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return dsStates;
+        }
+        protected DataSet ZipList()
+        {
+            DataSet dsZip = new DataSet();
+            try
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("CR_Zip", con))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        con.Open();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(dsZip);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return dsZip;
+        }

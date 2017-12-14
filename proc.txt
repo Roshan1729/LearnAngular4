@@ -1,0 +1,19 @@
+Alter PROCEDURE [dbo].[CR_Test]   
+AS   
+Begin
+    SET NOCOUNT ON;  
+    Declare @listStateName varchar(MAX)
+	select DISTINCT name as StateName
+		FROM  REVIEW.LK_State s;
+
+		Declare @listZipCode varchar(MAX)
+	select DISTINCT ZIP5 as ZipCode
+		FROM  REVIEW.LK_Zip z;
+
+		
+
+		SELECT @listStateName AS StateName
+		,@listZipCode AS ZipCode
+				
+
+	End;
