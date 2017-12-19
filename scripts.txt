@@ -1,136 +1,59 @@
 
- ALTER PROCEDURE [dbo].[Web_SR_GetProductRecords]
+ALTER PROCEDURE [dbo].[Web_SR_GetRegionRecords]
+		@RegionManagerName nvarchar(100) = NULL
+		,@CompanyName nvarchar(100)=null
+		,@SubBusinessUnitName nvarchar(100)=null
+         ,@RegionName nvarchar(100)=NULL
 
-		@ProductCode int= NULL
-
-		,@ProductName nvarchar(100)=NULL
-
-		,@GroupName nvarchar(100)=NULL
-
-		,@SubCategoryName nvarchar(100)=NULL
-
-		,@CommissionSubCategoryName nvarchar(100)=NULL
-
+　
 AS   
-
-BEGIN
 
     SET NOCOUNT ON; 
 
+　
+　
+IF OBJECT_ID('tempdb..#Results') IS NOT NULL 
+		DROP TABLE #Results;	
+
+	CREATE TABLE #Results ( [RegionManagerName] NVARCHAR(300), 
+							RegionManagerID INT,
+							[RegionID] INT);
+
+	INSERT INTO #Results ( [RegionManagerName], RegionManagerID, [RegionID])
+	SELECT DISTINCT  (SR.[SalesRepFirstName]+' '+SR.[SalesRepLastName]) As [RegionManagerName],
+	BU.RegionManagerID, BU.[RegionID]
+	FROM [CSIDW].[dbo].[Region] BU 
+	INNER JOIN [CSIDW].[dbo].[SalesRep] SR ON SR.[SalesRepID]=BU.RegionManagerID
+	WHERE BU.RegionManagerID IS NOT NULL
+	UNION
+	SELECT DISTINCT  (SR.[SalesRepFirstName]+' '+SR.[SalesRepLastName]) As [RegionManagerName],
+	SR.SalesRepID, BU.[RegionID]
+	FROM [CSIDW].[dbo].[Region] BU 
+	INNER JOIN [CSIDW].[dbo].[SalesRepContact] SRC ON SRC.[RegionID] = BU.[RegionID] AND SRC.[ActiveRecord] = 'A' 
+    INNER JOIN [CSIDW].[dbo].[SalesRepType] SRT ON SRT.[SalesRepTypeID] = SRC.[SalesRepTypeID] AND SRT.[SalesRepTypeCode] in ('B','M','R')
+    INNER JOIN [CSIDW].[dbo].[SalesRep] SR ON SR.[SalesRepID]=SRC.[SalesRepID]
+	WHERE BU.RegionManagerID IS NULL;
 
 	
-
-    
-
-DECLARE @SQL NVARCHAR(MAX)
-
-SET @SQL = 'SELECT  [ProductID]
-
-      ,c.[ProductCode]
-
-      ,c.[ProductName]
-
-      ,c.[SubCategoryID]
-
-	  ,SC.[SubCategoryName]
-
-	  ,c.[CommissionSubCategoryID]
-
-      ,SC.[CommissionSubCategoryName]
-
-      ,c.[ClassID]
-
-	  ,COM.[GroupName]
-
-      ,c.[EffectiveDate]
-
-      ,c.[ExpirationDate]
-
-      ,c.[UpdateUser]
-
-      ,c.[UpdateDate]
-
-      	  
-
-  FROM [CSIDW].[dbo].[Product] c ' ;
-
-
-　
-
-  
-
-IF (@GroupName IS NOT NULL)
-
-BEGIN
-
-	SET @SQL = @SQL + 'INNER JOIN [CSIDW].[dbo].[Class]  Com ON Com.[ClassID] = C.[ClassID]
-
-						 AND Com.[GroupName] = ''' + @GroupName + '''';
-
-END
-
-ELSE
-
-BEGIN 
-
-	SET @SQL = @SQL + 'LEFT JOIN [CSIDW].[dbo].[Class]  Com ON Com.[ClassID] = C.[ClassID]';
-
-END
-
-
-IF (@SubCategoryName IS NOT NULL OR @CommissionSubCategoryName IS NOT NULL)
-
-BEGIN
-
-	SET @SQL = @SQL + 'INNER JOIN [CSIDW].[dbo].[SubCategory] SC ON SC.[SubCategoryID] = C.[SubCategoryID]
-
-						 AND SC.[SubCategoryName] = ''' + @SubCategoryName + '''
-
-					 AND SC.[CommissionSubCategoryName] = ''' + @CommissionSubCategoryName + '''';
-
-END
-
-
-ELSE
-
-BEGIN 
-
-	SET @SQL = @SQL + 'LEFT JOIN [CSIDW].[dbo].[SubCategory] SC ON SC.[SubCategoryID] = C.[SubCategoryID]';
-
-END
-
-
- 
-
-
-　
-
-　
-
- 
-
-IF (@ProductCode IS NOT NULL)
-
-BEGIN
-
-	SET @SQL = @SQL + ' Where C.[ProductCode]='''+  @ProductCode +'''
-
-	  AND  C.[ProductName]='''+  @ProductName +'''';
-
-END
-
-
-IF (@ProductName IS NOT NULL)
-
-BEGIN
-
-	SET @SQL = @SQL + ' Where C.[ProductName]='''+  @ProductName +'''';
-
-END
-
-
-　
-
-EXEC(@SQL);
-
-END
+    SELECT SS.[RegionID]
+      ,SS.[RegionCode]
+      ,SS.[RegionName]
+      ,SS.[RegionManagerID]
+	  , SR.[RegionManagerName]
+		 ,SS.[SubBusinessUnitID]
+		 ,BN.[SubBusinessUnitName]
+	  ,SSN.[CompanyName]
+	  ,SS.[CompanyID]
+      ,SS.[EffectiveDate]
+      ,SS.[ExpirationDate]
+      ,SS.[UpdateUser]
+      ,SS.[UpdateDate]      	  
+  FROM [CSIDW].[dbo].[Region] SS
+  INNER JOIN [CSIDW].[dbo].[Company] SSN ON SSN.[CompanyID] = SS.[CompanyID] 
+  INNER JOIN [CSIDW].[dbo].[SubBusinessUnit] BN ON BN.[SubBusinessUnitID]=ss.[SubBusinessUnitID]
+   LEFT JOIN #Results SR ON SR.[RegionID] = SS.[RegionID]
+  AND SR.[RegionManagerName] = ISNULL(@RegionManagerName, SR.[RegionManagerName])
+		 
+  WHERE  SSN.[CompanyName] = ISNULL(@CompanyName, SSN.[CompanyName])
+           AND SS.[RegionName]=ISNULL(@RegionName,SS.[RegionName])
+         AND  BN.[SubBusinessUnitName]=ISNULL(@SubBusinessUnitName, BN.[SubBusinessUnitName])
