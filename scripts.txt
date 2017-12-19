@@ -1,6 +1,136 @@
-CREATE PROCEDURE [dbo].[Web_SR_GetStates]   
+
+ ALTER PROCEDURE [dbo].[Web_SR_GetProductRecords]
+
+		@ProductCode int= NULL
+
+		,@ProductName nvarchar(100)=NULL
+
+		,@GroupName nvarchar(100)=NULL
+
+		,@SubCategoryName nvarchar(100)=NULL
+
+		,@CommissionSubCategoryName nvarchar(100)=NULL
+
 AS   
 
-    SET NOCOUNT ON;  
-    SELECT DISTINCT [State]
-    FROM [dbo].[States] 
+BEGIN
+
+    SET NOCOUNT ON; 
+
+
+	
+
+    
+
+DECLARE @SQL NVARCHAR(MAX)
+
+SET @SQL = 'SELECT  [ProductID]
+
+      ,c.[ProductCode]
+
+      ,c.[ProductName]
+
+      ,c.[SubCategoryID]
+
+	  ,SC.[SubCategoryName]
+
+	  ,c.[CommissionSubCategoryID]
+
+      ,SC.[CommissionSubCategoryName]
+
+      ,c.[ClassID]
+
+	  ,COM.[GroupName]
+
+      ,c.[EffectiveDate]
+
+      ,c.[ExpirationDate]
+
+      ,c.[UpdateUser]
+
+      ,c.[UpdateDate]
+
+      	  
+
+  FROM [CSIDW].[dbo].[Product] c ' ;
+
+
+　
+
+  
+
+IF (@GroupName IS NOT NULL)
+
+BEGIN
+
+	SET @SQL = @SQL + 'INNER JOIN [CSIDW].[dbo].[Class]  Com ON Com.[ClassID] = C.[ClassID]
+
+						 AND Com.[GroupName] = ''' + @GroupName + '''';
+
+END
+
+ELSE
+
+BEGIN 
+
+	SET @SQL = @SQL + 'LEFT JOIN [CSIDW].[dbo].[Class]  Com ON Com.[ClassID] = C.[ClassID]';
+
+END
+
+
+IF (@SubCategoryName IS NOT NULL OR @CommissionSubCategoryName IS NOT NULL)
+
+BEGIN
+
+	SET @SQL = @SQL + 'INNER JOIN [CSIDW].[dbo].[SubCategory] SC ON SC.[SubCategoryID] = C.[SubCategoryID]
+
+						 AND SC.[SubCategoryName] = ''' + @SubCategoryName + '''
+
+					 AND SC.[CommissionSubCategoryName] = ''' + @CommissionSubCategoryName + '''';
+
+END
+
+
+ELSE
+
+BEGIN 
+
+	SET @SQL = @SQL + 'LEFT JOIN [CSIDW].[dbo].[SubCategory] SC ON SC.[SubCategoryID] = C.[SubCategoryID]';
+
+END
+
+
+ 
+
+
+　
+
+　
+
+ 
+
+IF (@ProductCode IS NOT NULL)
+
+BEGIN
+
+	SET @SQL = @SQL + ' Where C.[ProductCode]='''+  @ProductCode +'''
+
+	  AND  C.[ProductName]='''+  @ProductName +'''';
+
+END
+
+
+IF (@ProductName IS NOT NULL)
+
+BEGIN
+
+	SET @SQL = @SQL + ' Where C.[ProductName]='''+  @ProductName +'''';
+
+END
+
+
+　
+
+EXEC(@SQL);
+
+END
