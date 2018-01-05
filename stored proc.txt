@@ -1,7 +1,6 @@
-ALTER PROCEDURE [dbo].[sp_GetSearchResults] 
+DECLARE
     @ReviewID nvarchar(50)
-AS 
-    SET NOCOUNT ON;
+
     SELECT RevID
 	      , RR.Project_Description
 		  , RA.Date_Action_Due
@@ -10,5 +9,5 @@ AS
 		  ,RR.Project_Latitude
 		  ,RR.Project_Longitude
     FROM Review.Review RR
-	INNER JOIN [Review.rev_action] RA ON RA.[RevID] = RR.[RevID]
-    WHERE RevID = @ReviewID;
+	INNER JOIN Review.rev_action RA ON RA.RevID = RR.RevID
+    WHERE RevID = 1 ;
