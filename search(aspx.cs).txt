@@ -104,7 +104,7 @@ namespace WebApplication1
             CEHA.Items.Insert(0, new ListItem("--Select--", "NA"));
         }
 
-        protected void btnLogin_Click(object sender, EventArgs e)
+        protected void btnFind(object sender, EventArgs e)
         {
             DataSet ds = new DataSet();
             try

@@ -167,7 +167,7 @@
     <br />
         </fieldset>
     <div align="center">
-            <asp:Button Text="Find" ID="Find" runat="server" CssClass="roundCorner" /> <%--OnClick="BtnSelect_Click"--%> &nbsp &nbsp &nbsp;            
+            <asp:Button Text="Find" ID="Find" runat="server" CssClass="roundCorner" OnClick="btnFind"/> &nbsp &nbsp &nbsp;            
         <asp:Button ID="Reset_Button" runat="server" CssClass="roundCorner" Text="Clear" 
             OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
                 </div>
@@ -186,16 +186,16 @@
 <asp:GridView CssClass="table table-bordered" ID="gvSearchResults" runat="server" AutoGenerateColumns="False"
     EmptyDataText="There are no data records to display.">
      <Columns>
-        <asp:BoundField DataField="Review.ReviewID" HeaderText="ReviewID" ItemStyle-Width="150" />
-        <asp:BoundField DataField="Organization_Name" HeaderText="Applicant" ItemStyle-Width="150" />
+        <asp:BoundField DataField="RevID" HeaderText="ReviewID" ItemStyle-Width="150" />
         <asp:BoundField DataField="Project_Description" HeaderText="Project Description" ItemStyle-Width="150" />
-        <asp:BoundField DataField="Review.REV_USER" HeaderText="Reviewed By" ItemStyle-Width="150" />
+        <asp:BoundField DataField="Active" HeaderText="Active" ItemStyle-Width="150" />
+        <asp:BoundField DataField="Project_Latitude" HeaderText="Latitude" ItemStyle-Width="150" />
+        <asp:BoundField DataField="Project_Longitude" HeaderText="Longitude" ItemStyle-Width="150" />
+      <%--  <asp:BoundField DataField="Review.REV_USER" HeaderText="Reviewed By" ItemStyle-Width="150" />
         <asp:BoundField DataField="Action_Type" HeaderText="Action Due" ItemStyle-Width="150" />
         <asp:BoundField DataField="Review.REV_STATUS" HeaderText="Active" ItemStyle-Width="150" />
         <asp:BoundField DataField="Actions_Needed" HeaderText="Action Needed" ItemStyle-Width="150" />
-        <asp:BoundField DataField="Decision" HeaderText="Final Decision" ItemStyle-Width="150" />
-        <asp:BoundField DataField="Project_Latitude" HeaderText="Latitude" ItemStyle-Width="150" />
-        <asp:BoundField DataField="Project_Longitude" HeaderText="Longitude" ItemStyle-Width="150" />
+        <asp:BoundField DataField="Decision" HeaderText="Final Decision" ItemStyle-Width="150" />--%>
     </Columns>
 </asp:GridView>
 <%--</div>
