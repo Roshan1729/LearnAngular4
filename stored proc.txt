@@ -1,13 +1,13 @@
 DECLARE
     @ReviewID nvarchar(50)
 
-    SELECT RevID
+    SELECT RR.RevID
 	      , RR.Project_Description
-		  , RA.Date_Action_Due
+		  , RA.Date_Actions_Due
 		  ,RR.Active
 		  , RA.Actions_Needed
 		  ,RR.Project_Latitude
 		  ,RR.Project_Longitude
     FROM Review.Review RR
-	INNER JOIN Review.rev_action RA ON RA.RevID = RR.RevID
-    WHERE RevID = 1 ;
+	INNER JOIN Review.REV_Action RA ON RA.RevID = RR.RevID
+    WHERE RR.RevID = 1 ;
