@@ -7,7 +7,7 @@ ALTER PROCEDURE [dbo].[sp_GetSearchResults]
 
 AS 
     SET NOCOUNT ON;
-    SELECT  RevID
+    SELECT  RR.RevID
 	      , RR.Project_Description
 		  , RA.Date_Actions_Due
 		  ,RR.Active
@@ -16,6 +16,7 @@ AS
 		  ,RR.Project_Longitude
     FROM Review.Review RR
 	INNER JOIN Review.REV_Action RA ON RA.RevID = RR.RevID
-    WHERE (RA.Date_Actions_Due = ISNULL(@DateActiondue, RA.Date_Actions_Due)) 
+    WHERE (RR.REVID = @ReviewID)
+	AND (RA.Date_Actions_Due = ISNULL(@DateActiondue, RA.Date_Actions_Due)) 
   AND (RR.Active =ISNULL(@Active, RR.Active))
   AND (RA.Actions_Needed = ISNULL(@ActionNeeded, RA.Actions_Needed)) ;
