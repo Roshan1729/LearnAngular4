@@ -1,6 +1,6 @@
 DECLARE
     @ReviewID nvarchar(50)
-   ,@DateActiondue NVARCHAR(200)
+   --,@DateActiondue NVARCHAR(200)
    ,@Active NVARCHAR(100)
    ,@ActionNeeded NVARCHAR(200)
   
@@ -16,7 +16,6 @@ DECLARE
 		  ,RR.Project_Longitude
     FROM Review.Review RR
 	INNER JOIN Review.REV_Action RA ON RA.RevID = RR.RevID
-    WHERE (RA.Date_Actions_Due = ISNULL(@DateActiondue, RA.Date_Actions_Due)) 
-  AND (RR.Active =ISNULL(@Active, RR.Active))
+    WHERE  (RR.Active =ISNULL(@Active, RR.Active))
   AND (RA.Actions_Needed = ISNULL(@ActionNeeded, RA.Actions_Needed))
   AND RR.REVID = 1 ;
