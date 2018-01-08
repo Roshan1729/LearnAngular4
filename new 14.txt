@@ -116,6 +116,10 @@ namespace WebApplication1
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add("@ReviewID", SqlDbType.VarChar).Value = ReviewID.Text;
+						cmd.Parameters.Add("@DateActiondue", SqlDbType.VarChar).Value = DateActiondue.Text;
+						cmd.Parameters.Add("@Active", SqlDbType.VarChar).Value = active.Text;
+						cmd.Parameters.Add("@ActionNeeded", SqlDbType.VarChar).Value = action.Text;
+						
                         con.Open();
                         SqlDataAdapter da = new SqlDataAdapter(cmd);
                         using (DataTable dt = new DataTable())

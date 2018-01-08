@@ -191,7 +191,7 @@
         <asp:BoundField DataField="Active" HeaderText="Active" ItemStyle-Width="150" />
         <asp:BoundField DataField="Project_Latitude" HeaderText="Latitude" ItemStyle-Width="150" />
         <asp:BoundField DataField="Project_Longitude" HeaderText="Longitude" ItemStyle-Width="150" />
-		 <asp:BoundField DataField="Date_Action_Due" HeaderText="Action Due" ItemStyle-Width="150" />
+		 <asp:BoundField DataField="Date_Actions_Due" HeaderText="Action Due" ItemStyle-Width="150" />
         
         <asp:BoundField DataField="Actions_Needed" HeaderText="Action Needed" ItemStyle-Width="150" />
       <%--  <asp:BoundField DataField="Review.REV_USER" HeaderText="Reviewed By" ItemStyle-Width="150" />
