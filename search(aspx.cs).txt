@@ -115,11 +115,13 @@ namespace WebApplication1
                     using (SqlCommand cmd = new SqlCommand("sp_GetSearchResults", con))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@ReviewID", SqlDbType.VarChar).Value = ReviewID.Text;
-                        cmd.Parameters.Add("@DateActionsdue", SqlDbType.VarChar).Value = DateActionsDue.Text;
-                        cmd.Parameters.Add("@Active", SqlDbType.VarChar).Value = active.Text;
-                        cmd.Parameters.Add("@ActionNeeded", SqlDbType.VarChar).Value = action.Text;
-                        con.Open();
+                        cmd.Parameters.Add("@ReviewID", SqlDbType.VarChar).Value = ReviewID.Text;    
+                        cmd.Parameters.Add("@DateActiondue", SqlDbType.VarChar).Value = due.Text;    
+                        cmd.Parameters.Add("@Active", SqlDbType.VarChar).Value = active.Text;    
+                        cmd.Parameters.Add("@ActionNeeded", SqlDbType.VarChar).Value = action.Text;   
+                        cmd.Parameters.Add("@Latitude", SqlDbType.VarChar).Value = long.Text;    
+                        cmd.Parameters.Add("@longitude", SqlDbType.VarChar).Value = lat.Text;
+                        con.Open();
                         SqlDataAdapter da = new SqlDataAdapter(cmd);
                         using (DataTable dt = new DataTable())
                         {
