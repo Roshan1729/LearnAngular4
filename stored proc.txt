@@ -14,9 +14,10 @@ AS
 		  , RA.Date_Actions_Due
 		  ,RR.Active
 		  , RA.Actions_Needed
-		  ,RR.Project_Latitude
-		  ,RR.Project_Longitude
-    FROM Review.Review RR
+		    ,CAST(RR.Project_Latitude AS FLOAT) AS Project_Latitude 
+
+		  ,CAST(RR.Project_Longitude AS FLOAT) AS Project_Longitude
+    FROM Review.Review RR
 	INNER JOIN Review.REV_Action RA ON RA.RevID = RR.RevID
     WHERE (RR.REVID = @ReviewID)
 	AND (@Active IS NULL OR RR.Active = @Active)
