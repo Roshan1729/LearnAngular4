@@ -1,19 +1,19 @@
-Alter PROCEDURE [dbo].[CR_Test]   
-AS   
-Begin
-    SET NOCOUNT ON;  
-    Declare @listStateName varchar(MAX)
-	select DISTINCT name as StateName
-		FROM  REVIEW.LK_State s;
+USE [DEV_CRM_APPDB]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_AddUser]    Script Date: 1/17/2018 11:17:52 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[sp_AddUser] 
+    @FirstName varchar(50)
+	,@Lastname varchar(20)
+	,@Login nvarchar (100)
+	,@Password Nvarchar(255)
+	,@RoleType varchar(20)
 
-		Declare @listZipCode varchar(MAX)
-	select DISTINCT ZIP5 as ZipCode
-		FROM  REVIEW.LK_Zip z;
 
-		
-
-		SELECT @listStateName AS StateName
-		,@listZipCode AS ZipCode
-				
-
-	End;
+AS 
+    SET NOCOUNT ON;
+    Insert into Users values (@FirstName, @Lastname, @Login, 
+	@Password, @RoleType);
