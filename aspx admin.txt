@@ -1,0 +1,97 @@
+<%@ Page Title="Admin" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="DemoLoginApplication.Map" %>
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="/content/style.css" rel="stylesheet" type="text/css" />
+    <fieldset>
+        <legend>Add a User</legend>
+    First Name:<br />
+        <input type=text runat=server id=firstname>
+        <asp:RequiredFieldValidator ID="Required1" runat="server" ErrorMessage="Required" ForeColor="Red" ControlToValidate="firstname"></asp:RequiredFieldValidator><br />
+    Last Name:<br />
+        <input type=text runat=server id=lastname>
+        <asp:RequiredFieldValidator ID="Required2" runat="server" ErrorMessage="Required" ForeColor="Red" ControlToValidate="lastname"></asp:RequiredFieldValidator><br />
+    Login ID:<br />
+        <input type=text runat=server id=login>
+        <asp:RequiredFieldValidator ID="Required3" runat="server" ErrorMessage="Required" ForeColor="Red" ControlToValidate="login"></asp:RequiredFieldValidator><br />
+    Password:<br />
+        <input type=text runat=server id=password>
+        <asp:RequiredFieldValidator ID="Required4" runat="server" ErrorMessage="Required" ForeColor="Red" ControlToValidate="password"></asp:RequiredFieldValidator><br />
+     Enter role type: <br />
+        <asp:DropDownList ID="roleType" runat="server" >
+        <asp:ListItem>--Select--</asp:ListItem>
+            <asp:ListItem>Consist_Admin</asp:ListItem>
+            <asp:ListItem>Consist_Inquiry</asp:ListItem>
+            <asp:ListItem>Consist_Reviewer
+</asp:ListItem>
+            <asp:ListItem>Consist_Supervisor
+</asp:ListItem>
+            <asp:ListItem>Consist_User</asp:ListItem>
+            <asp:ListItem>Consist_Scan
+</asp:ListItem>
+
+
+            </asp:DropDownList><br />
+        <div style="margin-left:60px">
+    <asp:Button Text="Save" ID="btn1" runat="server" CssClass="roundCorner"/>
+    <asp:Button ID="Reset_Button" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </div>    
+    </fieldset>
+    <fieldset>
+        <legend>Delete User</legend>
+        Select User Id:
+        <asp:DropDownList ID="delete" runat="server" >
+        <asp:ListItem>--Select--</asp:ListItem>
+            </asp:DropDownList><br />
+        <asp:Button Text="Save" ID="dlt" runat="server" CssClass="roundCorner"/>
+        <asp:Button ID="Button5" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    <fieldset>
+        <legend>Reset Password</legend>
+        Select User Id:
+        <asp:DropDownList ID="DropDownList1" runat="server" >
+        <asp:ListItem>--Select--</asp:ListItem>
+            </asp:DropDownList><br />
+        Enter new Password:
+        <asp:TextBox runat="server" ID="text"></asp:TextBox><br />
+        <asp:Button Text="Save" ID="Button1" runat="server" CssClass="roundCorner"/>
+        <asp:Button ID="Button6" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    <fieldset>
+        <legend>Activate User</legend>
+        Select User Id:
+        <asp:DropDownList ID="DropDownList2" runat="server" >
+        <asp:ListItem>--Select--</asp:ListItem>
+            </asp:DropDownList><br />
+        <asp:Button Text="Save" ID="Button2" runat="server" CssClass="roundCorner"/>
+        <asp:Button ID="Button7" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    <fieldset>
+        <legend>Inactivate User</legend>
+        Select User Id:
+        <asp:DropDownList ID="DropDownList3" runat="server" >
+        <asp:ListItem>--Select--</asp:ListItem>
+            </asp:DropDownList><br />
+        <asp:Button Text="Save" ID="Button3" runat="server" CssClass="roundCorner"/>
+        <asp:Button ID="Button8" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    <fieldset>
+        <legend>Modify User roles</legend>
+        Select User ID:
+        <asp:DropDownList ID="DropDownList4" runat="server" >
+        <asp:ListItem>--Select--</asp:ListItem>
+            </asp:DropDownList><br />
+        Enter role type:
+        <asp:DropDownList ID="DropDownList5" runat="server" >
+        <asp:ListItem>--Select--</asp:ListItem>
+            </asp:DropDownList><br />
+        <asp:Button Text="Save" ID="Button4" runat="server" CssClass="roundCorner"/>
+        <asp:Button ID="Button9" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    
+</asp:Content>
