@@ -1,42 +1,32 @@
-ALTER PROCEDURE [dbo].[sp_SearchFields]   
-AS   
-Begin
-    SET NOCOUNT ON;  
-    Declare @listCityName varchar(MAX)
-	select DISTINCT name as CityName
-		FROM  REVIEW.LK_CITY c;
+ALTER PROCEDURE [dbo].[sp_GetSearchResults] 
+    @ReviewID int
+	,@RevIDYear numeric
+	,@ActionCD varchar(50)
+	,@AgencyAppNum varchar(255)
+	,@ConsultantProjNum varchar(50)
+   ,@ProjectDescription varchar(2000)
+   ,@ProjectTitle varchar(255)
+   --,@DateActiondue DATETIME2(0)
+   ,@Active VARCHAR(1)
+   --,@ActionNeeded VARCHAR(2000)
+   --,@Latitude float
+   --,@longitude float
+  
 
-		Declare @listBoroughName varchar(MAX)
-	select DISTINCT name as BoroughName
-		FROM  REVIEW.LK_BOROUGH b;
-
-		Declare @listCountyName varchar(MAX)
-	select DISTINCT name as CountyName
-		FROM  REVIEW.LK_COUNTY co;
-
-		Declare @listPlaceName varchar(MAX)
-	select DISTINCT name as PlaceName
-		FROM  REVIEW.LK_PLACE p;
-
-		Declare @listTownName varchar(MAX)
-	select DISTINCT name as TownName
-		FROM  REVIEW.LK_TOWN t;
-
-		Declare @listVillageName varchar(MAX)
-	select DISTINCT name as VillageName
-		FROM  REVIEW.LK_VILLAGE v;
-
-		Declare @listWaterBodyName varchar(MAX)
-	select DISTINCT name as WaterBodyName
-		FROM  REVIEW.LK_WATERBODY wb;
-
-		SELECT @listCityName AS LocationName
-		,@listBoroughName AS BoroughName
-		,@listCountyName AS CountyName
-		,@listPlaceName AS PlaceName
-		,@listTownName AS TownName
-		,@listVillageName AS VillageName
-		,@listWaterBodyName AS WaterBodyName
-		
-
-	End;
+AS 
+    SET NOCOUNT ON;
+    SELECT  RR.RevID
+	      , RR.Project_Description
+		  , RA.Date_Actions_Due
+		  ,RR.Active
+		  , RA.Actions_Needed
+		  ,RR.Project_Latitude
+		  ,RR.Project_Longitude
+    FROM Review.Review RR
+	INNER JOIN Review.REV_Action RA ON RA.RevID = RR.RevID
+    WHERE (RR.REVID = @ReviewID)
+	--AND (@Active IS NULL OR RR.Active = @Active)
+  
+  --AND (@ActionNeeded IS NULL OR RA.Actions_Needed = @ActionNeeded) 
+  --AND (@Latitude IS NULL OR RR.Project_Latitude = @Latitude)
+  --AND (@longitude IS NULL OR RR.Project_Longitude = @longitude);
