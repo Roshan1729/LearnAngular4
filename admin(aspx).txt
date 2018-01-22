@@ -1,0 +1,103 @@
+<%@ Page Title="Admin" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Admin.aspx.cs" Inherits="DemoLoginApplication.Admin" %>
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="/content/style.css" rel="stylesheet" type="text/css" />
+    <fieldset>
+        <legend>Add a User</legend>
+    First Name:<br />
+        <input type=text runat=server id=firstname>
+        <asp:RequiredFieldValidator ValidationGroup="V1" ID="Required1" runat="server" ErrorMessage="*"  ForeColor="Red" ControlToValidate="firstname"></asp:RequiredFieldValidator><br />
+    Last Name:<br />
+        <input type=text runat=server id=lastname>
+        <asp:RequiredFieldValidator ValidationGroup="V1" ID="Required2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="lastname"></asp:RequiredFieldValidator><br />
+    Login ID:<br />
+        <input type=text runat=server id=login>
+        <asp:RequiredFieldValidator ValidationGroup="V1" ID="Required3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="login"></asp:RequiredFieldValidator><br />
+    Password:<br />
+        <input type=text runat=server id=password>
+        <asp:RequiredFieldValidator ValidationGroup="V1" ID="Required4" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="password"></asp:RequiredFieldValidator><br />
+     Enter role type: <br />
+        <asp:DropDownList ID="roleType" runat="server" >
+        <asp:ListItem>--Select--</asp:ListItem>
+            <asp:ListItem>Consist_Admin</asp:ListItem>
+            <asp:ListItem>Consist_Inquiry</asp:ListItem>
+            <asp:ListItem>Consist_Reviewer</asp:ListItem>
+            <asp:ListItem>Consist_Supervisor</asp:ListItem>
+            <asp:ListItem>Consist_User</asp:ListItem>
+            <asp:ListItem>Consist_Scan
+          </asp:ListItem>
+          </asp:DropDownList><br />
+        <div style="margin-left:30px">
+    <asp:Button ValidationGroup="V1" Text="Save" ID="btnaddUser" runat="server" OnClick="btnAddUserInfo" CssClass="roundCorner"/>
+    <asp:Button ID="Reset_Button" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </div>    
+    </fieldset>
+    <fieldset style="margin-left:70px">
+        <legend>Reset Password</legend>
+        Select User Id:<input type=text runat=server id=UsrName style="margin-left:40px">
+        <asp:RequiredFieldValidator ValidationGroup="V2" ID="Validator" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="UsrName"></asp:RequiredFieldValidator><br />
+<br />
+        Enter new Password:<input type=text runat=server id=ResetUserPassword> 
+       <asp:RequiredFieldValidator ValidationGroup="V2" ID="Validator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ResetUserPassword"></asp:RequiredFieldValidator><br />
+<br />
+        <asp:Button ValidationGroup="V2" Text="Save" ID="psdSave" runat="server" OnClick="ResetPassword" CssClass="roundCorner"/>
+        <asp:Button ID="btnClear" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    <fieldset style="margin-left:90px; width:320px">
+        <legend>Delete User</legend>
+        Select User Id: <input type=text runat=server id=UserName>
+        <asp:RequiredFieldValidator ValidationGroup="V3" ID="RequiredFieldValidator" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="UserName"></asp:RequiredFieldValidator><br />
+        <br />
+        <asp:Button ValidationGroup="V3" Text="Save" ID="dlt" runat="server" OnClick="DeleteUser" CssClass="roundCorner"/>
+        <asp:Button ID="Button5" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    
+    <fieldset style="margin-left:90px; margin-top:65px; width:320px">
+        <legend>Activate User</legend>
+        Select User Id:<input type=text runat=server id=ActivateUserName>
+        <asp:RequiredFieldValidator ValidationGroup="V4" ID="RequiredFieldValidator1" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ActivateUserName"></asp:RequiredFieldValidator><br />
+        <br />
+        <asp:Button ValidationGroup="V4" Text="Save" ID="userSave" runat="server" OnClick="ActivateUser"  CssClass ="roundCorner"/>
+        <asp:Button ID="Button7" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    <fieldset style="margin-left:290px; margin-top:-130px">
+        <legend>Inactivate User</legend>
+        Select User Id:
+        <input type=text runat=server id=InactiveUserName>
+        <asp:RequiredFieldValidator ValidationGroup="V5" ID="RequiredFieldValidator2" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="InactiveUserName"></asp:RequiredFieldValidator><br />
+        <br />
+        <asp:Button ValidationGroup="V5" Text="Save" ID="saveUser" OnClick="InactiveUser" runat="server" CssClass="roundCorner"/>
+        <asp:Button ID="Button8" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    <fieldset style="margin-left:690px; margin-top:10px; width:320px">
+        <legend>Modify User roles</legend>
+        Select User ID:
+        <input type=text runat=server id=ModifyUserName style="margin-left:12px">
+        <asp:RequiredFieldValidator ValidationGroup="V6" ID="RequiredFieldValidator3" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="ModifyUserName"></asp:RequiredFieldValidator><br />
+        <asp:Button ID="Search" runat="server" CssClass="roundCorner" Text="Search"/><br />
+        <asp:Label ID="existingroletype" runat="server" text="Enter role type:" Visible="false">      
+            </asp:Label><br />        
+        Select New Role:
+        <asp:DropDownList ID="NewRole" runat="server" Width="174px">
+        <asp:ListItem>--Select--</asp:ListItem>
+            <asp:ListItem>Consist_Admin</asp:ListItem>
+            <asp:ListItem>Consist_Inquiry</asp:ListItem>
+            <asp:ListItem>Consist_Reviewer</asp:ListItem>
+            <asp:ListItem>Consist_Supervisor</asp:ListItem>
+            <asp:ListItem>Consist_User</asp:ListItem>
+            <asp:ListItem>Consist_Scan
+          </asp:ListItem>
+          </asp:DropDownList>
+       <asp:RequiredFieldValidator ValidationGroup="V6" ID="RequiredFieldValidator4" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="NewRole"></asp:RequiredFieldValidator><br />
+
+        <asp:Button ValidationGroup="V6" Text="Save" ID="saverole" runat="server" OnClick="ModifyUserRole" CssClass="roundCorner"/>
+        <asp:Button ID="Button9" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+        </fieldset>
+    
+</asp:Content>
