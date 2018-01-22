@@ -1,0 +1,173 @@
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace WebApplication1
+{
+    public partial class Search : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.User.Identity.IsAuthenticated)
+            {
+                FormsAuthentication.RedirectToLoginPage();
+            }
+            else
+            {
+                GetDropDownValues();
+            }
+
+
+        }
+        protected void GetDropDownValues()
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_SearchFields", con))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        con.Open();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        da.Fill(ds);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            location.DataSource = ds.Tables[0];
+            location.DataTextField = "CityName";
+            location.DataBind();
+            location.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            borough.DataSource = ds.Tables[1];
+            borough.DataTextField = "BoroughName";
+            borough.DataBind();
+            borough.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            county.DataSource = ds.Tables[2];
+            county.DataTextField = "CountyName";
+            county.DataBind();
+            county.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            place.DataSource = ds.Tables[3];
+            place.DataTextField = "PlaceName";
+            place.DataBind();
+            place.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            town.DataSource = ds.Tables[4];
+            town.DataTextField = "TownName";
+            town.DataBind();
+            town.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            village.DataSource = ds.Tables[5];
+            village.DataTextField = "VillageName";
+            village.DataBind();
+            village.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            waterbody.DataSource = ds.Tables[6];
+            waterbody.DataTextField = "WaterBodyName";
+            waterbody.DataBind();
+            waterbody.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            action.DataSource = ds.Tables[7];
+            action.DataTextField = "ActionType";
+            action.DataBind();
+            action.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            SASS.DataSource = ds.Tables[8];
+            SASS.DataTextField = "SassID";
+            SASS.DataBind();
+            SASS.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            SCFWH.DataSource = ds.Tables[9];
+            SCFWH.DataTextField = "SCFWHName";
+            SCFWH.DataBind();
+            SCFWH.Items.Insert(0, new ListItem("--Select--", "NA"));
+
+            CEHA.DataSource = ds.Tables[10];
+            CEHA.DataTextField = "CEHAName";
+            CEHA.DataBind();
+            CEHA.Items.Insert(0, new ListItem("--Select--", "NA"));
+        }
+
+        protected void btnFind(object sender, EventArgs e)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("sp_GetSearchResults", con))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@ReviewID", SqlDbType.Int).Value = ReviewID.Text;
+                        //cmd.Parameters.Add("@Applicant", SqlDbType.VarChar).Value = applicant.Text;
+                        //cmd.Parameters.Add("@ProjectTitle", SqlDbType.VarChar).Value = title.Text;
+                        //cmd.Parameters.Add("@ProjectDescription", SqlDbType.VarChar).Value = desc.Text;
+                        //cmd.Parameters.Add("@ProjectAddress", SqlDbType.VarChar).Value = address.Text;
+                        //cmd.Parameters.Add("@Reviewer", SqlDbType.VarChar).Value = reviewer.Text;
+                        //cmd.Parameters.Add("@SecondaryReviewer", SqlDbType.VarChar).Value = secondary.Text;
+
+                        //issue with below field
+                       //cmd.Parameters.Add("@RevIDYear", SqlDbType.Int).Value = Int32.Parse(year.Text);
+
+                        //cmd.Parameters.Add("@AgencyAppNum", SqlDbType.VarChar).Value = agency.Text;
+                        //cmd.Parameters.Add("@ConsultantProjNum", SqlDbType.VarChar).Value = consultant.Text;
+                        //cmd.Parameters.Add("@ProjectCategory", SqlDbType.VarChar).Value = category.Text;
+                        //cmd.Parameters.Add("@Townlocation", SqlDbType.VarChar).Value = town.Text;
+                        //cmd.Parameters.Add("@ActionCD", SqlDbType.VarChar).Value = action.Text;
+                        //cmd.Parameters.Add("@Consultant", SqlDbType.VarChar).Value = consultant.Text;
+                        //cmd.Parameters.Add("@FinalDecision", SqlDbType.VarChar).Value = final.Text;
+                        //cmd.Parameters.Add("@SecondaryDecision", SqlDbType.VarChar).Value = secondary.Text;
+                        //cmd.Parameters.Add("@Active", SqlDbType.VarChar).Value = active.Text;
+                        //cmd.Parameters.Add("@ProjectModified", SqlDbType.VarChar).Value = project.Text;
+                        //cmd.Parameters.Add("@County", SqlDbType.VarChar).Value = county.Text;
+                        //cmd.Parameters.Add("@WaterBody", SqlDbType.VarChar).Value = waterbody.Text;
+                        //cmd.Parameters.Add("@CityLocation", SqlDbType.VarChar).Value = location.Text;
+                        //cmd.Parameters.Add("@FederalAgency", SqlDbType.VarChar).Value = agency.Text;
+                        //cmd.Parameters.Add("@VillageLocation", SqlDbType.VarChar).Value = village.Text;
+                        //cmd.Parameters.Add("@BoroughLocation", SqlDbType.VarChar).Value = borough.Text;
+                        //cmd.Parameters.Add("@PlaceLocation", SqlDbType.VarChar).Value = place.Text;
+                        //cmd.Parameters.Add("@CEHA", SqlDbType.VarChar).Value = CEHA.Text;
+                        //cmd.Parameters.Add("@Region", SqlDbType.VarChar).Value = region.Text;
+                        //cmd.Parameters.Add("@LWRP", SqlDbType.VarChar).Value = LWRP.Text;
+                        //cmd.Parameters.Add("@SASS", SqlDbType.VarChar).Value = SASS.Text;
+                        //cmd.Parameters.Add("@SCFWH", SqlDbType.VarChar).Value = SCFWH.Text;
+
+
+                        con.Open();
+                        SqlDataAdapter da = new SqlDataAdapter(cmd);
+                        using (DataTable dt = new DataTable())
+                        {
+                            da.Fill(dt);
+                            gvSearchResults.DataSource = dt;
+                            gvSearchResults.DataBind();
+                        }
+                        con.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+    }
+}
