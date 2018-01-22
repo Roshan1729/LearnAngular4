@@ -15,7 +15,20 @@ namespace DemoLoginApplication
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string constr = ConfigurationManager.ConnectionStrings["ConnectionString"].ToString();
+            SqlConnection con = new SqlConnection(constr);
+            con.Open();
 
+            SqlCommand com = new SqlCommand("select *from REVIEW.LK_USER_ROLE_TYPE", con);
+            SqlDataAdapter da = new SqlDataAdapter(com);
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            roleType.DataTextField = ds.Tables[0].Columns["Short_Desc"].ToString();
+            NewRole.DataTextField = ds.Tables[0].Columns["Short_Desc"].ToString();
+            roleType.DataSource = ds.Tables[0];
+            NewRole.DataSource = ds.Tables[0];
+            roleType.DataBind();
+            NewRole.DataBind();
         }
         protected void btnAddUserInfo(object sender, EventArgs e)
         {

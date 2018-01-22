@@ -17,15 +17,9 @@
         <input type=text runat=server id=password>
         <asp:RequiredFieldValidator ValidationGroup="V1" ID="Required4" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="password"></asp:RequiredFieldValidator><br />
      Enter role type: <br />
-        <asp:DropDownList ID="roleType" runat="server" >
+        <asp:DropDownList ID="roleType" runat="server" Width="162px">
         <asp:ListItem>--Select--</asp:ListItem>
-            <asp:ListItem>Consist_Admin</asp:ListItem>
-            <asp:ListItem>Consist_Inquiry</asp:ListItem>
-            <asp:ListItem>Consist_Reviewer</asp:ListItem>
-            <asp:ListItem>Consist_Supervisor</asp:ListItem>
-            <asp:ListItem>Consist_User</asp:ListItem>
-            <asp:ListItem>Consist_Scan
-          </asp:ListItem>
+            
           </asp:DropDownList><br />
         <div style="margin-left:30px">
     <asp:Button ValidationGroup="V1" Text="Save" ID="btnaddUser" runat="server" OnClick="btnAddUserInfo" CssClass="roundCorner"/>
@@ -83,16 +77,8 @@
         <asp:Label ID="existingroletype" runat="server" text="Enter role type:" Visible="false">      
             </asp:Label><br />        
         Select New Role:
-        <asp:DropDownList ID="NewRole" runat="server" Width="174px">
-        <asp:ListItem>--Select--</asp:ListItem>
-            <asp:ListItem>Consist_Admin</asp:ListItem>
-            <asp:ListItem>Consist_Inquiry</asp:ListItem>
-            <asp:ListItem>Consist_Reviewer</asp:ListItem>
-            <asp:ListItem>Consist_Supervisor</asp:ListItem>
-            <asp:ListItem>Consist_User</asp:ListItem>
-            <asp:ListItem>Consist_Scan
-          </asp:ListItem>
-          </asp:DropDownList>
+        <asp:DropDownList ID="NewRole" runat="server" Width="165px">
+        </asp:DropDownList>
        <asp:RequiredFieldValidator ValidationGroup="V6" ID="RequiredFieldValidator4" runat="server" ErrorMessage="*" ForeColor="Red" ControlToValidate="NewRole"></asp:RequiredFieldValidator><br />
 
         <asp:Button ValidationGroup="V6" Text="Save" ID="saverole" runat="server" OnClick="ModifyUserRole" CssClass="roundCorner"/>
