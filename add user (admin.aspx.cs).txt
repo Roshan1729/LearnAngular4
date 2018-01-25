@@ -1,0 +1,55 @@
+ protected void btnAddUserInfo(object sender, EventArgs e)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("AddUser", con))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                     
+                        cmd.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = firstname.Value;
+                        cmd.Parameters.Add("@Lastname", SqlDbType.VarChar).Value = lastname.Value;
+                        cmd.Parameters.Add("@Login", SqlDbType.NVarChar).Value =login.Value;
+                        cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = password.Value;
+                        cmd.Parameters.Add("@RoleType", SqlDbType.VarChar).Value = roleType.SelectedItem.ToString();
+                        cmd.Parameters.Add("@CreatedDate", SqlDbType.VarChar).Value = DateTime.Now;
+                        cmd.Parameters.Add("@DeactivatedDate", SqlDbType.VarChar).Value = DateTime.Now.AddDays(365);
+                        
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                        bool success = Convert.ToBoolean(cmd.ExecuteScalar());
+                        if (success)
+                        {
+                            //Console.WriteLine("SQL Error" + ex.Message.ToString());
+                            string message = "Your details have been saved successfully.";
+                            string script = "window.onload = function(){ alert('";
+                            script += message;
+                            script += "')};";
+                            ClientScript.RegisterStartupScript(this.GetType(), "SuccessMessage", script, true);
+
+                            //Response.Write("User created");
+                        }
+                        else
+                        {
+                            string message = "User Esists.";
+                            string script = "window.onload = function(){ alert('";
+                            script += message;
+                            script += "')};";
+                            ClientScript.RegisterStartupScript(this.GetType(), "SuccessMessage", script, true);
+
+                            //Response.Write("User exists");
+                        }
+                       
+                        con.Close();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
