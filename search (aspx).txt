@@ -19,7 +19,6 @@
                 </asp:DropDownList>--%>
         City Location:
     <asp:DropDownList ID="location" runat="server" style="margin-left:35px" Width="82">
-        <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
         </div>
     <div style="float:right;margin-right:169px">
@@ -39,7 +38,6 @@
     <div style="float:right;margin-right:169px">
         Town location:
     <asp:DropDownList ID="town" runat="server" style="margin-left:50px" Width="82">
-        <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
         </div><br />
     Project Title:
@@ -47,7 +45,6 @@
         <div style="float:right;margin-left:100px">
         Village Location:
     <asp:DropDownList ID="village" runat="server" style="margin-left:20px" Width="82">
-        <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
         </div>
         <div style="float:right;margin-right:70px">
@@ -63,10 +60,9 @@
         <div style="float:right;">
         Borough Location:
     <asp:DropDownList ID="borough" runat="server" style="margin-left:8px" Width="82">
-        <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
             </div>
-        <div style="float:right;margin-right:77px">
+        <div style="float:right;margin-right:92px">
         Consultant:
         <asp:TextBox ID="consultant" runat="server" style="margin-left:68px"></asp:TextBox>
             </div>
@@ -76,7 +72,6 @@
     <div style="float:right;margin-left:130px">
         Place Location:
     <asp:DropDownList ID="place" runat="server" style="margin-left:26px" Width="82">
-        <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
         </div>
         <div style="float:right;margin-right:39px">
@@ -93,7 +88,6 @@
         <div style="float:right;">
         CEHA:
     <asp:DropDownList ID="CEHA" runat="server" style="margin-left:79px" Width="82">
-        <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
         </div>
     <div style="float:right;margin-right:169px">
@@ -113,7 +107,7 @@
         <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
         </div>
-    <div style="float:right;margin-right:169px">
+    <div style="float:right;margin-right:168px">
         Active:
     <asp:DropDownList ID="active" runat="server" style="margin-left:96px">
         <asp:ListItem>--Select--</asp:ListItem>
@@ -127,7 +121,7 @@
         <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
         </div>
-        <div style="float:right;margin-right:69px">
+        <div style="float:right;margin-right:67px">
         Project Modified:
     <asp:DropDownList ID="project" runat="server" style="margin-left:34px">
         <asp:ListItem>--Select--</asp:ListItem>
@@ -146,7 +140,6 @@
         <div style="float:right;margin-right:169px">
         County:
         <asp:DropDownList ID="county" runat="server" style="margin-left:90px" Width="82">
-        <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
             </div>
         <br />
@@ -155,13 +148,11 @@
     <div style="float:right;margin-left:130px">
         SCFWH:
     <asp:DropDownList ID="SCFWH" runat="server" style="margin-left:66px" Width="82">
-        <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
         </div>
         <div style="float:right;margin-right:39px">
         Waterbody:
     <asp:DropDownList ID="waterbody" runat="server" style="margin-left:67px" Width="82">
-        <asp:ListItem>--Select--</asp:ListItem>
     </asp:DropDownList>
         </div>
     <br />
@@ -207,18 +198,24 @@
 <asp:GridView CssClass="table table-bordered" ID="gvSearchResults" runat="server" AutoGenerateColumns="False"
     EmptyDataText="There are no data records to display.">
      <Columns>
-        <asp:BoundField DataField="RevID" HeaderText="Review ID" ItemStyle-Width="150" />
+         <asp:HyperLinkField DataTextField="RevID" DataNavigateUrlFields="RevID" 
+             DataNavigateUrlFormatString="~/Updates.aspx?Id={0}"
+            HeaderText="Review ID" ItemStyle-Width="150" />
+<%--        <asp:BoundField DataField="RevID" HeaderText="Review ID" ItemStyle-Width="150" />--%>
         <asp:BoundField DataField="Project_Description" HeaderText="Project Description" ItemStyle-Width="150" />
          <asp:BoundField DataField="Date_Actions_Due" HeaderText="Action Due" ItemStyle-Width="150" />
         <asp:BoundField DataField="Active" HeaderText="Active" ItemStyle-Width="150" />
         <asp:BoundField DataField="Project_Latitude" HeaderText="Latitude" ItemStyle-Width="150" />
         <asp:BoundField DataField="Project_Longitude" HeaderText="Longitude" ItemStyle-Width="150" />
         <asp:BoundField DataField="Actions_Needed" HeaderText="Action Needed" ItemStyle-Width="150" />
-      <%--  <asp:BoundField DataField="Review.REV_USER" HeaderText="Reviewed By" ItemStyle-Width="150" />
-       
-        <asp:BoundField DataField="Decision" HeaderText="Final Decision" ItemStyle-Width="150" />--%>
+
     </Columns>
 </asp:GridView>
+    <br />
+    <div align="center">
+    <asp:Button ID="btnExport" runat="server" Text="Export To Excel" CssClass="roundCorner" Visible="false" 
+       OnClick = "ExportToExcel"  /> 
+    </div>
 <%--</div>
 </div>
 </div>--%>
