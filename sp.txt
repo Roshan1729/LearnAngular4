@@ -7,37 +7,37 @@ SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[sp_GetSearchResults] 
      @ReviewID numeric    --Yes
-	--,@Applicant varchar(100)
-	--,@ProjectTitle varchar(255)   --Yes
-	--,@ProjectDescription varchar(2000)  --Yes
-	--,@ProjectAddress varchar(100) 
-	--,@Reviewer varchar(100)
-	--,@SecondaryReviewer varchar(100)
-	----,@RevIDYear numeric(4) --Yes
-	--,@AgencyAppNum varchar(255) --Yes
-	--,@ConsultantProjNum varchar(50)  --Yes
+	,@Applicant varchar(100)
+	,@ProjectTitle varchar(255)   --Yes
+	,@ProjectDescription varchar(2000)  --Yes
+	,@ProjectAddress varchar(100) 
+	,@Reviewer varchar(100)
+	,@SecondaryReviewer varchar(100)
+	--,@RevIDYear numeric(4) --Yes
+	,@AgencyAppNum varchar(255) --Yes
+	,@ConsultantProjNum varchar(50)  --Yes
 
-	--,@ProjectCategory varchar(100)  
-	--,@Townlocation varchar(100) 
-	--,@ActionCD varchar(50) --Yes
-	--,@Consultant varchar(50) 
-	--,@FinalDecision varchar(50)
-	--,@SecondaryDecision varchar(50)
-	--,@Active VARCHAR(1)  --Yes
+	,@ProjectCategory varchar(100)  
+	,@Townlocation varchar(100) 
+	,@ActionCD varchar(50) --Yes
+	,@Consultant varchar(50) 
+	,@FinalDecision varchar(50)
+	,@SecondaryDecision varchar(50)
+	,@Active VARCHAR(1)  --Yes
 
-	--,@ProjectModified varchar(50)
-	--,@County Varchar(50)
-	--,@WaterBody varchar(50)
-	--,@CityLocation varchar(50)
-	--,@FederalAgency varchar(50)
-	--,@VillageLocation varchar(50)
-	--,@BoroughLocation varchar(50)
-	--,@PlaceLocation varchar(50)
-	--,@CEHA varchar(50)  
-	--,@Region varchar(50)
-	--,@LWRP varchar(1000)   --Yes
-	--,@SASS varchar(255)  --Yes
-	--,@SCFWH varchar(50) 
+	,@ProjectModified varchar(50)
+	,@County Varchar(50)
+	,@WaterBody varchar(50)
+	,@CityLocation varchar(50)
+	,@FederalAgency varchar(50)
+	,@VillageLocation varchar(50)
+	,@BoroughLocation varchar(50)
+	,@PlaceLocation varchar(50)
+	,@CEHA varchar(50)  
+	,@Region varchar(50)
+	,@LWRP varchar(1000)   --Yes
+	,@SASS varchar(255)  --Yes
+	,@SCFWH varchar(50) 
   
 AS 
     SET NOCOUNT ON;

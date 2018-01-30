@@ -118,38 +118,38 @@ namespace WebApplication1
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
                         cmd.Parameters.Add("@ReviewID", SqlDbType.Int).Value = ReviewID.Text;
-                        //cmd.Parameters.Add("@Applicant", SqlDbType.VarChar).Value = applicant.Text;
-                        //cmd.Parameters.Add("@ProjectTitle", SqlDbType.VarChar).Value = title.Text;
-                        //cmd.Parameters.Add("@ProjectDescription", SqlDbType.VarChar).Value = desc.Text;
-                        //cmd.Parameters.Add("@ProjectAddress", SqlDbType.VarChar).Value = address.Text;
-                        //cmd.Parameters.Add("@Reviewer", SqlDbType.VarChar).Value = reviewer.Text;
-                        //cmd.Parameters.Add("@SecondaryReviewer", SqlDbType.VarChar).Value = secondary.Text;
+                        cmd.Parameters.Add("@Applicant", SqlDbType.VarChar).Value = applicant.Text;
+                        cmd.Parameters.Add("@ProjectTitle", SqlDbType.VarChar).Value = title.Text;
+                        cmd.Parameters.Add("@ProjectDescription", SqlDbType.VarChar).Value = desc.Text;
+                        cmd.Parameters.Add("@ProjectAddress", SqlDbType.VarChar).Value = address.Text;
+                        cmd.Parameters.Add("@Reviewer", SqlDbType.VarChar).Value = reviewer.Text;
+                        cmd.Parameters.Add("@SecondaryReviewer", SqlDbType.VarChar).Value = secondary.Text;
 
                         //issue with below field
-                       //cmd.Parameters.Add("@RevIDYear", SqlDbType.Int).Value = Int32.Parse(year.Text);
+                        //cmd.Parameters.Add("@RevIDYear", SqlDbType.Int).Value = Int32.Parse(year.Text);
 
-                        //cmd.Parameters.Add("@AgencyAppNum", SqlDbType.VarChar).Value = agency.Text;
-                        //cmd.Parameters.Add("@ConsultantProjNum", SqlDbType.VarChar).Value = consultant.Text;
-                        //cmd.Parameters.Add("@ProjectCategory", SqlDbType.VarChar).Value = category.Text;
-                        //cmd.Parameters.Add("@Townlocation", SqlDbType.VarChar).Value = town.Text;
-                        //cmd.Parameters.Add("@ActionCD", SqlDbType.VarChar).Value = action.Text;
-                        //cmd.Parameters.Add("@Consultant", SqlDbType.VarChar).Value = consultant.Text;
-                        //cmd.Parameters.Add("@FinalDecision", SqlDbType.VarChar).Value = final.Text;
-                        //cmd.Parameters.Add("@SecondaryDecision", SqlDbType.VarChar).Value = secondary.Text;
-                        //cmd.Parameters.Add("@Active", SqlDbType.VarChar).Value = active.Text;
-                        //cmd.Parameters.Add("@ProjectModified", SqlDbType.VarChar).Value = project.Text;
-                        //cmd.Parameters.Add("@County", SqlDbType.VarChar).Value = county.Text;
-                        //cmd.Parameters.Add("@WaterBody", SqlDbType.VarChar).Value = waterbody.Text;
-                        //cmd.Parameters.Add("@CityLocation", SqlDbType.VarChar).Value = location.Text;
-                        //cmd.Parameters.Add("@FederalAgency", SqlDbType.VarChar).Value = agency.Text;
-                        //cmd.Parameters.Add("@VillageLocation", SqlDbType.VarChar).Value = village.Text;
-                        //cmd.Parameters.Add("@BoroughLocation", SqlDbType.VarChar).Value = borough.Text;
-                        //cmd.Parameters.Add("@PlaceLocation", SqlDbType.VarChar).Value = place.Text;
-                        //cmd.Parameters.Add("@CEHA", SqlDbType.VarChar).Value = CEHA.Text;
-                        //cmd.Parameters.Add("@Region", SqlDbType.VarChar).Value = region.Text;
-                        //cmd.Parameters.Add("@LWRP", SqlDbType.VarChar).Value = LWRP.Text;
-                        //cmd.Parameters.Add("@SASS", SqlDbType.VarChar).Value = SASS.Text;
-                        //cmd.Parameters.Add("@SCFWH", SqlDbType.VarChar).Value = SCFWH.Text;
+                        cmd.Parameters.Add("@AgencyAppNum", SqlDbType.VarChar).Value = agency.Text;
+                        cmd.Parameters.Add("@ConsultantProjNum", SqlDbType.VarChar).Value = consultant.Text;
+                        cmd.Parameters.Add("@ProjectCategory", SqlDbType.VarChar).Value = category.Text;
+                        cmd.Parameters.Add("@Townlocation", SqlDbType.VarChar).Value = town.Text;
+                        cmd.Parameters.Add("@ActionCD", SqlDbType.VarChar).Value = action.Text;
+                        cmd.Parameters.Add("@Consultant", SqlDbType.VarChar).Value = consultant.Text;
+                        cmd.Parameters.Add("@FinalDecision", SqlDbType.VarChar).Value = final.Text;
+                        cmd.Parameters.Add("@SecondaryDecision", SqlDbType.VarChar).Value = secondary.Text;
+                        cmd.Parameters.Add("@Active", SqlDbType.VarChar).Value = active.Text;
+                        cmd.Parameters.Add("@ProjectModified", SqlDbType.VarChar).Value = project.Text;
+                        cmd.Parameters.Add("@County", SqlDbType.VarChar).Value = county.Text;
+                        cmd.Parameters.Add("@WaterBody", SqlDbType.VarChar).Value = waterbody.Text;
+                        cmd.Parameters.Add("@CityLocation", SqlDbType.VarChar).Value = location.Text;
+                        cmd.Parameters.Add("@FederalAgency", SqlDbType.VarChar).Value = agency.Text;
+                        cmd.Parameters.Add("@VillageLocation", SqlDbType.VarChar).Value = village.Text;
+                        cmd.Parameters.Add("@BoroughLocation", SqlDbType.VarChar).Value = borough.Text;
+                        cmd.Parameters.Add("@PlaceLocation", SqlDbType.VarChar).Value = place.Text;
+                        cmd.Parameters.Add("@CEHA", SqlDbType.VarChar).Value = CEHA.Text;
+                        cmd.Parameters.Add("@Region", SqlDbType.VarChar).Value = region.Text;
+                        cmd.Parameters.Add("@LWRP", SqlDbType.VarChar).Value = LWRP.Text;
+                        cmd.Parameters.Add("@SASS", SqlDbType.VarChar).Value = SASS.Text;
+                        cmd.Parameters.Add("@SCFWH", SqlDbType.VarChar).Value = SCFWH.Text;
 
 
                         con.Open();
