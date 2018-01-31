@@ -1,0 +1,201 @@
+<%@ Page Title="Map" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Map.aspx.cs" Inherits="DemoLoginApplication.Map" %>
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <link href="/content/style.css" rel="stylesheet" type="text/css" />
+    Latitude:
+        <asp:TextBox ID="Lat" runat="server" Width="80px"></asp:TextBox>
+    Longitude:
+        <asp:TextBox ID="Long" runat="server" Width="80px" ></asp:TextBox>
+    Address:
+        <asp:TextBox ID="address" runat="server" ></asp:TextBox>
+    Tolerance(miles):
+        <asp:TextBox ID="miles" runat="server" Width="80px"></asp:TextBox>
+    <br /><br />
+    <div align="center">
+    <asp:Button Text="Marker Information" ID="Map1" runat="server" CssClass="roundCorner" />
+        </div>
+    <%--<iframe width="1000" height="640" 
+src="http://services.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer?f=jsapi"></iframe>--%>
+   
+    <asp:Button ID="counties" runat="server" Text="Counties" PostBackUrl="Counties.aspx" CssClass="roundCorner" />
+    <asp:Button ID="cities" runat="server" Text="Cities/Towns" PostBackUrl="Cities_Towns.aspx" CssClass="roundCorner" />
+    <asp:Button ID="villages" runat="server" Text="Villages" PostBackUrl="Villages.aspx" CssClass="roundCorner" />
+    <asp:Button ID="coastal" runat="server" Text="Coastal Boundries" PostBackUrl="Coastal.aspx" CssClass="roundCorner" />
+    <asp:Button ID="lwrp" runat="server" Text="LWRP" PostBackUrl="LWRP.aspx" CssClass="roundCorner"/>
+    <asp:Button ID="sass" runat="server" Text="SASS" PostBackUrl="SASS.aspx" CssClass="roundCorner" />
+    <asp:Button ID="habitats" runat="server" Text="Coastal Habiats" PostBackUrl="Habitats.aspx" CssClass="roundCorner" />
+    <asp:Button ID="canals" runat="server" Text="Artificial Canals" PostBackUrl="Canals.aspx" CssClass="roundCorner" />
+    <asp:Button ID="islands" runat="server" Text="Long Island" PostBackUrl="Island.aspx" CssClass="roundCorner" />
+    <asp:Button ID="regions" runat="server" Text="Consistency Regions" PostBackUrl="Regions.aspx" CssClass="roundCorner" />
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Query features from a FeatureLayerView - 4.6</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+  <script src="https://js.arcgis.com/4.6/"></script>
+
+  <script>      
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        //"esri/layers/FeatureLayer",
+        "dojo/domReady!"
+      ],
+      function(
+        Map, MapView,
+        FeatureLayer
+      ) {
+
+        var map = new Map({
+          basemap: "gray"
+        });
+
+        var view = new MapView({
+          container: "sceneDiv",
+          map: map,
+          center: [-73.950, 40.702],
+          zoom: 11,
+          padding: {
+            right: 300
+          }
+        });
+
+        var listNode = document.getElementById("nyc_graphics");
+
+      
+        map.add(featureLayer);
+
+        var graphics;
+
+        view.whenLayerView(featureLayer).then(function(lyrView) {
+          lyrView.watch("updating", function(val) {
+            if (!val) {
+              lyrView.queryFeatures().then(function(results) {
+
+                graphics = results;
+
+                var fragment = document.createDocumentFragment();
+
+                results.forEach(function(result, index) {
+                    var attributes = result.attributes;
+                    var name = attributes.NAME
+                       
+                  var li = document.createElement("li");
+                  li.classList.add("panel-result");
+                  li.tabIndex = 0;
+                  li.setAttribute("data-result-id", index);
+                  li.textContent = name;
+
+                  fragment.appendChild(li);
+                });
+
+                listNode.innerHTML = "";
+                listNode.appendChild(fragment);
+              });
+            }
+          });
+        });
+
+
+        listNode.addEventListener("click", onListClickHandler);
+
+        function onListClickHandler(event) {
+          var target = event.target;
+          var resultId = target.getAttribute("data-result-id");
+
+          var result = resultId && graphics && graphics[parseInt(resultId,
+            10)];
+
+          if (result) {
+            
+            view.popup.open({
+              features: [result],
+              location: result.geometry.centroid
+            });
+          }
+        }
+
+      });
+  </script>
+
+  <style>
+    html,
+    body,
+    #sceneDiv {
+      height: 580px;
+      width: 1000px;
+      margin-top: 35px;
+      padding: 0;
+      font-family: sans-serif;      
+    }
+
+    /*.panel-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }*/
+
+    /*.panel-side {
+      padding: 2px;
+      box-sizing: border-box;
+      width: 300px;
+      height: 30%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: #fff;
+      background-color: rgba(0, 0, 0, 0.6);
+      overflow: auto;
+      z-index: 60;
+    }*/
+
+    /*.panel-side h2 {
+      padding: 0 20px;
+      margin: 20px 0;
+    }
+
+    .panel-side ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .panel-side li {
+      list-style: none;
+      padding: 10px 20px;
+    }
+
+    .panel-result {
+      cursor: pointer;
+      margin: 2px 0;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .panel-result:hover,
+    .panel-result:focus {
+      color: orange;
+      background-color: rgba(0, 0, 0, 0.75);
+    }*/
+  </style>
+
+</head>
+
+<body>
+  <div class="panel-container">
+    <%--<div class="panel-side">
+      <h2>Coastal Boundaries</h2>
+      <ul id="nyc_graphics">
+        <li>Loading&hellip;</li>
+      </ul>
+    </div>--%>
+    <div id="sceneDiv"></div>
+  </div>
+</body>
+
+</html>
+    </asp:Content>
