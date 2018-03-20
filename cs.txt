@@ -1,0 +1,141 @@
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace WebApplication1
+{
+    public partial class New_Review : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!Page.User.Identity.IsAuthenticated)
+            {
+                FormsAuthentication.RedirectToLoginPage();
+            }
+        }
+        protected void DropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            if (list.SelectedValue != "--Select--" && DropDownList.SelectedValue != "--Select--")
+            {
+
+                Test.Enabled = true;
+
+            }
+            else
+            {
+                Test.Enabled = false;
+
+            }
+        }
+
+        protected void SaveDetails(object sender, EventArgs e)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    using (SqlCommand cmd = new SqlCommand("AddNewReview", con))
+                    {
+                        SqlDataReader reader;
+
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@FN", SqlDbType.VarChar).Value = name1.Text;
+                        cmd.Parameters.Add("@LN", SqlDbType.VarChar).Value = name2.Text;
+                        cmd.Parameters.Add("@MailAddress", SqlDbType.NVarChar).Value = address.Text;
+                        cmd.Parameters.Add("@postal", SqlDbType.NVarChar).Value = city.Text;
+                        cmd.Parameters.Add("@ST", SqlDbType.VarChar).Value = state.Text;
+                        cmd.Parameters.Add("@ZipCode", SqlDbType.VarChar).Value = zip.Text;
+                        cmd.Parameters.Add("@Telephone", SqlDbType.VarChar).Value = phone.Text;
+                        cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = email.Text;
+
+                        cmd.Parameters.Add("@PF", SqlDbType.VarChar).Value = prtOwner1.Text;
+                        cmd.Parameters.Add("@PL", SqlDbType.VarChar).Value = prtOwner2.Text;
+                        cmd.Parameters.Add("@PropertyAddress", SqlDbType.NVarChar).Value = prtAddress.Text;
+                        cmd.Parameters.Add("@PCity", SqlDbType.NVarChar).Value = prtCity.Text;
+                        cmd.Parameters.Add("@State", SqlDbType.VarChar).Value = prtState.Text;
+                        cmd.Parameters.Add("@PropertyZip", SqlDbType.VarChar).Value = prtZip.Text;
+                        cmd.Parameters.Add("@Phone", SqlDbType.VarChar).Value = prtPhone.Text;
+                        cmd.Parameters.Add("@EmailID", SqlDbType.VarChar).Value = prtEmail.Text;
+
+
+                        cmd.Parameters.Add("@AgentFirstname ", SqlDbType.VarChar).Value = agent1.Text;
+                        cmd.Parameters.Add("@AgentLastname", SqlDbType.VarChar).Value = agent2.Text;
+                        cmd.Parameters.Add("@AgentAddress", SqlDbType.NVarChar).Value = agtAddress.Text;
+                        cmd.Parameters.Add("@AgentCity", SqlDbType.NVarChar).Value = agtCity.Text;
+                        cmd.Parameters.Add("@AgentState", SqlDbType.VarChar).Value = agtState.Text;
+                        cmd.Parameters.Add("@AgentZip", SqlDbType.VarChar).Value = agtZip.Text;
+                        cmd.Parameters.Add("@Agentphone", SqlDbType.VarChar).Value = agtPhone.Text;
+                        cmd.Parameters.Add("@AgentEmail", SqlDbType.VarChar).Value = agtEmail.Text;
+
+                        cmd.Parameters.Add("@ProjName", SqlDbType.VarChar).Value = prjName.Text;
+                        //cmd.Parameters.Add("@PropNumb", SqlDbType.VarChar).Value = prjTax.Text;
+                        cmd.Parameters.Add("@PropAddress", SqlDbType.NVarChar).Value = prjAddress.Text;
+                        cmd.Parameters.Add("@PropCity", SqlDbType.NVarChar).Value = prjCity.Text;
+                        cmd.Parameters.Add("@PropState", SqlDbType.VarChar).Value = prjState.Text;
+                        cmd.Parameters.Add("@PropZip", SqlDbType.VarChar).Value = prjZip.Text;
+                        cmd.Parameters.Add("@Pro", SqlDbType.VarChar).Value = prj.Text;
+                        //cmd.Parameters.Add("@WaterBody", SqlDbType.VarChar).Value = streamName.Text;
+                        //cmd.Parameters.Add("@ProjCounty", SqlDbType.VarChar).Value = county.Text;
+                        cmd.Parameters.Add("@Lat", SqlDbType.VarChar).Value = latDegrees.Text;
+                        cmd.Parameters.Add("@Long", SqlDbType.VarChar).Value = lonDegrees.Text;
+                        cmd.Parameters.Add("@Desc", SqlDbType.VarChar).Value = prjDesc.Text;
+
+
+                        cmd.Parameters.Add("@ActionEntity", SqlDbType.VarChar).Value = list.SelectedValue[0];
+                        cmd.Parameters.Add("@ActionType", SqlDbType.VarChar).Value = DropDownList.SelectedValue[0];
+
+                        con.Open();
+                        reader = cmd.ExecuteReader();
+                        //while (reader.Read())
+                        //{
+                        //    Text.Text = reader["RevContactID"].ToString();
+                        //    txtBox.Text = reader["REVID_YEAR"].ToString();
+                        //}
+                        bool success = Convert.ToBoolean(cmd.ExecuteScalar());
+
+                        //if (success)
+                        //{
+                        //Console.WriteLine("SQL Error" + ex.Message.ToString());
+                        string message = "Your details have been saved successfully.";
+                        string script = "window.onload = function(){ alert('";
+                        script += message;
+                        script += "')};";
+                        ClientScript.RegisterStartupScript(this.GetType(), "SuccessMessage", script, true);
+
+                        Response.Write("Successfully Added");
+                        // }
+                        //else
+                        //{
+                        //    string message = "User Esists.";
+                        //    string script = "window.onload = function(){ alert('";
+                        //    script += message;
+                        //    script += "')};";
+                        //    ClientScript.RegisterStartupScript(this.GetType(), "SuccessMessage", script, true);
+
+                        //    //Response.Write("User exists");
+                        //}
+
+                        con.Close();
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+    }
+}

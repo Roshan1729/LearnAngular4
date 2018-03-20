@@ -1,0 +1,223 @@
+<%@ Page Title="New Review" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="NewReview.aspx.cs" Inherits="WebApplication1.New_Review" %>
+
+<asp:Content ID="BodyContent" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div style="overflow: auto;  height: 650px; ">
+    <link href="/content/style.css" rel="stylesheet" type="text/css" />
+    <label>&nbsp Action Entity</label>
+    <asp:DropDownList ID="list" runat="server" AutoPostBack="True" 
+            OnSelectedIndexChanged="DropDownList_SelectedIndexChanged">
+        <asp:ListItem>--Select--</asp:ListItem>
+        <asp:ListItem>Federal</asp:ListItem>
+        <asp:ListItem>State</asp:ListItem>
+        <asp:ListItem>Other</asp:ListItem>
+        </asp:DropDownList><br />
+    <label>&nbsp Action Type</label>
+    <asp:DropDownList ID="DropDownList" runat="server" AutoPostBack="True" 
+            OnSelectedIndexChanged="DropDownList_SelectedIndexChanged">
+        <asp:ListItem>--Select--</asp:ListItem>
+        <asp:ListItem>Permit</asp:ListItem>
+        <asp:ListItem>Direct Action</asp:ListItem>
+        <asp:ListItem>Funding</asp:ListItem>
+        <asp:ListItem>Other</asp:ListItem>
+        </asp:DropDownList>
+ 
+    <asp:Panel ID="Test" runat="server" Enabled="False">
+         &nbsp Review ID:
+    <asp:TextBox ID="Text" runat="server" ></asp:TextBox>
+    Received Date:
+    <asp:TextBox ID="txtBox" runat="server" ></asp:TextBox>
+        
+    <div style="float:right">
+    Quick Review:
+    <asp:DropDownList ID="ddl" runat="server" >
+        <asp:ListItem>--Select--</asp:ListItem>
+    </asp:DropDownList>&nbsp
+        </div><br /><br />
+
+       <%--<div style="margin-left:820px; margin-top:-35px">
+    <asp:TextBox ID="txtBox" runat="server" placeholder="Search" CssClass="txtFields"></asp:TextBox></div><br />--%>
+        <fieldset style="width:990px; margin-left:300px" id="AppDetails">
+            <legend>Applicant details</legend>
+            <div style="float:left">
+        First Name of Applicant:
+        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+        Last Name of Applicant:<br />
+        <asp:TextBox ID="name1" runat="server" Width="209px"></asp:TextBox>
+        <asp:TextBox ID="name2" runat="server" Width="209px"></asp:TextBox>
+            </div>
+            <br /><br /><br />
+            <div style="float:left">
+        Mailing Address:<br />
+        <asp:TextBox ID="address" runat="server" Width="420px"></asp:TextBox>
+                </div>
+            <div style="float:right; margin-right:20px">
+                ZIP:
+                <br />
+        <asp:TextBox ID="zip" runat="server" onkeydown="return (!(event.keyCode>=65) && event.keyCode!=32);" Width="150px">
+        </asp:TextBox>
+            </div>
+            <div style="float:right; margin-right:40px">
+                State:<br />
+        <asp:TextBox ID="state" runat="server" Width="50px"></asp:TextBox>
+            </div>
+            <div style="float:right; margin-right:40px">
+        Post Office/City:
+                <br />
+        <asp:TextBox ID="city" runat="server" Width="190px"></asp:TextBox>
+                </div>        
+        <br /><br /><br />
+        Telephone:
+        <asp:TextBox ID="phone" runat="server" onkeydown="return (!(event.keyCode>=65) && event.keyCode!=32);"></asp:TextBox>
+            <div style="float:right; margin-right:90px">
+        Email:
+        <asp:TextBox ID="email" runat="server" Width="400px"></asp:TextBox>
+                </div><br /><br />
+        Applicant Must be(check all that apply):
+        <asp:CheckBox ID="owner" runat="server" Text="Owner"/>
+        <asp:CheckBox ID="operator" runat="server" Text="Operator"/>
+        <asp:CheckBox ID="lessee" runat="server" Text="Lessee"/>        
+            </fieldset>
+        <fieldset style="width:990px; margin-left:300px">
+            <legend>Property Owner Details(if any)</legend>
+            <div style="float:left">
+        (If different than Applicant)<br />
+         First Name of Property Owner:
+                &nbsp &nbsp &nbsp
+         Last Name of Property Owner:<br />
+        <asp:TextBox ID="prtOwner1" runat="server" Width="209px"></asp:TextBox>
+        <asp:TextBox ID="prtOwner2" runat="server" Width="209px"></asp:TextBox>
+                </div>
+        <br /><br /><br /><br />
+        <div style="float:left">
+        Mailing Address:<br />
+        <asp:TextBox ID="prtAddress" runat="server" Width="420px"></asp:TextBox>
+                </div>
+            <div style="float:right; margin-right:20px">
+        ZIP:
+                <br />
+        <asp:TextBox ID="prtZip" runat="server" Width="150px" onkeydown="return (!(event.keyCode>=65) && event.keyCode!=32);"></asp:TextBox>
+            </div>
+            <div style="float:right; margin-right:40px">
+        State:<br />
+        <asp:TextBox ID="prtState" runat="server" Width="50px"></asp:TextBox>
+            </div>
+            <div style="float:right; margin-right:40px">
+        Post Office/City:
+                <br />
+        <asp:TextBox ID="prtCity" runat="server" Width="190px"></asp:TextBox>
+                </div>        
+        <br /><br /><br />
+        Telephone:
+        <asp:TextBox ID="prtPhone" runat="server" onkeydown="return (!(event.keyCode>=65) && event.keyCode!=32);"></asp:TextBox>
+            <div style="float:right; margin-right:90px">
+        Email:
+        <asp:TextBox ID="prtEmail" runat="server" Width="400px"></asp:TextBox>
+                </div><br /><br />      
+            </fieldset>
+        <fieldset style="width:990px; margin-left:300px" id="AgentDetails">
+            <legend>Contact/Agent details</legend>        
+        First Name of Contact/Agent:
+            &nbsp &nbsp &nbsp &nbsp
+            Last Name of Contact/Agent:
+            <br />
+        <asp:TextBox ID="agent1" runat="server" Width="209px"></asp:TextBox>
+            <asp:TextBox ID="agent2" runat="server" Width="209px"></asp:TextBox>
+        <br /><br />
+        <div style="float:left">
+        Mailing Address:<br />
+        <asp:TextBox ID="agtAddress" runat="server" Width="420px"></asp:TextBox>
+                </div>
+            <div style="float:right; margin-right:20px">
+        ZIP:
+                <br />
+        <asp:TextBox ID="agtZip" runat="server" Width="150px" onkeydown="return (!(event.keyCode>=65) && event.keyCode!=32);"></asp:TextBox>
+            </div>
+            <div style="float:right; margin-right:40px">
+        State:<br />
+        <asp:TextBox ID="agtState" runat="server" Width="50px"></asp:TextBox>
+            </div>
+            <div style="float:right; margin-right:40px">
+        Post Office/City:
+                <br />
+        <asp:TextBox ID="agtCity" runat="server" Width="190px"></asp:TextBox>
+                </div>        
+        <br /><br /><br />
+        Telephone:
+        <asp:TextBox ID="agtPhone" runat="server" onkeydown="return (!(event.keyCode>=65) && event.keyCode!=32);"></asp:TextBox>
+            <div style="float:right; margin-right:90px">
+        Email:
+        <asp:TextBox ID="agtEmail" runat="server" Width="400px"></asp:TextBox>
+                </div><br /><br />       
+            </fieldset>
+        <fieldset style="width:990px; margin-left:300px">
+            <legend>Project Details</legend>
+            <div style="float:left">
+        Project/Facility Name:<br />
+        <asp:TextBox ID="prjName" runat="server" Width="420px"></asp:TextBox>
+                </div>
+            <div style="float:right; margin-right:20px">
+        Property Tax Map Selection/Block/Lot Number:<br />
+        <asp:TextBox ID="prjTax" runat="server" Width="470px"></asp:TextBox>
+                </div><br /><br /><br />
+            <div style="float:left">
+        Project Street Address, if applicable:<br />
+        <asp:TextBox ID="prjAddress" runat="server" Width="420px"></asp:TextBox>
+                </div>
+        <div style="float:right; margin-right:20px">
+        ZIP:
+                <br />
+        <asp:TextBox ID="prjZip" runat="server" Width="150px" onkeydown="return (!(event.keyCode>=65) && event.keyCode!=32);"></asp:TextBox>
+            </div>
+            <div style="float:right; margin-right:40px">
+        State:<br />
+        <asp:TextBox ID="prjState" runat="server" Width="50px"></asp:TextBox>
+            </div>
+            <div style="float:right; margin-right:40px">
+        Post Office/City:
+                <br />
+        <asp:TextBox ID="prjCity" runat="server" Width="190px"></asp:TextBox>
+                </div><br /><br /><br />
+        Provide directions and distances to roads, intersections, bridges and bodies of water:
+            <br />
+        <asp:TextBox ID="prj" runat="server" TextMode="MultiLine" Width="980px"></asp:TextBox>
+        <br />
+        <div style="float:left" id="prjPlace">
+        <asp:CheckBox ID="town" runat="server" Text="Town" style="margin-left:5px"/>
+        <asp:CheckBox ID="village" runat="server" Text="Village" style="margin-left:30px"/>        
+        <asp:CheckBox ID="projectCity" runat="server" Text="City" style="margin-left:30px"/><br />        
+        <asp:TextBox ID="txt" runat="server" Width="250px"></asp:TextBox>
+         </div>        
+        <div style="float:right; margin-right:5px">
+        Stream/Waterbody Name:<br />
+        <asp:TextBox ID="streamName" runat="server" Width="280px"></asp:TextBox>
+            </div>
+           <div style="float:right; margin-right:100px">
+        County:<br />
+        <asp:TextBox ID="county" runat="server" Width="250px"></asp:TextBox>
+            </div><br /><br /><br /><br />
+        Project Location Coodrinates: 
+        <br />
+        <div style="float:left">
+        Latitude:
+        <asp:TextBox ID="latDegrees" runat="server" ></asp:TextBox>
+        
+            </div>
+        <div style="float:right; margin-right:430px">
+        Longitude:
+        <asp:TextBox ID="lonDegrees" runat="server" ></asp:TextBox>
+        
+            </div>
+            </fieldset>
+        <fieldset style="width:990px; margin-left:300px">
+            <legend>Description</legend>
+                Project Description:<br />
+        <asp:TextBox ID="prjDesc" runat="server" TextMode="MultiLine" Width="980px"></asp:TextBox>
+            </fieldset><br />
+        <div align="center" style="margin-top:1400px">
+                    <asp:Button Text="Save" ID="btn1" runat="server" CssClass="roundCorner" OnClick="SaveDetails"/>
+            <asp:Button ID="clear" runat="server" CssClass="roundCorner" Text="Clear" 
+            OnClientClick="this.form.reset();return false;" AutoPostBack="True"/>
+            </div>
+        </asp:Panel>
+        </div>
+</asp:Content>
