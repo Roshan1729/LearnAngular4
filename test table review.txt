@@ -1,0 +1,82 @@
+USE [DEV_CRM_APPDB]
+GO
+/****** Object:  StoredProcedure [dbo].[AddNewReview]    Script Date: 3/20/2018 10:04:18 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[AddNewReview] 
+    @FN varchar(50)
+	,@LN varchar(20)
+	,@MailAddress nvarchar (100)
+	,@postal Nvarchar(255)
+	,@ST varchar(20)
+	,@ZipCode varchar(20)
+	,@Telephone varchar(20)
+	,@Email varchar(20)
+
+	,@PF varchar(50)
+	,@PL varchar(20)
+	,@PropertyAddress nvarchar (100)
+	,@PCity Nvarchar(255)
+	,@State varchar(20)
+	,@PropertyZip varchar(20)
+	,@Phone varchar(20)
+	,@EmailID varchar(20)
+
+	,@AgentFirstname VARCHAR(50)
+	,@AgentLastname VARCHAR(20)
+	,@AgentAddress NVARCHAR(100)
+	,@AgentCity NVARCHAR(255)
+	,@AgentState VARCHAR(20)
+	,@AgentZip VARCHAR(20)
+	,@Agentphone VARCHAR(20)
+	,@AgentEmail VARCHAR(20)
+
+	,@ProjName VARCHAR(50)
+	,@PropNumb VARCHAR(20)
+	,@PropAddress NVARCHAR(100)
+	,@PropCity NVARCHAR(255)
+	,@PropState VARCHAR(20)
+	,@PropZip VARCHAR(20)
+	,@Pro VARCHAR(20)
+	,@ProjPlace VARCHAR(20)
+	,@WaterBody VARCHAR(20)
+	,@ProjCounty VARCHAR(20)
+	,@Lat VARCHAR(20)
+	,@Long VARCHAR(20)
+	,@Desc VARCHAR(20)
+	,@ActionEntity VARCHAR(20)
+	,@ActionType VARCHAR(20)
+
+	AS
+BEGIN
+    SET NOCOUNT ON;
+	
+	   
+  
+    Insert into [dbo].[test] values ( @FN, 
+	@LN,@MailAddress, @postal, @ST, @ZipCode, @Telephone, @Email)
+
+	IF (
+			@PF IS NOT NULL
+			OR @PL IS NOT NULL
+			OR @PropertyAddress IS NOT NULL
+			OR @PCity IS NOT NULL
+			OR @State IS NOT NULL
+			OR @PropertyZip IS NOT NULL
+			OR @Phone IS NOT NULL
+			OR @EmailID IS NOT NULL
+			)
+	BEGIN
+	
+	Insert into [dbo].[test] values ( @PF, 
+	@PL,@PropertyAddress, @PCity, @State, @PropertyZip, @Phone, @EmailID)
+	END
+
+INSERT INTO [dbo].[test] VALUES (@AgentFirstname, @AgentLastname, @AgentAddress, @AgentCity, @AgentState, @AgentZip ,@Agentphone  ,@AgentEmail)
+
+Insert into [dbo].[test_PropertyDetails] values ( @ProjName, @PropNumb, @PropAddress, @PropCity, @PropState, @PropZip , @Pro, 
+@ProjPlace , @WaterBody, @ProjCounty,@Lat, @Long , @Desc, @ActionEntity, @ActionType)
+
+	END
